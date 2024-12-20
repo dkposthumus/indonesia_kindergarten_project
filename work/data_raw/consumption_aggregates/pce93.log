@@ -1,0 +1,4263 @@
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+       log:  C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\logfile\\pce93.log
+  log type:  text
+ opened on:   9 Aug 2007, 16:29:11
+
+. use $dir2\ptrack, clear;
+(Person-level tracking across waves )
+
+. keep if member93==1;
+(6698 observations deleted)
+
+. bys hhid93: gen hhsize93=_N;
+
+. bys hhid93: keep if _n==_N;
+(25857 observations deleted)
+
+. keep hhid93 hhsize93;
+
+. sort hhid93;
+
+. save $dir0\hhsize93, replace;
+file C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\temp\\hhsize93.dta saved
+
+. ****************************************************************************;
+. * I. Create a file with kecamatan ID, kabupaten ID, etc;
+. ****************************************************************************;
+. use $dir2\htrack, clear;
+(HH-level tracking across waves )
+
+. keep if result93==1;
+(891 observations deleted)
+
+. gen kabid93=(sc01_93*100)+sc02_93;
+
+. gen kecid93=(kabid*1000)+sc03_93;
+
+. gen provid93=sc01_93;
+
+. keep provid kabid kecid hhid93;
+
+. sort hhid93;
+
+. save $dir0\kabkec93, replace;
+file C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\temp\\kabkec93.dta saved
+
+. ****************** Food KS1;
+. * - If missing, impute by: commid median and up to kecamatan, kabupaten;
+. * - Convert to monthly;
+. ******************;
+. use $dir1\buk1ks1, clear;
+(SAS creation date 15MAR00:14:43)
+
+. *drop duplicates;
+. bys hhid93 item: gen dup=_N;
+
+. bys hhid93 item: gen ord=_n;
+
+. tab dup;
+
+        dup |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |    106,034       99.95       99.95
+          2 |         56        0.05      100.00
+------------+-----------------------------------
+      Total |    106,090      100.00
+
+. list if dup==2;
+
+        +----------------------------------------------------------------------------------------------------------+
+        |      case   ncomb   item   ks01   ks02rp   ncomb1a   ks03rp    hhid93        hhid   commid93   dup   ord |
+        |----------------------------------------------------------------------------------------------------------|
+   949. | 120500501      15      Q      Q    14500         .        .   0050100   120500501       1205     2     1 |
+   950. | 120500501      15      Q      F        .         .        .   0050100   120500501       1205     2     2 |
+  3592. | 121001219      16      O      O      900         .        .   0121900   121001219       1213     2     1 |
+  3593. | 121001219      16      O      O      900         .        .   0121900   121001219       1213     2     2 |
+ 13779. | 160204324      18      G      G     1500         .        .   0432400   160204324       1603     2     1 |
+        |----------------------------------------------------------------------------------------------------------|
+ 13780. | 160204324      18      G      G      100         .        .   0432400   160204324       1603     2     2 |
+ 15653. | 160404818      14      F      F     2000         2     1000   0481800   160404818       1607     2     1 |
+ 15654. | 160404818      14      F      F      500         2     1000   0481800   160404818       1607     2     2 |
+ 16111. | 160504920      21      Y      Y     2600         .        .   0492000   160504920       1609     2     1 |
+ 16112. | 160504920      21      Y      F        .         .        .   0492000   160504920       1609     2     2 |
+        |----------------------------------------------------------------------------------------------------------|
+ 16153. | 160605004       5      H      H     5000         .        .   0500400   160605004       1610     2     1 |
+ 16154. | 160605004       5      H      H     7700         .        .   0500400   160605004       1610     2     2 |
+ 19311. | 180205921      13     GA     GA        0         .        .   0592100   180205921       1805     2     1 |
+ 19312. | 180205921      13     GA     GA      700         .        .   0592100   180205921       1805     2     2 |
+ 19339. | 180205923       8     GA     GA        0         .        .   0592300   180205923       1805     2     1 |
+        |----------------------------------------------------------------------------------------------------------|
+ 19340. | 180205923       8     GA     GA      500         .        .   0592300   180205923       1805     2     2 |
+ 19875. | 180306104       .      A               .         8        0   0610400   180306104       1806     2     1 |
+ 19876. | 180306104       .      A               .         8    12400   0610400   180306104       1806     2     2 |
+ 21364. | 187106419      13      Y      Y      200         .        .   0641900   187106419       1810     2     1 |
+ 21365. | 187106419      13      Y      Y      200         .        .   0641900   187106419       1810     2     2 |
+        |----------------------------------------------------------------------------------------------------------|
+ 21768. | 187106519      20      M      F        .         .        .   0651900   187106519       1811     2     1 |
+ 21769. | 187106519      20      M      M      300         .        .   0651900   187106519       1811     2     2 |
+ 21874. | 187106608      22      G      G      600         .        .   0660800   187106608       1809     2     1 |
+ 21875. | 187106608      22      G      G     1400         .        .   0660800   187106608       1809     2     2 |
+ 26850. | 317308320      25      F      F        0         .        .   0832000   317308320       3114     2     1 |
+        |----------------------------------------------------------------------------------------------------------|
+ 26851. | 317308320      25      F      F    20000         .        .   0832000   317308320       3114     2     2 |
+ 26919. | 317308344      21      V      V      600         .        .   0834400   317308344       3114     2     1 |
+ 26920. | 317308344      21      V      V     4000         .        .   0834400   317308344       3114     2     2 |
+ 27973. | 317308719      21      F      F      200         .        .   0871900   317308719       3117     2     1 |
+ 27974. | 317308719      21      F      F     1750         .        .   0871900   317308719       3117     2     2 |
+        |----------------------------------------------------------------------------------------------------------|
+ 28165. | 317308814      16     AA     AA      700         .        .   0881400   317308814       3119     2     1 |
+ 28166. | 317308814      16     AA     AA      500         .        .   0881400   317308814       3119     2     2 |
+ 30531. | 317409546      17      Y      F        .         .        .   0954600   317409546       3125     2     1 |
+ 30532. | 317409546      17      Y      Y     2400         .        .   0954600   317409546       3125     2     2 |
+ 43328. | 321713423      17      F      F        0         .        .   1342300   321713423       3228     2     1 |
+        |----------------------------------------------------------------------------------------------------------|
+ 43329. | 321713423      17      F      F     4200         .        .   1342300   321713423       3228     2     2 |
+ 48384. | 327114805      10      I      I     1400         .        .   1480500   327114805       3243     2     1 |
+ 48385. | 327114805      10      I      I        0         .        .   1480500   327114805       3243     2     2 |
+ 65761. | 340220124      13      G      G      100         .        .   2012400   340220124       3405     2     1 |
+ 65762. | 340220124      13      G      F        .         .        .   2012400   340220124       3405     2     2 |
+        |----------------------------------------------------------------------------------------------------------|
+ 66243. | 340220307      22      P      P      250         .        .   2030700   340220307       3407     2     1 |
+ 66244. | 340220307      22      P      F        .         .        .   2030700   340220307       3407     2     2 |
+ 66595. | 340220415      24      Y      Y     2000         .        .   2041500   340220415       3409     2     1 |
+ 66596. | 340220415      24      Y      Y      500         .        .   2041500   340220415       3409     2     2 |
+ 66674. | 340220420      18      V      V    10000         .        .   2042000   340220420       3409     2     1 |
+        |----------------------------------------------------------------------------------------------------------|
+ 66675. | 340220420      18      V      V        0         .        .   2042000   340220420       3409     2     2 |
+ 70078. | 347121719      25      L      L     3400         .        .   2171900   347121719       3419     2     1 |
+ 70079. | 347121719      25      L      L     1100         .        .   2171900   347121719       3419     2     2 |
+ 77693. | 351623909      20      I      I     1500         .        .   2390900   351623909       3522     2     1 |
+ 77694. | 351623909      20      I      I     1400         .        .   2390900   351623909       3522     2     2 |
+        |----------------------------------------------------------------------------------------------------------|
+ 99139. | 630830007      16      I      I     1750         .        .   3000700   630830007       6308     2     1 |
+ 99140. | 630830007      16      I      I     2500         .        .   3000700   630830007       6308     2     2 |
+100101. | 630830222      15      B      B        0         .        .   3022200   630830222       6309     2     1 |
+100102. | 630830222      15      B      B     1575         .        .   3022200   630830222       6309     2     2 |
+105994. | 737132124      20      G      G      500         .        .   3212400   737132124       7316     2     1 |
+        |----------------------------------------------------------------------------------------------------------|
+105995. | 737132124      20      G      G      100         .        .   3212400   737132124       7316     2     2 |
+        +----------------------------------------------------------------------------------------------------------+
+
+. drop if dup==2 & ord==2 ;
+(28 observations deleted)
+
+. list if dup==2;
+
+        +----------------------------------------------------------------------------------------------------------+
+        |      case   ncomb   item   ks01   ks02rp   ncomb1a   ks03rp    hhid93        hhid   commid93   dup   ord |
+        |----------------------------------------------------------------------------------------------------------|
+   949. | 120500501      15      Q      Q    14500         .        .   0050100   120500501       1205     2     1 |
+  3591. | 121001219      16      O      O      900         .        .   0121900   121001219       1213     2     1 |
+ 13777. | 160204324      18      G      G     1500         .        .   0432400   160204324       1603     2     1 |
+ 15650. | 160404818      14      F      F     2000         2     1000   0481800   160404818       1607     2     1 |
+ 16107. | 160504920      21      Y      Y     2600         .        .   0492000   160504920       1609     2     1 |
+        |----------------------------------------------------------------------------------------------------------|
+ 16148. | 160605004       5      H      H     5000         .        .   0500400   160605004       1610     2     1 |
+ 19305. | 180205921      13     GA     GA        0         .        .   0592100   180205921       1805     2     1 |
+ 19332. | 180205923       8     GA     GA        0         .        .   0592300   180205923       1805     2     1 |
+ 19867. | 180306104       .      A               .         8        0   0610400   180306104       1806     2     1 |
+ 21355. | 187106419      13      Y      Y      200         .        .   0641900   187106419       1810     2     1 |
+        |----------------------------------------------------------------------------------------------------------|
+ 21758. | 187106519      20      M      F        .         .        .   0651900   187106519       1811     2     1 |
+ 21863. | 187106608      22      G      G      600         .        .   0660800   187106608       1809     2     1 |
+ 26838. | 317308320      25      F      F        0         .        .   0832000   317308320       3114     2     1 |
+ 26906. | 317308344      21      V      V      600         .        .   0834400   317308344       3114     2     1 |
+ 27959. | 317308719      21      F      F      200         .        .   0871900   317308719       3117     2     1 |
+        |----------------------------------------------------------------------------------------------------------|
+ 28150. | 317308814      16     AA     AA      700         .        .   0881400   317308814       3119     2     1 |
+ 30515. | 317409546      17      Y      F        .         .        .   0954600   317409546       3125     2     1 |
+ 43311. | 321713423      17      F      F        0         .        .   1342300   321713423       3228     2     1 |
+ 48366. | 327114805      10      I      I     1400         .        .   1480500   327114805       3243     2     1 |
+ 65742. | 340220124      13      G      G      100         .        .   2012400   340220124       3405     2     1 |
+        |----------------------------------------------------------------------------------------------------------|
+ 66223. | 340220307      22      P      P      250         .        .   2030700   340220307       3407     2     1 |
+ 66574. | 340220415      24      Y      Y     2000         .        .   2041500   340220415       3409     2     1 |
+ 66652. | 340220420      18      V      V    10000         .        .   2042000   340220420       3409     2     1 |
+ 70055. | 347121719      25      L      L     3400         .        .   2171900   347121719       3419     2     1 |
+ 77669. | 351623909      20      I      I     1500         .        .   2390900   351623909       3522     2     1 |
+        |----------------------------------------------------------------------------------------------------------|
+ 99114. | 630830007      16      I      I     1750         .        .   3000700   630830007       6308     2     1 |
+100075. | 630830222      15      B      B        0         .        .   3022200   630830222       6309     2     1 |
+105967. | 737132124      20      G      G      500         .        .   3212400   737132124       7316     2     1 |
+        +----------------------------------------------------------------------------------------------------------+
+
+. drop dup ord ncomb* ks01 hhid;
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\kabkec93;
+variable hhid93 does not uniquely identify observations in the master data
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |         12        0.01        0.01
+          2 |         74        0.07        0.08
+          3 |    106,050       99.92      100.00
+------------+-----------------------------------
+      Total |    106,136      100.00
+
+. keep if _merge==3;
+(86 observations deleted)
+
+. drop _merge;
+
+. reshape wide ks02rp ks03rp, i(hhid93) j(item) string;
+(note: j = A AA B BA C CA D DA E EA F FA G GA H HA I IA J K L M N O P Q R S T U V W X Y Z)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                   106050   ->    7150
+Number of variables                   9   ->      76
+j variable (35 values)             item   ->   (dropped)
+xij variables:
+                                 ks02rp   ->   ks02rpA ks02rpAA ... ks02rpZ
+                                 ks03rp   ->   ks03rpA ks03rpAA ... ks03rpZ
+-----------------------------------------------------------------------------
+
+. for var ks02rp* ks03rp*: replace X=0 if X==.;
+
+->  replace ks02rpA=0 if ks02rpA==.
+(2545 real changes made)
+
+->  replace ks02rpAA=0 if ks02rpAA==.
+(1347 real changes made)
+
+->  replace ks02rpB=0 if ks02rpB==.
+(6261 real changes made)
+
+->  replace ks02rpBA=0 if ks02rpBA==.
+(3443 real changes made)
+
+->  replace ks02rpC=0 if ks02rpC==.
+(5781 real changes made)
+
+->  replace ks02rpCA=0 if ks02rpCA==.
+(3342 real changes made)
+
+->  replace ks02rpD=0 if ks02rpD==.
+(6029 real changes made)
+
+->  replace ks02rpDA=0 if ks02rpDA==.
+(6959 real changes made)
+
+->  replace ks02rpE=0 if ks02rpE==.
+(6696 real changes made)
+
+->  replace ks02rpEA=0 if ks02rpEA==.
+(6490 real changes made)
+
+->  replace ks02rpF=0 if ks02rpF==.
+(1401 real changes made)
+
+->  replace ks02rpFA=0 if ks02rpFA==.
+(7038 real changes made)
+
+->  replace ks02rpG=0 if ks02rpG==.
+(4968 real changes made)
+
+->  replace ks02rpGA=0 if ks02rpGA==.
+(6570 real changes made)
+
+->  replace ks02rpH=0 if ks02rpH==.
+(3418 real changes made)
+
+->  replace ks02rpHA=0 if ks02rpHA==.
+(2767 real changes made)
+
+->  replace ks02rpI=0 if ks02rpI==.
+(3384 real changes made)
+
+->  replace ks02rpIA=0 if ks02rpIA==.
+(1716 real changes made)
+
+->  replace ks02rpJ=0 if ks02rpJ==.
+(6622 real changes made)
+
+->  replace ks02rpK=0 if ks02rpK==.
+(5651 real changes made)
+
+->  replace ks02rpL=0 if ks02rpL==.
+(5241 real changes made)
+
+->  replace ks02rpM=0 if ks02rpM==.
+(3526 real changes made)
+
+->  replace ks02rpN=0 if ks02rpN==.
+(3485 real changes made)
+
+->  replace ks02rpO=0 if ks02rpO==.
+(2353 real changes made)
+
+->  replace ks02rpP=0 if ks02rpP==.
+(3568 real changes made)
+
+->  replace ks02rpQ=0 if ks02rpQ==.
+(5439 real changes made)
+
+->  replace ks02rpR=0 if ks02rpR==.
+(4421 real changes made)
+
+->  replace ks02rpS=0 if ks02rpS==.
+(2238 real changes made)
+
+->  replace ks02rpT=0 if ks02rpT==.
+(4078 real changes made)
+
+->  replace ks02rpU=0 if ks02rpU==.
+(6613 real changes made)
+
+->  replace ks02rpV=0 if ks02rpV==.
+(1307 real changes made)
+
+->  replace ks02rpW=0 if ks02rpW==.
+(3974 real changes made)
+
+->  replace ks02rpX=0 if ks02rpX==.
+(6647 real changes made)
+
+->  replace ks02rpY=0 if ks02rpY==.
+(1245 real changes made)
+
+->  replace ks02rpZ=0 if ks02rpZ==.
+(6703 real changes made)
+
+->  replace ks03rpA=0 if ks03rpA==.
+(6046 real changes made)
+
+->  replace ks03rpAA=0 if ks03rpAA==.
+(7115 real changes made)
+
+->  replace ks03rpB=0 if ks03rpB==.
+(6908 real changes made)
+
+->  replace ks03rpBA=0 if ks03rpBA==.
+(6953 real changes made)
+
+->  replace ks03rpC=0 if ks03rpC==.
+(7115 real changes made)
+
+->  replace ks03rpCA=0 if ks03rpCA==.
+(7102 real changes made)
+
+->  replace ks03rpD=0 if ks03rpD==.
+(6295 real changes made)
+
+->  replace ks03rpDA=0 if ks03rpDA==.
+(7148 real changes made)
+
+->  replace ks03rpE=0 if ks03rpE==.
+(7021 real changes made)
+
+->  replace ks03rpEA=0 if ks03rpEA==.
+(7142 real changes made)
+
+->  replace ks03rpF=0 if ks03rpF==.
+(5589 real changes made)
+
+->  replace ks03rpFA=0 if ks03rpFA==.
+(7142 real changes made)
+
+->  replace ks03rpG=0 if ks03rpG==.
+(6899 real changes made)
+
+->  replace ks03rpGA=0 if ks03rpGA==.
+(7052 real changes made)
+
+->  replace ks03rpH=0 if ks03rpH==.
+(5852 real changes made)
+
+->  replace ks03rpHA=0 if ks03rpHA==.
+(7098 real changes made)
+
+->  replace ks03rpI=0 if ks03rpI==.
+(7126 real changes made)
+
+->  replace ks03rpIA=0 if ks03rpIA==.
+(6977 real changes made)
+
+->  replace ks03rpJ=0 if ks03rpJ==.
+(7145 real changes made)
+
+->  replace ks03rpK=0 if ks03rpK==.
+(7141 real changes made)
+
+->  replace ks03rpL=0 if ks03rpL==.
+(6823 real changes made)
+
+->  replace ks03rpM=0 if ks03rpM==.
+(6771 real changes made)
+
+->  replace ks03rpN=0 if ks03rpN==.
+(7090 real changes made)
+
+->  replace ks03rpO=0 if ks03rpO==.
+(7102 real changes made)
+
+->  replace ks03rpP=0 if ks03rpP==.
+(6580 real changes made)
+
+->  replace ks03rpQ=0 if ks03rpQ==.
+(7137 real changes made)
+
+->  replace ks03rpR=0 if ks03rpR==.
+(7133 real changes made)
+
+->  replace ks03rpS=0 if ks03rpS==.
+(7115 real changes made)
+
+->  replace ks03rpT=0 if ks03rpT==.
+(7136 real changes made)
+
+->  replace ks03rpU=0 if ks03rpU==.
+(7135 real changes made)
+
+->  replace ks03rpV=0 if ks03rpV==.
+(6723 real changes made)
+
+->  replace ks03rpW=0 if ks03rpW==.
+(7095 real changes made)
+
+->  replace ks03rpX=0 if ks03rpX==.
+(7146 real changes made)
+
+->  replace ks03rpY=0 if ks03rpY==.
+(6948 real changes made)
+
+->  replace ks03rpZ=0 if ks03rpZ==.
+(7146 real changes made)
+
+. for var ks02rp* ks03rp*: replace X=. if X>=999997;
+
+->  replace ks02rpA=. if ks02rpA>=999997
+(2 real changes made, 2 to missing)
+
+->  replace ks02rpAA=. if ks02rpAA>=999997
+(4 real changes made, 4 to missing)
+
+->  replace ks02rpB=. if ks02rpB>=999997
+(0 real changes made)
+
+->  replace ks02rpBA=. if ks02rpBA>=999997
+(4 real changes made, 4 to missing)
+
+->  replace ks02rpC=. if ks02rpC>=999997
+(4 real changes made, 4 to missing)
+
+->  replace ks02rpCA=. if ks02rpCA>=999997
+(5 real changes made, 5 to missing)
+
+->  replace ks02rpD=. if ks02rpD>=999997
+(1 real change made, 1 to missing)
+
+->  replace ks02rpDA=. if ks02rpDA>=999997
+(0 real changes made)
+
+->  replace ks02rpE=. if ks02rpE>=999997
+(0 real changes made)
+
+->  replace ks02rpEA=. if ks02rpEA>=999997
+(3 real changes made, 3 to missing)
+
+->  replace ks02rpF=. if ks02rpF>=999997
+(6 real changes made, 6 to missing)
+
+->  replace ks02rpFA=. if ks02rpFA>=999997
+(2 real changes made, 2 to missing)
+
+->  replace ks02rpG=. if ks02rpG>=999997
+(3 real changes made, 3 to missing)
+
+->  replace ks02rpGA=. if ks02rpGA>=999997
+(0 real changes made)
+
+->  replace ks02rpH=. if ks02rpH>=999997
+(5 real changes made, 5 to missing)
+
+->  replace ks02rpHA=. if ks02rpHA>=999997
+(22 real changes made, 22 to missing)
+
+->  replace ks02rpI=. if ks02rpI>=999997
+(3 real changes made, 3 to missing)
+
+->  replace ks02rpIA=. if ks02rpIA>=999997
+(8 real changes made, 8 to missing)
+
+->  replace ks02rpJ=. if ks02rpJ>=999997
+(2 real changes made, 2 to missing)
+
+->  replace ks02rpK=. if ks02rpK>=999997
+(3 real changes made, 3 to missing)
+
+->  replace ks02rpL=. if ks02rpL>=999997
+(2 real changes made, 2 to missing)
+
+->  replace ks02rpM=. if ks02rpM>=999997
+(4 real changes made, 4 to missing)
+
+->  replace ks02rpN=. if ks02rpN>=999997
+(1 real change made, 1 to missing)
+
+->  replace ks02rpO=. if ks02rpO>=999997
+(3 real changes made, 3 to missing)
+
+->  replace ks02rpP=. if ks02rpP>=999997
+(2 real changes made, 2 to missing)
+
+->  replace ks02rpQ=. if ks02rpQ>=999997
+(3 real changes made, 3 to missing)
+
+->  replace ks02rpR=. if ks02rpR>=999997
+(5 real changes made, 5 to missing)
+
+->  replace ks02rpS=. if ks02rpS>=999997
+(3 real changes made, 3 to missing)
+
+->  replace ks02rpT=. if ks02rpT>=999997
+(4 real changes made, 4 to missing)
+
+->  replace ks02rpU=. if ks02rpU>=999997
+(5 real changes made, 5 to missing)
+
+->  replace ks02rpV=. if ks02rpV>=999997
+(10 real changes made, 10 to missing)
+
+->  replace ks02rpW=. if ks02rpW>=999997
+(1 real change made, 1 to missing)
+
+->  replace ks02rpX=. if ks02rpX>=999997
+(3 real changes made, 3 to missing)
+
+->  replace ks02rpY=. if ks02rpY>=999997
+(8 real changes made, 8 to missing)
+
+->  replace ks02rpZ=. if ks02rpZ>=999997
+(0 real changes made)
+
+->  replace ks03rpA=. if ks03rpA>=999997
+(1 real change made, 1 to missing)
+
+->  replace ks03rpAA=. if ks03rpAA>=999997
+(0 real changes made)
+
+->  replace ks03rpB=. if ks03rpB>=999997
+(2 real changes made, 2 to missing)
+
+->  replace ks03rpBA=. if ks03rpBA>=999997
+(0 real changes made)
+
+->  replace ks03rpC=. if ks03rpC>=999997
+(1 real change made, 1 to missing)
+
+->  replace ks03rpCA=. if ks03rpCA>=999997
+(0 real changes made)
+
+->  replace ks03rpD=. if ks03rpD>=999997
+(2 real changes made, 2 to missing)
+
+->  replace ks03rpDA=. if ks03rpDA>=999997
+(0 real changes made)
+
+->  replace ks03rpE=. if ks03rpE>=999997
+(0 real changes made)
+
+->  replace ks03rpEA=. if ks03rpEA>=999997
+(0 real changes made)
+
+->  replace ks03rpF=. if ks03rpF>=999997
+(10 real changes made, 10 to missing)
+
+->  replace ks03rpFA=. if ks03rpFA>=999997
+(0 real changes made)
+
+->  replace ks03rpG=. if ks03rpG>=999997
+(0 real changes made)
+
+->  replace ks03rpGA=. if ks03rpGA>=999997
+(1 real change made, 1 to missing)
+
+->  replace ks03rpH=. if ks03rpH>=999997
+(5 real changes made, 5 to missing)
+
+->  replace ks03rpHA=. if ks03rpHA>=999997
+(0 real changes made)
+
+->  replace ks03rpI=. if ks03rpI>=999997
+(0 real changes made)
+
+->  replace ks03rpIA=. if ks03rpIA>=999997
+(1 real change made, 1 to missing)
+
+->  replace ks03rpJ=. if ks03rpJ>=999997
+(0 real changes made)
+
+->  replace ks03rpK=. if ks03rpK>=999997
+(0 real changes made)
+
+->  replace ks03rpL=. if ks03rpL>=999997
+(0 real changes made)
+
+->  replace ks03rpM=. if ks03rpM>=999997
+(0 real changes made)
+
+->  replace ks03rpN=. if ks03rpN>=999997
+(0 real changes made)
+
+->  replace ks03rpO=. if ks03rpO>=999997
+(0 real changes made)
+
+->  replace ks03rpP=. if ks03rpP>=999997
+(0 real changes made)
+
+->  replace ks03rpQ=. if ks03rpQ>=999997
+(0 real changes made)
+
+->  replace ks03rpR=. if ks03rpR>=999997
+(0 real changes made)
+
+->  replace ks03rpS=. if ks03rpS>=999997
+(0 real changes made)
+
+->  replace ks03rpT=. if ks03rpT>=999997
+(0 real changes made)
+
+->  replace ks03rpU=. if ks03rpU>=999997
+(0 real changes made)
+
+->  replace ks03rpV=. if ks03rpV>=999997
+(1 real change made, 1 to missing)
+
+->  replace ks03rpW=. if ks03rpW>=999997
+(0 real changes made)
+
+->  replace ks03rpX=. if ks03rpX>=999997
+(0 real changes made)
+
+->  replace ks03rpY=. if ks03rpY>=999997
+(0 real changes made)
+
+->  replace ks03rpZ=. if ks03rpZ>=999997
+(0 real changes made)
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\kabkec93;
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          2 |         74        1.02        1.02
+          3 |      7,150       98.98      100.00
+------------+-----------------------------------
+      Total |      7,224      100.00
+
+. keep if _merge==3;
+(74 observations deleted)
+
+. drop _merge;
+
+. for var ks02rp* ks03rp*: egen medcomX=median(X), by(commid93);
+
+->  egen medcomks02rpA=median(ks02rpA), by(commid93)
+
+->  egen medcomks02rpAA=median(ks02rpAA), by(commid93)
+
+->  egen medcomks02rpB=median(ks02rpB), by(commid93)
+
+->  egen medcomks02rpBA=median(ks02rpBA), by(commid93)
+
+->  egen medcomks02rpC=median(ks02rpC), by(commid93)
+
+->  egen medcomks02rpCA=median(ks02rpCA), by(commid93)
+
+->  egen medcomks02rpD=median(ks02rpD), by(commid93)
+
+->  egen medcomks02rpDA=median(ks02rpDA), by(commid93)
+
+->  egen medcomks02rpE=median(ks02rpE), by(commid93)
+
+->  egen medcomks02rpEA=median(ks02rpEA), by(commid93)
+
+->  egen medcomks02rpF=median(ks02rpF), by(commid93)
+
+->  egen medcomks02rpFA=median(ks02rpFA), by(commid93)
+
+->  egen medcomks02rpG=median(ks02rpG), by(commid93)
+
+->  egen medcomks02rpGA=median(ks02rpGA), by(commid93)
+
+->  egen medcomks02rpH=median(ks02rpH), by(commid93)
+
+->  egen medcomks02rpHA=median(ks02rpHA), by(commid93)
+
+->  egen medcomks02rpI=median(ks02rpI), by(commid93)
+
+->  egen medcomks02rpIA=median(ks02rpIA), by(commid93)
+
+->  egen medcomks02rpJ=median(ks02rpJ), by(commid93)
+
+->  egen medcomks02rpK=median(ks02rpK), by(commid93)
+
+->  egen medcomks02rpL=median(ks02rpL), by(commid93)
+
+->  egen medcomks02rpM=median(ks02rpM), by(commid93)
+
+->  egen medcomks02rpN=median(ks02rpN), by(commid93)
+
+->  egen medcomks02rpO=median(ks02rpO), by(commid93)
+
+->  egen medcomks02rpP=median(ks02rpP), by(commid93)
+
+->  egen medcomks02rpQ=median(ks02rpQ), by(commid93)
+
+->  egen medcomks02rpR=median(ks02rpR), by(commid93)
+
+->  egen medcomks02rpS=median(ks02rpS), by(commid93)
+
+->  egen medcomks02rpT=median(ks02rpT), by(commid93)
+
+->  egen medcomks02rpU=median(ks02rpU), by(commid93)
+
+->  egen medcomks02rpV=median(ks02rpV), by(commid93)
+
+->  egen medcomks02rpW=median(ks02rpW), by(commid93)
+
+->  egen medcomks02rpX=median(ks02rpX), by(commid93)
+
+->  egen medcomks02rpY=median(ks02rpY), by(commid93)
+
+->  egen medcomks02rpZ=median(ks02rpZ), by(commid93)
+
+->  egen medcomks03rpA=median(ks03rpA), by(commid93)
+
+->  egen medcomks03rpAA=median(ks03rpAA), by(commid93)
+
+->  egen medcomks03rpB=median(ks03rpB), by(commid93)
+
+->  egen medcomks03rpBA=median(ks03rpBA), by(commid93)
+
+->  egen medcomks03rpC=median(ks03rpC), by(commid93)
+
+->  egen medcomks03rpCA=median(ks03rpCA), by(commid93)
+
+->  egen medcomks03rpD=median(ks03rpD), by(commid93)
+
+->  egen medcomks03rpDA=median(ks03rpDA), by(commid93)
+
+->  egen medcomks03rpE=median(ks03rpE), by(commid93)
+
+->  egen medcomks03rpEA=median(ks03rpEA), by(commid93)
+
+->  egen medcomks03rpF=median(ks03rpF), by(commid93)
+
+->  egen medcomks03rpFA=median(ks03rpFA), by(commid93)
+
+->  egen medcomks03rpG=median(ks03rpG), by(commid93)
+
+->  egen medcomks03rpGA=median(ks03rpGA), by(commid93)
+
+->  egen medcomks03rpH=median(ks03rpH), by(commid93)
+
+->  egen medcomks03rpHA=median(ks03rpHA), by(commid93)
+
+->  egen medcomks03rpI=median(ks03rpI), by(commid93)
+
+->  egen medcomks03rpIA=median(ks03rpIA), by(commid93)
+
+->  egen medcomks03rpJ=median(ks03rpJ), by(commid93)
+
+->  egen medcomks03rpK=median(ks03rpK), by(commid93)
+
+->  egen medcomks03rpL=median(ks03rpL), by(commid93)
+
+->  egen medcomks03rpM=median(ks03rpM), by(commid93)
+
+->  egen medcomks03rpN=median(ks03rpN), by(commid93)
+
+->  egen medcomks03rpO=median(ks03rpO), by(commid93)
+
+->  egen medcomks03rpP=median(ks03rpP), by(commid93)
+
+->  egen medcomks03rpQ=median(ks03rpQ), by(commid93)
+
+->  egen medcomks03rpR=median(ks03rpR), by(commid93)
+
+->  egen medcomks03rpS=median(ks03rpS), by(commid93)
+
+->  egen medcomks03rpT=median(ks03rpT), by(commid93)
+
+->  egen medcomks03rpU=median(ks03rpU), by(commid93)
+
+->  egen medcomks03rpV=median(ks03rpV), by(commid93)
+
+->  egen medcomks03rpW=median(ks03rpW), by(commid93)
+
+->  egen medcomks03rpX=median(ks03rpX), by(commid93)
+
+->  egen medcomks03rpY=median(ks03rpY), by(commid93)
+
+->  egen medcomks03rpZ=median(ks03rpZ), by(commid93)
+
+. for var ks02rp* ks03rp*: egen medkecX=median(X), by(kecid93);
+
+->  egen medkecks02rpA=median(ks02rpA), by(kecid93)
+
+->  egen medkecks02rpAA=median(ks02rpAA), by(kecid93)
+
+->  egen medkecks02rpB=median(ks02rpB), by(kecid93)
+
+->  egen medkecks02rpBA=median(ks02rpBA), by(kecid93)
+
+->  egen medkecks02rpC=median(ks02rpC), by(kecid93)
+
+->  egen medkecks02rpCA=median(ks02rpCA), by(kecid93)
+
+->  egen medkecks02rpD=median(ks02rpD), by(kecid93)
+
+->  egen medkecks02rpDA=median(ks02rpDA), by(kecid93)
+
+->  egen medkecks02rpE=median(ks02rpE), by(kecid93)
+
+->  egen medkecks02rpEA=median(ks02rpEA), by(kecid93)
+
+->  egen medkecks02rpF=median(ks02rpF), by(kecid93)
+
+->  egen medkecks02rpFA=median(ks02rpFA), by(kecid93)
+
+->  egen medkecks02rpG=median(ks02rpG), by(kecid93)
+
+->  egen medkecks02rpGA=median(ks02rpGA), by(kecid93)
+
+->  egen medkecks02rpH=median(ks02rpH), by(kecid93)
+
+->  egen medkecks02rpHA=median(ks02rpHA), by(kecid93)
+
+->  egen medkecks02rpI=median(ks02rpI), by(kecid93)
+
+->  egen medkecks02rpIA=median(ks02rpIA), by(kecid93)
+
+->  egen medkecks02rpJ=median(ks02rpJ), by(kecid93)
+
+->  egen medkecks02rpK=median(ks02rpK), by(kecid93)
+
+->  egen medkecks02rpL=median(ks02rpL), by(kecid93)
+
+->  egen medkecks02rpM=median(ks02rpM), by(kecid93)
+
+->  egen medkecks02rpN=median(ks02rpN), by(kecid93)
+
+->  egen medkecks02rpO=median(ks02rpO), by(kecid93)
+
+->  egen medkecks02rpP=median(ks02rpP), by(kecid93)
+
+->  egen medkecks02rpQ=median(ks02rpQ), by(kecid93)
+
+->  egen medkecks02rpR=median(ks02rpR), by(kecid93)
+
+->  egen medkecks02rpS=median(ks02rpS), by(kecid93)
+
+->  egen medkecks02rpT=median(ks02rpT), by(kecid93)
+
+->  egen medkecks02rpU=median(ks02rpU), by(kecid93)
+
+->  egen medkecks02rpV=median(ks02rpV), by(kecid93)
+
+->  egen medkecks02rpW=median(ks02rpW), by(kecid93)
+
+->  egen medkecks02rpX=median(ks02rpX), by(kecid93)
+
+->  egen medkecks02rpY=median(ks02rpY), by(kecid93)
+
+->  egen medkecks02rpZ=median(ks02rpZ), by(kecid93)
+
+->  egen medkecks03rpA=median(ks03rpA), by(kecid93)
+
+->  egen medkecks03rpAA=median(ks03rpAA), by(kecid93)
+
+->  egen medkecks03rpB=median(ks03rpB), by(kecid93)
+
+->  egen medkecks03rpBA=median(ks03rpBA), by(kecid93)
+
+->  egen medkecks03rpC=median(ks03rpC), by(kecid93)
+
+->  egen medkecks03rpCA=median(ks03rpCA), by(kecid93)
+
+->  egen medkecks03rpD=median(ks03rpD), by(kecid93)
+
+->  egen medkecks03rpDA=median(ks03rpDA), by(kecid93)
+
+->  egen medkecks03rpE=median(ks03rpE), by(kecid93)
+
+->  egen medkecks03rpEA=median(ks03rpEA), by(kecid93)
+
+->  egen medkecks03rpF=median(ks03rpF), by(kecid93)
+
+->  egen medkecks03rpFA=median(ks03rpFA), by(kecid93)
+
+->  egen medkecks03rpG=median(ks03rpG), by(kecid93)
+
+->  egen medkecks03rpGA=median(ks03rpGA), by(kecid93)
+
+->  egen medkecks03rpH=median(ks03rpH), by(kecid93)
+
+->  egen medkecks03rpHA=median(ks03rpHA), by(kecid93)
+
+->  egen medkecks03rpI=median(ks03rpI), by(kecid93)
+
+->  egen medkecks03rpIA=median(ks03rpIA), by(kecid93)
+
+->  egen medkecks03rpJ=median(ks03rpJ), by(kecid93)
+
+->  egen medkecks03rpK=median(ks03rpK), by(kecid93)
+
+->  egen medkecks03rpL=median(ks03rpL), by(kecid93)
+
+->  egen medkecks03rpM=median(ks03rpM), by(kecid93)
+
+->  egen medkecks03rpN=median(ks03rpN), by(kecid93)
+
+->  egen medkecks03rpO=median(ks03rpO), by(kecid93)
+
+->  egen medkecks03rpP=median(ks03rpP), by(kecid93)
+
+->  egen medkecks03rpQ=median(ks03rpQ), by(kecid93)
+
+->  egen medkecks03rpR=median(ks03rpR), by(kecid93)
+
+->  egen medkecks03rpS=median(ks03rpS), by(kecid93)
+
+->  egen medkecks03rpT=median(ks03rpT), by(kecid93)
+
+->  egen medkecks03rpU=median(ks03rpU), by(kecid93)
+
+->  egen medkecks03rpV=median(ks03rpV), by(kecid93)
+
+->  egen medkecks03rpW=median(ks03rpW), by(kecid93)
+
+->  egen medkecks03rpX=median(ks03rpX), by(kecid93)
+
+->  egen medkecks03rpY=median(ks03rpY), by(kecid93)
+
+->  egen medkecks03rpZ=median(ks03rpZ), by(kecid93)
+
+. for var ks02rp* ks03rp*: egen medkabX=median(X), by(kabid93);
+
+->  egen medkabks02rpA=median(ks02rpA), by(kabid93)
+
+->  egen medkabks02rpAA=median(ks02rpAA), by(kabid93)
+
+->  egen medkabks02rpB=median(ks02rpB), by(kabid93)
+
+->  egen medkabks02rpBA=median(ks02rpBA), by(kabid93)
+
+->  egen medkabks02rpC=median(ks02rpC), by(kabid93)
+
+->  egen medkabks02rpCA=median(ks02rpCA), by(kabid93)
+
+->  egen medkabks02rpD=median(ks02rpD), by(kabid93)
+
+->  egen medkabks02rpDA=median(ks02rpDA), by(kabid93)
+
+->  egen medkabks02rpE=median(ks02rpE), by(kabid93)
+
+->  egen medkabks02rpEA=median(ks02rpEA), by(kabid93)
+
+->  egen medkabks02rpF=median(ks02rpF), by(kabid93)
+
+->  egen medkabks02rpFA=median(ks02rpFA), by(kabid93)
+
+->  egen medkabks02rpG=median(ks02rpG), by(kabid93)
+
+->  egen medkabks02rpGA=median(ks02rpGA), by(kabid93)
+
+->  egen medkabks02rpH=median(ks02rpH), by(kabid93)
+
+->  egen medkabks02rpHA=median(ks02rpHA), by(kabid93)
+
+->  egen medkabks02rpI=median(ks02rpI), by(kabid93)
+
+->  egen medkabks02rpIA=median(ks02rpIA), by(kabid93)
+
+->  egen medkabks02rpJ=median(ks02rpJ), by(kabid93)
+
+->  egen medkabks02rpK=median(ks02rpK), by(kabid93)
+
+->  egen medkabks02rpL=median(ks02rpL), by(kabid93)
+
+->  egen medkabks02rpM=median(ks02rpM), by(kabid93)
+
+->  egen medkabks02rpN=median(ks02rpN), by(kabid93)
+
+->  egen medkabks02rpO=median(ks02rpO), by(kabid93)
+
+->  egen medkabks02rpP=median(ks02rpP), by(kabid93)
+
+->  egen medkabks02rpQ=median(ks02rpQ), by(kabid93)
+
+->  egen medkabks02rpR=median(ks02rpR), by(kabid93)
+
+->  egen medkabks02rpS=median(ks02rpS), by(kabid93)
+
+->  egen medkabks02rpT=median(ks02rpT), by(kabid93)
+
+->  egen medkabks02rpU=median(ks02rpU), by(kabid93)
+
+->  egen medkabks02rpV=median(ks02rpV), by(kabid93)
+
+->  egen medkabks02rpW=median(ks02rpW), by(kabid93)
+
+->  egen medkabks02rpX=median(ks02rpX), by(kabid93)
+
+->  egen medkabks02rpY=median(ks02rpY), by(kabid93)
+
+->  egen medkabks02rpZ=median(ks02rpZ), by(kabid93)
+
+->  egen medkabks03rpA=median(ks03rpA), by(kabid93)
+
+->  egen medkabks03rpAA=median(ks03rpAA), by(kabid93)
+
+->  egen medkabks03rpB=median(ks03rpB), by(kabid93)
+
+->  egen medkabks03rpBA=median(ks03rpBA), by(kabid93)
+
+->  egen medkabks03rpC=median(ks03rpC), by(kabid93)
+
+->  egen medkabks03rpCA=median(ks03rpCA), by(kabid93)
+
+->  egen medkabks03rpD=median(ks03rpD), by(kabid93)
+
+->  egen medkabks03rpDA=median(ks03rpDA), by(kabid93)
+
+->  egen medkabks03rpE=median(ks03rpE), by(kabid93)
+
+->  egen medkabks03rpEA=median(ks03rpEA), by(kabid93)
+
+->  egen medkabks03rpF=median(ks03rpF), by(kabid93)
+
+->  egen medkabks03rpFA=median(ks03rpFA), by(kabid93)
+
+->  egen medkabks03rpG=median(ks03rpG), by(kabid93)
+
+->  egen medkabks03rpGA=median(ks03rpGA), by(kabid93)
+
+->  egen medkabks03rpH=median(ks03rpH), by(kabid93)
+
+->  egen medkabks03rpHA=median(ks03rpHA), by(kabid93)
+
+->  egen medkabks03rpI=median(ks03rpI), by(kabid93)
+
+->  egen medkabks03rpIA=median(ks03rpIA), by(kabid93)
+
+->  egen medkabks03rpJ=median(ks03rpJ), by(kabid93)
+
+->  egen medkabks03rpK=median(ks03rpK), by(kabid93)
+
+->  egen medkabks03rpL=median(ks03rpL), by(kabid93)
+
+->  egen medkabks03rpM=median(ks03rpM), by(kabid93)
+
+->  egen medkabks03rpN=median(ks03rpN), by(kabid93)
+
+->  egen medkabks03rpO=median(ks03rpO), by(kabid93)
+
+->  egen medkabks03rpP=median(ks03rpP), by(kabid93)
+
+->  egen medkabks03rpQ=median(ks03rpQ), by(kabid93)
+
+->  egen medkabks03rpR=median(ks03rpR), by(kabid93)
+
+->  egen medkabks03rpS=median(ks03rpS), by(kabid93)
+
+->  egen medkabks03rpT=median(ks03rpT), by(kabid93)
+
+->  egen medkabks03rpU=median(ks03rpU), by(kabid93)
+
+->  egen medkabks03rpV=median(ks03rpV), by(kabid93)
+
+->  egen medkabks03rpW=median(ks03rpW), by(kabid93)
+
+->  egen medkabks03rpX=median(ks03rpX), by(kabid93)
+
+->  egen medkabks03rpY=median(ks03rpY), by(kabid93)
+
+->  egen medkabks03rpZ=median(ks03rpZ), by(kabid93)
+
+. for var ks02rp* ks03rp*: replace X=medcomX if X==.;
+
+->  replace ks02rpA=medcomks02rpA if ks02rpA==.
+(2 real changes made)
+
+->  replace ks02rpAA=medcomks02rpAA if ks02rpAA==.
+(4 real changes made)
+
+->  replace ks02rpB=medcomks02rpB if ks02rpB==.
+(0 real changes made)
+
+->  replace ks02rpBA=medcomks02rpBA if ks02rpBA==.
+(4 real changes made)
+
+->  replace ks02rpC=medcomks02rpC if ks02rpC==.
+(4 real changes made)
+
+->  replace ks02rpCA=medcomks02rpCA if ks02rpCA==.
+(5 real changes made)
+
+->  replace ks02rpD=medcomks02rpD if ks02rpD==.
+(1 real change made)
+
+->  replace ks02rpDA=medcomks02rpDA if ks02rpDA==.
+(0 real changes made)
+
+->  replace ks02rpE=medcomks02rpE if ks02rpE==.
+(0 real changes made)
+
+->  replace ks02rpEA=medcomks02rpEA if ks02rpEA==.
+(3 real changes made)
+
+->  replace ks02rpF=medcomks02rpF if ks02rpF==.
+(6 real changes made)
+
+->  replace ks02rpFA=medcomks02rpFA if ks02rpFA==.
+(2 real changes made)
+
+->  replace ks02rpG=medcomks02rpG if ks02rpG==.
+(3 real changes made)
+
+->  replace ks02rpGA=medcomks02rpGA if ks02rpGA==.
+(0 real changes made)
+
+->  replace ks02rpH=medcomks02rpH if ks02rpH==.
+(5 real changes made)
+
+->  replace ks02rpHA=medcomks02rpHA if ks02rpHA==.
+(22 real changes made)
+
+->  replace ks02rpI=medcomks02rpI if ks02rpI==.
+(3 real changes made)
+
+->  replace ks02rpIA=medcomks02rpIA if ks02rpIA==.
+(8 real changes made)
+
+->  replace ks02rpJ=medcomks02rpJ if ks02rpJ==.
+(2 real changes made)
+
+->  replace ks02rpK=medcomks02rpK if ks02rpK==.
+(3 real changes made)
+
+->  replace ks02rpL=medcomks02rpL if ks02rpL==.
+(2 real changes made)
+
+->  replace ks02rpM=medcomks02rpM if ks02rpM==.
+(4 real changes made)
+
+->  replace ks02rpN=medcomks02rpN if ks02rpN==.
+(1 real change made)
+
+->  replace ks02rpO=medcomks02rpO if ks02rpO==.
+(3 real changes made)
+
+->  replace ks02rpP=medcomks02rpP if ks02rpP==.
+(2 real changes made)
+
+->  replace ks02rpQ=medcomks02rpQ if ks02rpQ==.
+(3 real changes made)
+
+->  replace ks02rpR=medcomks02rpR if ks02rpR==.
+(5 real changes made)
+
+->  replace ks02rpS=medcomks02rpS if ks02rpS==.
+(3 real changes made)
+
+->  replace ks02rpT=medcomks02rpT if ks02rpT==.
+(4 real changes made)
+
+->  replace ks02rpU=medcomks02rpU if ks02rpU==.
+(5 real changes made)
+
+->  replace ks02rpV=medcomks02rpV if ks02rpV==.
+(10 real changes made)
+
+->  replace ks02rpW=medcomks02rpW if ks02rpW==.
+(1 real change made)
+
+->  replace ks02rpX=medcomks02rpX if ks02rpX==.
+(3 real changes made)
+
+->  replace ks02rpY=medcomks02rpY if ks02rpY==.
+(8 real changes made)
+
+->  replace ks02rpZ=medcomks02rpZ if ks02rpZ==.
+(0 real changes made)
+
+->  replace ks03rpA=medcomks03rpA if ks03rpA==.
+(1 real change made)
+
+->  replace ks03rpAA=medcomks03rpAA if ks03rpAA==.
+(0 real changes made)
+
+->  replace ks03rpB=medcomks03rpB if ks03rpB==.
+(2 real changes made)
+
+->  replace ks03rpBA=medcomks03rpBA if ks03rpBA==.
+(0 real changes made)
+
+->  replace ks03rpC=medcomks03rpC if ks03rpC==.
+(1 real change made)
+
+->  replace ks03rpCA=medcomks03rpCA if ks03rpCA==.
+(0 real changes made)
+
+->  replace ks03rpD=medcomks03rpD if ks03rpD==.
+(2 real changes made)
+
+->  replace ks03rpDA=medcomks03rpDA if ks03rpDA==.
+(0 real changes made)
+
+->  replace ks03rpE=medcomks03rpE if ks03rpE==.
+(0 real changes made)
+
+->  replace ks03rpEA=medcomks03rpEA if ks03rpEA==.
+(0 real changes made)
+
+->  replace ks03rpF=medcomks03rpF if ks03rpF==.
+ks03rpF was long now double
+(10 real changes made)
+
+->  replace ks03rpFA=medcomks03rpFA if ks03rpFA==.
+(0 real changes made)
+
+->  replace ks03rpG=medcomks03rpG if ks03rpG==.
+(0 real changes made)
+
+->  replace ks03rpGA=medcomks03rpGA if ks03rpGA==.
+(1 real change made)
+
+->  replace ks03rpH=medcomks03rpH if ks03rpH==.
+(5 real changes made)
+
+->  replace ks03rpHA=medcomks03rpHA if ks03rpHA==.
+(0 real changes made)
+
+->  replace ks03rpI=medcomks03rpI if ks03rpI==.
+(0 real changes made)
+
+->  replace ks03rpIA=medcomks03rpIA if ks03rpIA==.
+(1 real change made)
+
+->  replace ks03rpJ=medcomks03rpJ if ks03rpJ==.
+(0 real changes made)
+
+->  replace ks03rpK=medcomks03rpK if ks03rpK==.
+(0 real changes made)
+
+->  replace ks03rpL=medcomks03rpL if ks03rpL==.
+(0 real changes made)
+
+->  replace ks03rpM=medcomks03rpM if ks03rpM==.
+(0 real changes made)
+
+->  replace ks03rpN=medcomks03rpN if ks03rpN==.
+(0 real changes made)
+
+->  replace ks03rpO=medcomks03rpO if ks03rpO==.
+(0 real changes made)
+
+->  replace ks03rpP=medcomks03rpP if ks03rpP==.
+(0 real changes made)
+
+->  replace ks03rpQ=medcomks03rpQ if ks03rpQ==.
+(0 real changes made)
+
+->  replace ks03rpR=medcomks03rpR if ks03rpR==.
+(0 real changes made)
+
+->  replace ks03rpS=medcomks03rpS if ks03rpS==.
+(0 real changes made)
+
+->  replace ks03rpT=medcomks03rpT if ks03rpT==.
+(0 real changes made)
+
+->  replace ks03rpU=medcomks03rpU if ks03rpU==.
+(0 real changes made)
+
+->  replace ks03rpV=medcomks03rpV if ks03rpV==.
+(1 real change made)
+
+->  replace ks03rpW=medcomks03rpW if ks03rpW==.
+(0 real changes made)
+
+->  replace ks03rpX=medcomks03rpX if ks03rpX==.
+(0 real changes made)
+
+->  replace ks03rpY=medcomks03rpY if ks03rpY==.
+(0 real changes made)
+
+->  replace ks03rpZ=medcomks03rpZ if ks03rpZ==.
+(0 real changes made)
+
+. for var ks02rp* ks03rp*: replace X=medkecX if X==.;
+
+->  replace ks02rpA=medkecks02rpA if ks02rpA==.
+(0 real changes made)
+
+->  replace ks02rpAA=medkecks02rpAA if ks02rpAA==.
+(0 real changes made)
+
+->  replace ks02rpB=medkecks02rpB if ks02rpB==.
+(0 real changes made)
+
+->  replace ks02rpBA=medkecks02rpBA if ks02rpBA==.
+(0 real changes made)
+
+->  replace ks02rpC=medkecks02rpC if ks02rpC==.
+(0 real changes made)
+
+->  replace ks02rpCA=medkecks02rpCA if ks02rpCA==.
+(0 real changes made)
+
+->  replace ks02rpD=medkecks02rpD if ks02rpD==.
+(0 real changes made)
+
+->  replace ks02rpDA=medkecks02rpDA if ks02rpDA==.
+(0 real changes made)
+
+->  replace ks02rpE=medkecks02rpE if ks02rpE==.
+(0 real changes made)
+
+->  replace ks02rpEA=medkecks02rpEA if ks02rpEA==.
+(0 real changes made)
+
+->  replace ks02rpF=medkecks02rpF if ks02rpF==.
+(0 real changes made)
+
+->  replace ks02rpFA=medkecks02rpFA if ks02rpFA==.
+(0 real changes made)
+
+->  replace ks02rpG=medkecks02rpG if ks02rpG==.
+(0 real changes made)
+
+->  replace ks02rpGA=medkecks02rpGA if ks02rpGA==.
+(0 real changes made)
+
+->  replace ks02rpH=medkecks02rpH if ks02rpH==.
+(0 real changes made)
+
+->  replace ks02rpHA=medkecks02rpHA if ks02rpHA==.
+(0 real changes made)
+
+->  replace ks02rpI=medkecks02rpI if ks02rpI==.
+(0 real changes made)
+
+->  replace ks02rpIA=medkecks02rpIA if ks02rpIA==.
+(0 real changes made)
+
+->  replace ks02rpJ=medkecks02rpJ if ks02rpJ==.
+(0 real changes made)
+
+->  replace ks02rpK=medkecks02rpK if ks02rpK==.
+(0 real changes made)
+
+->  replace ks02rpL=medkecks02rpL if ks02rpL==.
+(0 real changes made)
+
+->  replace ks02rpM=medkecks02rpM if ks02rpM==.
+(0 real changes made)
+
+->  replace ks02rpN=medkecks02rpN if ks02rpN==.
+(0 real changes made)
+
+->  replace ks02rpO=medkecks02rpO if ks02rpO==.
+(0 real changes made)
+
+->  replace ks02rpP=medkecks02rpP if ks02rpP==.
+(0 real changes made)
+
+->  replace ks02rpQ=medkecks02rpQ if ks02rpQ==.
+(0 real changes made)
+
+->  replace ks02rpR=medkecks02rpR if ks02rpR==.
+(0 real changes made)
+
+->  replace ks02rpS=medkecks02rpS if ks02rpS==.
+(0 real changes made)
+
+->  replace ks02rpT=medkecks02rpT if ks02rpT==.
+(0 real changes made)
+
+->  replace ks02rpU=medkecks02rpU if ks02rpU==.
+(0 real changes made)
+
+->  replace ks02rpV=medkecks02rpV if ks02rpV==.
+(0 real changes made)
+
+->  replace ks02rpW=medkecks02rpW if ks02rpW==.
+(0 real changes made)
+
+->  replace ks02rpX=medkecks02rpX if ks02rpX==.
+(0 real changes made)
+
+->  replace ks02rpY=medkecks02rpY if ks02rpY==.
+(0 real changes made)
+
+->  replace ks02rpZ=medkecks02rpZ if ks02rpZ==.
+(0 real changes made)
+
+->  replace ks03rpA=medkecks03rpA if ks03rpA==.
+(0 real changes made)
+
+->  replace ks03rpAA=medkecks03rpAA if ks03rpAA==.
+(0 real changes made)
+
+->  replace ks03rpB=medkecks03rpB if ks03rpB==.
+(0 real changes made)
+
+->  replace ks03rpBA=medkecks03rpBA if ks03rpBA==.
+(0 real changes made)
+
+->  replace ks03rpC=medkecks03rpC if ks03rpC==.
+(0 real changes made)
+
+->  replace ks03rpCA=medkecks03rpCA if ks03rpCA==.
+(0 real changes made)
+
+->  replace ks03rpD=medkecks03rpD if ks03rpD==.
+(0 real changes made)
+
+->  replace ks03rpDA=medkecks03rpDA if ks03rpDA==.
+(0 real changes made)
+
+->  replace ks03rpE=medkecks03rpE if ks03rpE==.
+(0 real changes made)
+
+->  replace ks03rpEA=medkecks03rpEA if ks03rpEA==.
+(0 real changes made)
+
+->  replace ks03rpF=medkecks03rpF if ks03rpF==.
+(0 real changes made)
+
+->  replace ks03rpFA=medkecks03rpFA if ks03rpFA==.
+(0 real changes made)
+
+->  replace ks03rpG=medkecks03rpG if ks03rpG==.
+(0 real changes made)
+
+->  replace ks03rpGA=medkecks03rpGA if ks03rpGA==.
+(0 real changes made)
+
+->  replace ks03rpH=medkecks03rpH if ks03rpH==.
+(0 real changes made)
+
+->  replace ks03rpHA=medkecks03rpHA if ks03rpHA==.
+(0 real changes made)
+
+->  replace ks03rpI=medkecks03rpI if ks03rpI==.
+(0 real changes made)
+
+->  replace ks03rpIA=medkecks03rpIA if ks03rpIA==.
+(0 real changes made)
+
+->  replace ks03rpJ=medkecks03rpJ if ks03rpJ==.
+(0 real changes made)
+
+->  replace ks03rpK=medkecks03rpK if ks03rpK==.
+(0 real changes made)
+
+->  replace ks03rpL=medkecks03rpL if ks03rpL==.
+(0 real changes made)
+
+->  replace ks03rpM=medkecks03rpM if ks03rpM==.
+(0 real changes made)
+
+->  replace ks03rpN=medkecks03rpN if ks03rpN==.
+(0 real changes made)
+
+->  replace ks03rpO=medkecks03rpO if ks03rpO==.
+(0 real changes made)
+
+->  replace ks03rpP=medkecks03rpP if ks03rpP==.
+(0 real changes made)
+
+->  replace ks03rpQ=medkecks03rpQ if ks03rpQ==.
+(0 real changes made)
+
+->  replace ks03rpR=medkecks03rpR if ks03rpR==.
+(0 real changes made)
+
+->  replace ks03rpS=medkecks03rpS if ks03rpS==.
+(0 real changes made)
+
+->  replace ks03rpT=medkecks03rpT if ks03rpT==.
+(0 real changes made)
+
+->  replace ks03rpU=medkecks03rpU if ks03rpU==.
+(0 real changes made)
+
+->  replace ks03rpV=medkecks03rpV if ks03rpV==.
+(0 real changes made)
+
+->  replace ks03rpW=medkecks03rpW if ks03rpW==.
+(0 real changes made)
+
+->  replace ks03rpX=medkecks03rpX if ks03rpX==.
+(0 real changes made)
+
+->  replace ks03rpY=medkecks03rpY if ks03rpY==.
+(0 real changes made)
+
+->  replace ks03rpZ=medkecks03rpZ if ks03rpZ==.
+(0 real changes made)
+
+. for var ks02rp* ks03rp*: replace X=medkabX if X==.;
+
+->  replace ks02rpA=medkabks02rpA if ks02rpA==.
+(0 real changes made)
+
+->  replace ks02rpAA=medkabks02rpAA if ks02rpAA==.
+(0 real changes made)
+
+->  replace ks02rpB=medkabks02rpB if ks02rpB==.
+(0 real changes made)
+
+->  replace ks02rpBA=medkabks02rpBA if ks02rpBA==.
+(0 real changes made)
+
+->  replace ks02rpC=medkabks02rpC if ks02rpC==.
+(0 real changes made)
+
+->  replace ks02rpCA=medkabks02rpCA if ks02rpCA==.
+(0 real changes made)
+
+->  replace ks02rpD=medkabks02rpD if ks02rpD==.
+(0 real changes made)
+
+->  replace ks02rpDA=medkabks02rpDA if ks02rpDA==.
+(0 real changes made)
+
+->  replace ks02rpE=medkabks02rpE if ks02rpE==.
+(0 real changes made)
+
+->  replace ks02rpEA=medkabks02rpEA if ks02rpEA==.
+(0 real changes made)
+
+->  replace ks02rpF=medkabks02rpF if ks02rpF==.
+(0 real changes made)
+
+->  replace ks02rpFA=medkabks02rpFA if ks02rpFA==.
+(0 real changes made)
+
+->  replace ks02rpG=medkabks02rpG if ks02rpG==.
+(0 real changes made)
+
+->  replace ks02rpGA=medkabks02rpGA if ks02rpGA==.
+(0 real changes made)
+
+->  replace ks02rpH=medkabks02rpH if ks02rpH==.
+(0 real changes made)
+
+->  replace ks02rpHA=medkabks02rpHA if ks02rpHA==.
+(0 real changes made)
+
+->  replace ks02rpI=medkabks02rpI if ks02rpI==.
+(0 real changes made)
+
+->  replace ks02rpIA=medkabks02rpIA if ks02rpIA==.
+(0 real changes made)
+
+->  replace ks02rpJ=medkabks02rpJ if ks02rpJ==.
+(0 real changes made)
+
+->  replace ks02rpK=medkabks02rpK if ks02rpK==.
+(0 real changes made)
+
+->  replace ks02rpL=medkabks02rpL if ks02rpL==.
+(0 real changes made)
+
+->  replace ks02rpM=medkabks02rpM if ks02rpM==.
+(0 real changes made)
+
+->  replace ks02rpN=medkabks02rpN if ks02rpN==.
+(0 real changes made)
+
+->  replace ks02rpO=medkabks02rpO if ks02rpO==.
+(0 real changes made)
+
+->  replace ks02rpP=medkabks02rpP if ks02rpP==.
+(0 real changes made)
+
+->  replace ks02rpQ=medkabks02rpQ if ks02rpQ==.
+(0 real changes made)
+
+->  replace ks02rpR=medkabks02rpR if ks02rpR==.
+(0 real changes made)
+
+->  replace ks02rpS=medkabks02rpS if ks02rpS==.
+(0 real changes made)
+
+->  replace ks02rpT=medkabks02rpT if ks02rpT==.
+(0 real changes made)
+
+->  replace ks02rpU=medkabks02rpU if ks02rpU==.
+(0 real changes made)
+
+->  replace ks02rpV=medkabks02rpV if ks02rpV==.
+(0 real changes made)
+
+->  replace ks02rpW=medkabks02rpW if ks02rpW==.
+(0 real changes made)
+
+->  replace ks02rpX=medkabks02rpX if ks02rpX==.
+(0 real changes made)
+
+->  replace ks02rpY=medkabks02rpY if ks02rpY==.
+(0 real changes made)
+
+->  replace ks02rpZ=medkabks02rpZ if ks02rpZ==.
+(0 real changes made)
+
+->  replace ks03rpA=medkabks03rpA if ks03rpA==.
+(0 real changes made)
+
+->  replace ks03rpAA=medkabks03rpAA if ks03rpAA==.
+(0 real changes made)
+
+->  replace ks03rpB=medkabks03rpB if ks03rpB==.
+(0 real changes made)
+
+->  replace ks03rpBA=medkabks03rpBA if ks03rpBA==.
+(0 real changes made)
+
+->  replace ks03rpC=medkabks03rpC if ks03rpC==.
+(0 real changes made)
+
+->  replace ks03rpCA=medkabks03rpCA if ks03rpCA==.
+(0 real changes made)
+
+->  replace ks03rpD=medkabks03rpD if ks03rpD==.
+(0 real changes made)
+
+->  replace ks03rpDA=medkabks03rpDA if ks03rpDA==.
+(0 real changes made)
+
+->  replace ks03rpE=medkabks03rpE if ks03rpE==.
+(0 real changes made)
+
+->  replace ks03rpEA=medkabks03rpEA if ks03rpEA==.
+(0 real changes made)
+
+->  replace ks03rpF=medkabks03rpF if ks03rpF==.
+(0 real changes made)
+
+->  replace ks03rpFA=medkabks03rpFA if ks03rpFA==.
+(0 real changes made)
+
+->  replace ks03rpG=medkabks03rpG if ks03rpG==.
+(0 real changes made)
+
+->  replace ks03rpGA=medkabks03rpGA if ks03rpGA==.
+(0 real changes made)
+
+->  replace ks03rpH=medkabks03rpH if ks03rpH==.
+(0 real changes made)
+
+->  replace ks03rpHA=medkabks03rpHA if ks03rpHA==.
+(0 real changes made)
+
+->  replace ks03rpI=medkabks03rpI if ks03rpI==.
+(0 real changes made)
+
+->  replace ks03rpIA=medkabks03rpIA if ks03rpIA==.
+(0 real changes made)
+
+->  replace ks03rpJ=medkabks03rpJ if ks03rpJ==.
+(0 real changes made)
+
+->  replace ks03rpK=medkabks03rpK if ks03rpK==.
+(0 real changes made)
+
+->  replace ks03rpL=medkabks03rpL if ks03rpL==.
+(0 real changes made)
+
+->  replace ks03rpM=medkabks03rpM if ks03rpM==.
+(0 real changes made)
+
+->  replace ks03rpN=medkabks03rpN if ks03rpN==.
+(0 real changes made)
+
+->  replace ks03rpO=medkabks03rpO if ks03rpO==.
+(0 real changes made)
+
+->  replace ks03rpP=medkabks03rpP if ks03rpP==.
+(0 real changes made)
+
+->  replace ks03rpQ=medkabks03rpQ if ks03rpQ==.
+(0 real changes made)
+
+->  replace ks03rpR=medkabks03rpR if ks03rpR==.
+(0 real changes made)
+
+->  replace ks03rpS=medkabks03rpS if ks03rpS==.
+(0 real changes made)
+
+->  replace ks03rpT=medkabks03rpT if ks03rpT==.
+(0 real changes made)
+
+->  replace ks03rpU=medkabks03rpU if ks03rpU==.
+(0 real changes made)
+
+->  replace ks03rpV=medkabks03rpV if ks03rpV==.
+(0 real changes made)
+
+->  replace ks03rpW=medkabks03rpW if ks03rpW==.
+(0 real changes made)
+
+->  replace ks03rpX=medkabks03rpX if ks03rpX==.
+(0 real changes made)
+
+->  replace ks03rpY=medkabks03rpY if ks03rpY==.
+(0 real changes made)
+
+->  replace ks03rpZ=medkabks03rpZ if ks03rpZ==.
+(0 real changes made)
+
+. *purchased;
+. gen mstaple=ks02rpA+ks02rpB+ks02rpC+ks02rpD+ks02rpE     ;
+
+. gen mvege=ks02rpF+ks02rpG+ks02rpH;
+
+. gen mdried=ks02rpI+ks02rpJ;
+
+. gen mmeat=ks02rpK+ks02rpL+ks02rpO+ks02rpO;
+
+. gen mfish=ks02rpM+ks02rpN;
+
+. gen mdairy=ks02rpP+ks02rpQ+ks02rpX;
+
+. gen moil=ks02rpY;
+
+. gen mspices=ks02rpR+ks02rpS+ks02rpT+ks02rpU+ks02rpV+ks02rpW+ks02rpAA;
+
+. gen mbeve=ks02rpZ+ks02rpBA+ks02rpCA+ks02rpDA+ks02rpEA   ;
+
+. gen maltb=ks02rpFA+ks02rpHA;
+
+. gen msnack=ks02rpIA /* note: include eating out */;
+
+. gen mrice=ks02rpA;
+
+. gen mtob=ks02rpHA;
+
+. gen mfood=mstaple+mvege+mdried+mmeat+mfish+mdairy+moil+mspices+mbeve+maltb+msnack;
+
+. *ownproduced;
+. gen istaple=ks03rpA+ks03rpB+ks03rpC+ks03rpD+ks03rpE     ;
+
+. gen ivege=ks03rpF+ks03rpG+ks03rpH;
+
+. gen idried=ks03rpI+ks03rpJ;
+
+. gen imeat=ks03rpK+ks03rpL+ks03rpO+ks03rpO;
+
+. gen ifish=ks03rpM+ks03rpN;
+
+. gen idairy=ks03rpP+ks03rpQ+ks03rpX;
+
+. gen ioil=ks03rpY;
+
+. gen ispices=ks03rpR+ks03rpS+ks03rpT+ks03rpU+ks03rpV+ks03rpW+ks03rpAA;
+
+. gen ibeve=ks03rpZ+ks03rpBA+ks03rpCA+ks03rpDA+ks03rpEA   ;
+
+. gen ialtb=ks03rpFA+ks03rpHA;
+
+. gen isnack=ks03rpIA /* note: include eating out */;
+
+. gen irice=ks03rpA;
+
+. gen itob=ks03rpHA;
+
+. gen ifood=istaple+ivege+idried+imeat+ifish+idairy+ioil+ispices+ibeve+ialtb+isnack;
+
+. *purchased+ownproduced;
+. gen xstaple=mstaple+istaple;
+
+. gen xvege=mvege+ivege;
+
+. gen xdried=mdried+idried;
+
+. gen xmeat=mmeat+imeat;
+
+. gen xfish=mfish+ifish;
+
+. gen xdairy=mdairy+idairy;
+
+. gen xoil=moil+ioil;
+
+. gen xspices=mspices+ispices;
+
+. gen xbeve=mbeve+ibeve;
+
+. gen xaltb=maltb+ialtb;
+
+. gen xsnack=msnack+isnack;
+
+. gen xrice=mrice+irice;
+
+. gen xtob=mtob+itob;
+
+. gen xfood=mfood+ifood;
+
+. *change to monthly;
+. for var m* i* x*: replace X=X*52/12;
+
+->  replace medcomks02rpA=medcomks02rpA*52/12
+(5333 real changes made)
+
+->  replace medcomks02rpAA=medcomks02rpAA*52/12
+(6858 real changes made)
+
+->  replace medcomks02rpB=medcomks02rpB*52/12
+(237 real changes made)
+
+->  replace medcomks02rpBA=medcomks02rpBA*52/12
+(3987 real changes made)
+
+->  replace medcomks02rpC=medcomks02rpC*52/12
+(378 real changes made)
+
+->  replace medcomks02rpCA=medcomks02rpCA*52/12
+(4337 real changes made)
+
+->  replace medcomks02rpD=medcomks02rpD*52/12
+(123 real changes made)
+
+->  replace medcomks02rpDA=medcomks02rpDA*52/12
+(0 real changes made)
+
+->  replace medcomks02rpE=medcomks02rpE*52/12
+(92 real changes made)
+
+->  replace medcomks02rpEA=medcomks02rpEA*52/12
+(40 real changes made)
+
+->  replace medcomks02rpF=medcomks02rpF*52/12
+(6677 real changes made)
+
+->  replace medcomks02rpFA=medcomks02rpFA*52/12
+(0 real changes made)
+
+->  replace medcomks02rpG=medcomks02rpG*52/12
+(1250 real changes made)
+
+->  replace medcomks02rpGA=medcomks02rpGA*52/12
+(60 real changes made)
+
+->  replace medcomks02rpH=medcomks02rpH*52/12
+(4383 real changes made)
+
+->  replace medcomks02rpHA=medcomks02rpHA*52/12
+(5739 real changes made)
+
+->  replace medcomks02rpI=medcomks02rpI*52/12
+(4244 real changes made)
+
+->  replace medcomks02rpIA=medcomks02rpIA*52/12
+(6669 real changes made)
+
+->  replace medcomks02rpJ=medcomks02rpJ*52/12
+(0 real changes made)
+
+->  replace medcomks02rpK=medcomks02rpK*52/12
+(659 real changes made)
+
+->  replace medcomks02rpL=medcomks02rpL*52/12
+(1184 real changes made)
+
+->  replace medcomks02rpM=medcomks02rpM*52/12
+(3768 real changes made)
+
+->  replace medcomks02rpN=medcomks02rpN*52/12
+(3797 real changes made)
+
+->  replace medcomks02rpO=medcomks02rpO*52/12
+(5603 real changes made)
+
+->  replace medcomks02rpP=medcomks02rpP*52/12
+(3719 real changes made)
+
+->  replace medcomks02rpQ=medcomks02rpQ*52/12
+(688 real changes made)
+
+->  replace medcomks02rpR=medcomks02rpR*52/12
+(2319 real changes made)
+
+->  replace medcomks02rpS=medcomks02rpS*52/12
+(5928 real changes made)
+
+->  replace medcomks02rpT=medcomks02rpT*52/12
+(3055 real changes made)
+
+->  replace medcomks02rpU=medcomks02rpU*52/12
+(37 real changes made)
+
+->  replace medcomks02rpV=medcomks02rpV*52/12
+(6937 real changes made)
+
+->  replace medcomks02rpW=medcomks02rpW*52/12
+(2964 real changes made)
+
+->  replace medcomks02rpX=medcomks02rpX*52/12
+(46 real changes made)
+
+->  replace medcomks02rpY=medcomks02rpY*52/12
+(7016 real changes made)
+
+->  replace medcomks02rpZ=medcomks02rpZ*52/12
+(224 real changes made)
+
+->  replace medcomks03rpA=medcomks03rpA*52/12
+(664 real changes made)
+
+->  replace medcomks03rpAA=medcomks03rpAA*52/12
+(0 real changes made)
+
+->  replace medcomks03rpB=medcomks03rpB*52/12
+(90 real changes made)
+
+->  replace medcomks03rpBA=medcomks03rpBA*52/12
+(86 real changes made)
+
+->  replace medcomks03rpC=medcomks03rpC*52/12
+(0 real changes made)
+
+->  replace medcomks03rpCA=medcomks03rpCA*52/12
+(0 real changes made)
+
+->  replace medcomks03rpD=medcomks03rpD*52/12
+(429 real changes made)
+
+->  replace medcomks03rpDA=medcomks03rpDA*52/12
+(0 real changes made)
+
+->  replace medcomks03rpE=medcomks03rpE*52/12
+(0 real changes made)
+
+->  replace medcomks03rpEA=medcomks03rpEA*52/12
+(0 real changes made)
+
+->  replace medcomks03rpF=medcomks03rpF*52/12
+(1204 real changes made)
+
+->  replace medcomks03rpFA=medcomks03rpFA*52/12
+(0 real changes made)
+
+->  replace medcomks03rpG=medcomks03rpG*52/12
+(0 real changes made)
+
+->  replace medcomks03rpGA=medcomks03rpGA*52/12
+(6 real changes made)
+
+->  replace medcomks03rpH=medcomks03rpH*52/12
+(474 real changes made)
+
+->  replace medcomks03rpHA=medcomks03rpHA*52/12
+(0 real changes made)
+
+->  replace medcomks03rpI=medcomks03rpI*52/12
+(0 real changes made)
+
+->  replace medcomks03rpIA=medcomks03rpIA*52/12
+(0 real changes made)
+
+->  replace medcomks03rpJ=medcomks03rpJ*52/12
+(0 real changes made)
+
+->  replace medcomks03rpK=medcomks03rpK*52/12
+(0 real changes made)
+
+->  replace medcomks03rpL=medcomks03rpL*52/12
+(0 real changes made)
+
+->  replace medcomks03rpM=medcomks03rpM*52/12
+(102 real changes made)
+
+->  replace medcomks03rpN=medcomks03rpN*52/12
+(0 real changes made)
+
+->  replace medcomks03rpO=medcomks03rpO*52/12
+(0 real changes made)
+
+->  replace medcomks03rpP=medcomks03rpP*52/12
+(20 real changes made)
+
+->  replace medcomks03rpQ=medcomks03rpQ*52/12
+(0 real changes made)
+
+->  replace medcomks03rpR=medcomks03rpR*52/12
+(0 real changes made)
+
+->  replace medcomks03rpS=medcomks03rpS*52/12
+(0 real changes made)
+
+->  replace medcomks03rpT=medcomks03rpT*52/12
+(0 real changes made)
+
+->  replace medcomks03rpU=medcomks03rpU*52/12
+(0 real changes made)
+
+->  replace medcomks03rpV=medcomks03rpV*52/12
+(115 real changes made)
+
+->  replace medcomks03rpW=medcomks03rpW*52/12
+(0 real changes made)
+
+->  replace medcomks03rpX=medcomks03rpX*52/12
+(0 real changes made)
+
+->  replace medcomks03rpY=medcomks03rpY*52/12
+(60 real changes made)
+
+->  replace medcomks03rpZ=medcomks03rpZ*52/12
+(0 real changes made)
+
+->  replace medkecks02rpA=medkecks02rpA*52/12
+(5433 real changes made)
+
+->  replace medkecks02rpAA=medkecks02rpAA*52/12
+(6858 real changes made)
+
+->  replace medkecks02rpB=medkecks02rpB*52/12
+(210 real changes made)
+
+->  replace medkecks02rpBA=medkecks02rpBA*52/12
+(4060 real changes made)
+
+->  replace medkecks02rpC=medkecks02rpC*52/12
+(336 real changes made)
+
+->  replace medkecks02rpCA=medkecks02rpCA*52/12
+(4343 real changes made)
+
+->  replace medkecks02rpD=medkecks02rpD*52/12
+(125 real changes made)
+
+->  replace medkecks02rpDA=medkecks02rpDA*52/12
+(0 real changes made)
+
+->  replace medkecks02rpE=medkecks02rpE*52/12
+(92 real changes made)
+
+->  replace medkecks02rpEA=medkecks02rpEA*52/12
+(40 real changes made)
+
+->  replace medkecks02rpF=medkecks02rpF*52/12
+(6727 real changes made)
+
+->  replace medkecks02rpFA=medkecks02rpFA*52/12
+(0 real changes made)
+
+->  replace medkecks02rpG=medkecks02rpG*52/12
+(1152 real changes made)
+
+->  replace medkecks02rpGA=medkecks02rpGA*52/12
+(62 real changes made)
+
+->  replace medkecks02rpH=medkecks02rpH*52/12
+(4405 real changes made)
+
+->  replace medkecks02rpHA=medkecks02rpHA*52/12
+(5750 real changes made)
+
+->  replace medkecks02rpI=medkecks02rpI*52/12
+(4218 real changes made)
+
+->  replace medkecks02rpIA=medkecks02rpIA*52/12
+(6669 real changes made)
+
+->  replace medkecks02rpJ=medkecks02rpJ*52/12
+(0 real changes made)
+
+->  replace medkecks02rpK=medkecks02rpK*52/12
+(577 real changes made)
+
+->  replace medkecks02rpL=medkecks02rpL*52/12
+(1158 real changes made)
+
+->  replace medkecks02rpM=medkecks02rpM*52/12
+(3732 real changes made)
+
+->  replace medkecks02rpN=medkecks02rpN*52/12
+(3718 real changes made)
+
+->  replace medkecks02rpO=medkecks02rpO*52/12
+(5642 real changes made)
+
+->  replace medkecks02rpP=medkecks02rpP*52/12
+(3744 real changes made)
+
+->  replace medkecks02rpQ=medkecks02rpQ*52/12
+(683 real changes made)
+
+->  replace medkecks02rpR=medkecks02rpR*52/12
+(2263 real changes made)
+
+->  replace medkecks02rpS=medkecks02rpS*52/12
+(5949 real changes made)
+
+->  replace medkecks02rpT=medkecks02rpT*52/12
+(3005 real changes made)
+
+->  replace medkecks02rpU=medkecks02rpU*52/12
+(20 real changes made)
+
+->  replace medkecks02rpV=medkecks02rpV*52/12
+(6995 real changes made)
+
+->  replace medkecks02rpW=medkecks02rpW*52/12
+(2983 real changes made)
+
+->  replace medkecks02rpX=medkecks02rpX*52/12
+(42 real changes made)
+
+->  replace medkecks02rpY=medkecks02rpY*52/12
+(7040 real changes made)
+
+->  replace medkecks02rpZ=medkecks02rpZ*52/12
+(219 real changes made)
+
+->  replace medkecks03rpA=medkecks03rpA*52/12
+(664 real changes made)
+
+->  replace medkecks03rpAA=medkecks03rpAA*52/12
+(0 real changes made)
+
+->  replace medkecks03rpB=medkecks03rpB*52/12
+(90 real changes made)
+
+->  replace medkecks03rpBA=medkecks03rpBA*52/12
+(86 real changes made)
+
+->  replace medkecks03rpC=medkecks03rpC*52/12
+(0 real changes made)
+
+->  replace medkecks03rpCA=medkecks03rpCA*52/12
+(0 real changes made)
+
+->  replace medkecks03rpD=medkecks03rpD*52/12
+(433 real changes made)
+
+->  replace medkecks03rpDA=medkecks03rpDA*52/12
+(0 real changes made)
+
+->  replace medkecks03rpE=medkecks03rpE*52/12
+(0 real changes made)
+
+->  replace medkecks03rpEA=medkecks03rpEA*52/12
+(0 real changes made)
+
+->  replace medkecks03rpF=medkecks03rpF*52/12
+(1206 real changes made)
+
+->  replace medkecks03rpFA=medkecks03rpFA*52/12
+(0 real changes made)
+
+->  replace medkecks03rpG=medkecks03rpG*52/12
+(0 real changes made)
+
+->  replace medkecks03rpGA=medkecks03rpGA*52/12
+(6 real changes made)
+
+->  replace medkecks03rpH=medkecks03rpH*52/12
+(474 real changes made)
+
+->  replace medkecks03rpHA=medkecks03rpHA*52/12
+(0 real changes made)
+
+->  replace medkecks03rpI=medkecks03rpI*52/12
+(0 real changes made)
+
+->  replace medkecks03rpIA=medkecks03rpIA*52/12
+(0 real changes made)
+
+->  replace medkecks03rpJ=medkecks03rpJ*52/12
+(0 real changes made)
+
+->  replace medkecks03rpK=medkecks03rpK*52/12
+(0 real changes made)
+
+->  replace medkecks03rpL=medkecks03rpL*52/12
+(0 real changes made)
+
+->  replace medkecks03rpM=medkecks03rpM*52/12
+(102 real changes made)
+
+->  replace medkecks03rpN=medkecks03rpN*52/12
+(0 real changes made)
+
+->  replace medkecks03rpO=medkecks03rpO*52/12
+(0 real changes made)
+
+->  replace medkecks03rpP=medkecks03rpP*52/12
+(20 real changes made)
+
+->  replace medkecks03rpQ=medkecks03rpQ*52/12
+(0 real changes made)
+
+->  replace medkecks03rpR=medkecks03rpR*52/12
+(0 real changes made)
+
+->  replace medkecks03rpS=medkecks03rpS*52/12
+(0 real changes made)
+
+->  replace medkecks03rpT=medkecks03rpT*52/12
+(0 real changes made)
+
+->  replace medkecks03rpU=medkecks03rpU*52/12
+(0 real changes made)
+
+->  replace medkecks03rpV=medkecks03rpV*52/12
+(115 real changes made)
+
+->  replace medkecks03rpW=medkecks03rpW*52/12
+(0 real changes made)
+
+->  replace medkecks03rpX=medkecks03rpX*52/12
+(0 real changes made)
+
+->  replace medkecks03rpY=medkecks03rpY*52/12
+(60 real changes made)
+
+->  replace medkecks03rpZ=medkecks03rpZ*52/12
+(0 real changes made)
+
+->  replace medkabks02rpA=medkabks02rpA*52/12
+(5940 real changes made)
+
+->  replace medkabks02rpAA=medkabks02rpAA*52/12
+(6900 real changes made)
+
+->  replace medkabks02rpB=medkabks02rpB*52/12
+(131 real changes made)
+
+->  replace medkabks02rpBA=medkabks02rpBA*52/12
+(4125 real changes made)
+
+->  replace medkabks02rpC=medkabks02rpC*52/12
+(116 real changes made)
+
+->  replace medkabks02rpCA=medkabks02rpCA*52/12
+(4517 real changes made)
+
+->  replace medkabks02rpD=medkabks02rpD*52/12
+(20 real changes made)
+
+->  replace medkabks02rpDA=medkabks02rpDA*52/12
+(0 real changes made)
+
+->  replace medkabks02rpE=medkabks02rpE*52/12
+(58 real changes made)
+
+->  replace medkabks02rpEA=medkabks02rpEA*52/12
+(26 real changes made)
+
+->  replace medkabks02rpF=medkabks02rpF*52/12
+(6901 real changes made)
+
+->  replace medkabks02rpFA=medkabks02rpFA*52/12
+(0 real changes made)
+
+->  replace medkabks02rpG=medkabks02rpG*52/12
+(735 real changes made)
+
+->  replace medkabks02rpGA=medkabks02rpGA*52/12
+(0 real changes made)
+
+->  replace medkabks02rpH=medkabks02rpH*52/12
+(4005 real changes made)
+
+->  replace medkabks02rpHA=medkabks02rpHA*52/12
+(5958 real changes made)
+
+->  replace medkabks02rpI=medkabks02rpI*52/12
+(4258 real changes made)
+
+->  replace medkabks02rpIA=medkabks02rpIA*52/12
+(6810 real changes made)
+
+->  replace medkabks02rpJ=medkabks02rpJ*52/12
+(0 real changes made)
+
+->  replace medkabks02rpK=medkabks02rpK*52/12
+(415 real changes made)
+
+->  replace medkabks02rpL=medkabks02rpL*52/12
+(1159 real changes made)
+
+->  replace medkabks02rpM=medkabks02rpM*52/12
+(3787 real changes made)
+
+->  replace medkabks02rpN=medkabks02rpN*52/12
+(3749 real changes made)
+
+->  replace medkabks02rpO=medkabks02rpO*52/12
+(5910 real changes made)
+
+->  replace medkabks02rpP=medkabks02rpP*52/12
+(3797 real changes made)
+
+->  replace medkabks02rpQ=medkabks02rpQ*52/12
+(241 real changes made)
+
+->  replace medkabks02rpR=medkabks02rpR*52/12
+(2149 real changes made)
+
+->  replace medkabks02rpS=medkabks02rpS*52/12
+(5947 real changes made)
+
+->  replace medkabks02rpT=medkabks02rpT*52/12
+(2911 real changes made)
+
+->  replace medkabks02rpU=medkabks02rpU*52/12
+(0 real changes made)
+
+->  replace medkabks02rpV=medkabks02rpV*52/12
+(6974 real changes made)
+
+->  replace medkabks02rpW=medkabks02rpW*52/12
+(2858 real changes made)
+
+->  replace medkabks02rpX=medkabks02rpX*52/12
+(18 real changes made)
+
+->  replace medkabks02rpY=medkabks02rpY*52/12
+(7049 real changes made)
+
+->  replace medkabks02rpZ=medkabks02rpZ*52/12
+(18 real changes made)
+
+->  replace medkabks03rpA=medkabks03rpA*52/12
+(475 real changes made)
+
+->  replace medkabks03rpAA=medkabks03rpAA*52/12
+(0 real changes made)
+
+->  replace medkabks03rpB=medkabks03rpB*52/12
+(30 real changes made)
+
+->  replace medkabks03rpBA=medkabks03rpBA*52/12
+(0 real changes made)
+
+->  replace medkabks03rpC=medkabks03rpC*52/12
+(0 real changes made)
+
+->  replace medkabks03rpCA=medkabks03rpCA*52/12
+(0 real changes made)
+
+->  replace medkabks03rpD=medkabks03rpD*52/12
+(373 real changes made)
+
+->  replace medkabks03rpDA=medkabks03rpDA*52/12
+(0 real changes made)
+
+->  replace medkabks03rpE=medkabks03rpE*52/12
+(0 real changes made)
+
+->  replace medkabks03rpEA=medkabks03rpEA*52/12
+(0 real changes made)
+
+->  replace medkabks03rpF=medkabks03rpF*52/12
+(933 real changes made)
+
+->  replace medkabks03rpFA=medkabks03rpFA*52/12
+(0 real changes made)
+
+->  replace medkabks03rpG=medkabks03rpG*52/12
+(0 real changes made)
+
+->  replace medkabks03rpGA=medkabks03rpGA*52/12
+(0 real changes made)
+
+->  replace medkabks03rpH=medkabks03rpH*52/12
+(341 real changes made)
+
+->  replace medkabks03rpHA=medkabks03rpHA*52/12
+(0 real changes made)
+
+->  replace medkabks03rpI=medkabks03rpI*52/12
+(0 real changes made)
+
+->  replace medkabks03rpIA=medkabks03rpIA*52/12
+(0 real changes made)
+
+->  replace medkabks03rpJ=medkabks03rpJ*52/12
+(0 real changes made)
+
+->  replace medkabks03rpK=medkabks03rpK*52/12
+(0 real changes made)
+
+->  replace medkabks03rpL=medkabks03rpL*52/12
+(0 real changes made)
+
+->  replace medkabks03rpM=medkabks03rpM*52/12
+(30 real changes made)
+
+->  replace medkabks03rpN=medkabks03rpN*52/12
+(0 real changes made)
+
+->  replace medkabks03rpO=medkabks03rpO*52/12
+(0 real changes made)
+
+->  replace medkabks03rpP=medkabks03rpP*52/12
+(20 real changes made)
+
+->  replace medkabks03rpQ=medkabks03rpQ*52/12
+(0 real changes made)
+
+->  replace medkabks03rpR=medkabks03rpR*52/12
+(0 real changes made)
+
+->  replace medkabks03rpS=medkabks03rpS*52/12
+(0 real changes made)
+
+->  replace medkabks03rpT=medkabks03rpT*52/12
+(0 real changes made)
+
+->  replace medkabks03rpU=medkabks03rpU*52/12
+(0 real changes made)
+
+->  replace medkabks03rpV=medkabks03rpV*52/12
+(27 real changes made)
+
+->  replace medkabks03rpW=medkabks03rpW*52/12
+(0 real changes made)
+
+->  replace medkabks03rpX=medkabks03rpX*52/12
+(0 real changes made)
+
+->  replace medkabks03rpY=medkabks03rpY*52/12
+(60 real changes made)
+
+->  replace medkabks03rpZ=medkabks03rpZ*52/12
+(0 real changes made)
+
+->  replace mstaple=mstaple*52/12
+(5491 real changes made)
+
+->  replace mvege=mvege*52/12
+(6163 real changes made)
+
+->  replace mdried=mdried*52/12
+(3907 real changes made)
+
+->  replace mmeat=mmeat*52/12
+(5183 real changes made)
+
+->  replace mfish=mfish*52/12
+(5371 real changes made)
+
+->  replace mdairy=mdairy*52/12
+(4093 real changes made)
+
+->  replace moil=moil*52/12
+(5902 real changes made)
+
+->  replace mspices=mspices*52/12
+(6848 real changes made)
+
+->  replace mbeve=mbeve*52/12
+(5670 real changes made)
+
+->  replace maltb=maltb*52/12
+(4393 real changes made)
+
+->  replace msnack=msnack*52/12
+(5432 real changes made)
+
+->  replace mrice=mrice*52/12
+(4587 real changes made)
+
+->  replace mtob=mtob*52/12
+(4372 real changes made)
+
+->  replace mfood=mfood*52/12
+(7142 real changes made)
+
+->  replace istaple=istaple*52/12
+(1805 real changes made)
+
+->  replace ivege=ivege*52/12
+(2278 real changes made)
+
+->  replace idried=idried*52/12
+(27 real changes made)
+
+->  replace imeat=imeat*52/12
+(371 real changes made)
+
+->  replace ifish=ifish*52/12
+(402 real changes made)
+
+->  replace idairy=idairy*52/12
+(582 real changes made)
+
+->  replace ioil=ioil*52/12
+(202 real changes made)
+
+->  replace ispices=ispices*52/12
+(524 real changes made)
+
+->  replace ibeve=ibeve*52/12
+(238 real changes made)
+
+->  replace ialtb=ialtb*52/12
+(60 real changes made)
+
+->  replace isnack=isnack*52/12
+(172 real changes made)
+
+->  replace irice=irice*52/12
+(1102 real changes made)
+
+->  replace itob=itob*52/12
+(52 real changes made)
+
+->  replace ifood=ifood*52/12
+(3433 real changes made)
+
+->  replace xstaple=xstaple*52/12
+(6317 real changes made)
+
+->  replace xvege=xvege*52/12
+(6783 real changes made)
+
+->  replace xdried=xdried*52/12
+(3925 real changes made)
+
+->  replace xmeat=xmeat*52/12
+(5262 real changes made)
+
+->  replace xfish=xfish*52/12
+(5583 real changes made)
+
+->  replace xdairy=xdairy*52/12
+(4461 real changes made)
+
+->  replace xoil=xoil*52/12
+(6092 real changes made)
+
+->  replace xspices=xspices*52/12
+(6858 real changes made)
+
+->  replace xbeve=xbeve*52/12
+(5811 real changes made)
+
+->  replace xaltb=xaltb*52/12
+(4430 real changes made)
+
+->  replace xsnack=xsnack*52/12
+(5485 real changes made)
+
+->  replace xrice=xrice*52/12
+(5638 real changes made)
+
+->  replace xtob=xtob*52/12
+(4409 real changes made)
+
+->  replace xfood=xfood*52/12
+(7149 real changes made)
+
+. *Label
+> lab var mstaple "Monthly food consump. ks02: staple";
+. lab var mvege "Monthly food consump. ks02: vegetable";
+
+. lab var mdried "Monthly food consump. ks02: dried food";
+
+. lab var mmeat "Monthly food consump. ks02: meat";
+
+. lab var mfish "Monthly food consump. ks02: fish";
+
+. lab var mdairy "Monthly food consump. ks02: dairy";
+
+. lab var moil  "Monthly food consump. ks02: oil";
+
+. lab var mspices "Monthly food consump. ks02: spices";
+
+. lab var mbeve "Monthly food consump. ks02: beverage";
+
+. lab var maltb "Monthly food consump. ks02: alcohol, tobacco";
+
+. lab var msnack "Monthly food consump. ks02: snacks";
+
+. lab var istaple "Monthly food consump. ks03: staple";
+
+. lab var ivege "Monthly food consump. ks03: vegetable";
+
+. lab var idried "Monthly food consump. ks03: dried food";
+
+. lab var imeat "Monthly food consump. ks03: meat";
+
+. lab var ifish "Monthly food consump. ks03: fish";
+
+. lab var idairy "Monthly food consump. ks03: dairy";
+
+. lab var ioil  "Monthly food consump. ks03: oil";
+
+. lab var ispices "Monthly food consump. ks03: spices";
+
+. lab var ibeve "Monthly food consump. ks03: beverage";
+
+. lab var ialtb "Monthly food consump. ks03: alcohol, tobacco";
+
+. lab var isnack "Monthly food consump. ks03: snacks";
+
+. lab var xstaple "Monthly food consump. ks02+ks03: staple";
+
+. lab var xvege "Monthly food consump. ks02+ks03: vegetable";
+
+. lab var xdried "Monthly food consump. ks02+ks03: dried food";
+
+. lab var xmeat "Monthly food consump. ks02+ks03: meat";
+
+. lab var xfish "Monthly food consump. ks02+ks03: fish";
+
+. lab var xdairy "Monthly food consump. ks02+ks03: dairy";
+
+. lab var xoil  "Monthly food consump. ks02+ks03: oil";
+
+. lab var xspices "Monthly food consump. ks02+ks03: spices";
+
+. lab var xbeve "Monthly food consump. ks02+ks03: beverage";
+
+. lab var xaltb "Monthly food consump. ks02+ks03: alcohol, tobacco";
+
+. lab var xsnack "Monthly food consump. ks02+ks03: snacks";
+
+. lab var mrice "Monthly food consump. ks02: rice";
+
+. lab var irice "Monthly food consump. ks03: rice";
+
+. lab var xrice "Monthly food consump. ks02+ks03: rice";
+
+. lab var mtob "Monthly food consump. ks02: tobacco";
+
+. lab var itob "Monthly food consump. ks03: tobacco";
+
+. lab var xtob "Monthly food consump. ks02+ks03: tobacco";
+
+. lab var mfood "Monthly food consump. ks02: all food";
+
+. lab var ifood "Monthly food consump. ks03: all food";
+
+. lab var xfood "Monthly food consump. ks02+ks03: all food";
+
+. drop med*;
+
+. keep hhid93  x* i* m* commid93 kecid93 kabid93 provid93 ;
+
+. sort hhid93;
+
+. save $dir0\foodexp, replace;
+file C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\temp\\foodexp.dta saved
+
+. ****************** Food KS2A (transfer in and out);
+. * - If missing, impute by: commid median and up to kecamatan, kabupaten;
+. * - Convert to monthly;
+. ******************;
+. *Weekly need to convert to monthly;
+. use $dir1\buk1ks2a, clear;
+(SAS creation date 15MAR00:14:43)
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\kabkec93;
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |          2        0.03        0.03
+          2 |         10        0.14        0.17
+          3 |      7,214       99.83      100.00
+------------+-----------------------------------
+      Total |      7,226      100.00
+
+. keep if _merge==3;
+(12 observations deleted)
+
+. drop _merge;
+
+. gen miss_ks04a1=0;
+
+. gen miss_ks04b1=0;
+
+. gen na_ks04a1=0;
+
+. gen na_ks04b1=0;
+
+. replace miss_ks04a1=1 if ks04a1>=999997;
+(65 real changes made)
+
+. replace miss_ks04b1=1 if ks04b1>=999997;
+(91 real changes made)
+
+. replace na_ks04a1=1 if ks04a1==999996;
+(10 real changes made)
+
+. replace na_ks04b1=1 if ks04b1==999996;
+(10 real changes made)
+
+. for var ks04*: replace X=. if X>=999995;
+
+->  replace ks04a1=. if ks04a1>=999995
+(75 real changes made, 75 to missing)
+
+->  replace ks04b1=. if ks04b1>=999995
+(102 real changes made, 102 to missing)
+
+. for var ks04*: egen medcomX=median(X), by(commid93);
+
+->  egen medcomks04a1=median(ks04a1), by(commid93)
+
+->  egen medcomks04b1=median(ks04b1), by(commid93)
+
+. for var ks04*: egen medkecX=median(X), by(kecid93);
+
+->  egen medkecks04a1=median(ks04a1), by(kecid93)
+
+->  egen medkecks04b1=median(ks04b1), by(kecid93)
+
+. for var ks04*: egen medkabX=median(X), by(kabid93);
+
+->  egen medkabks04a1=median(ks04a1), by(kabid93)
+
+->  egen medkabks04b1=median(ks04b1), by(kabid93)
+
+. replace ks04a1=medcomks04a1 if ks04a1==. & na_ks04a1==0;
+(65 real changes made)
+
+. replace ks04a1=medkecks04a1 if ks04a1==. & na_ks04a1==0;
+(0 real changes made)
+
+. replace ks04a1=medkabks04a1 if ks04a1==. & na_ks04a1==0;
+(0 real changes made)
+
+. replace ks04b1=medcomks04b1 if ks04b1==. & na_ks04b1==0;
+(92 real changes made)
+
+. replace ks04b1=medkecks04b1 if ks04b1==. & na_ks04b1==0;
+(0 real changes made)
+
+. replace ks04b1=medkabks04b1 if ks04b1==. & na_ks04b1==0;
+(0 real changes made)
+
+. *Convert to monthly;
+. for var ks04*: replace X=X*52/12;
+
+->  replace ks04a1=ks04a1*52/12
+ks04a1 was long now double
+(1890 real changes made)
+
+->  replace ks04b1=ks04b1*52/12
+ks04b1 was long now double
+(2090 real changes made)
+
+. rename ks04a1 xfdin;
+
+. rename ks04b1 xfdout;
+
+. lab var ks05a "Is ks04a1 per HH?";
+
+. lab var ks05b "Is ks04b1 per HH?";
+
+. lab var xfdin "Monthly food transfer in - ks04a1";
+
+. lab var xfdout "Monthly food transfer out - ks04b1";
+
+. keep hhid93 commid93 kecid93 kabid93 xfd* ks05* ;
+
+. sort hhid93 ;
+
+. save $dir0\foodtr, replace;
+file C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\temp\\foodtr.dta saved
+
+. ****************** NON-FOOD 2;
+. * - If missing, impute by: commid median and up to kecamatan, kabupaten;
+. * - Already  monthly;
+. ******************;
+. use $dir1\buk1ks2b, clear;
+(SAS creation date 15MAR00:14:43)
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\kabkec93;
+variable hhid93 does not uniquely identify observations in the master data
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |         14        0.03        0.03
+          2 |         10        0.02        0.05
+          3 |     50,498       99.95      100.00
+------------+-----------------------------------
+      Total |     50,522      100.00
+
+. keep if _merge==3;
+(24 observations deleted)
+
+. drop _merge;
+
+. keep ks06rp hhid93 nf_item1 commid93 kecid93 kabid93 ks07;
+
+. reshape wide ks06rp ks07, i(hhid93) j(nf_item1) ;
+(note: j = 1 2 3 4 5 6 7)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    50498   ->    7214
+Number of variables                   7   ->      18
+j variable (7 values)          nf_item1   ->   (dropped)
+xij variables:
+                                 ks06rp   ->   ks06rp1 ks06rp2 ... ks06rp7
+                                   ks07   ->   ks071 ks072 ... ks077
+-----------------------------------------------------------------------------
+
+. for var ks06rp*: gen missX=0;
+
+->  gen missks06rp1=0
+
+->  gen missks06rp2=0
+
+->  gen missks06rp3=0
+
+->  gen missks06rp4=0
+
+->  gen missks06rp5=0
+
+->  gen missks06rp6=0
+
+->  gen missks06rp7=0
+
+. for var ks06rp*: gen naX=0;
+
+->  gen naks06rp1=0
+
+->  gen naks06rp2=0
+
+->  gen naks06rp3=0
+
+->  gen naks06rp4=0
+
+->  gen naks06rp5=0
+
+->  gen naks06rp6=0
+
+->  gen naks06rp7=0
+
+. for var ks06rp*: replace missX=1 if X>=999997;
+
+->  replace missks06rp1=1 if ks06rp1>=999997
+(9 real changes made)
+
+->  replace missks06rp2=1 if ks06rp2>=999997
+(20 real changes made)
+
+->  replace missks06rp3=1 if ks06rp3>=999997
+(28 real changes made)
+
+->  replace missks06rp4=1 if ks06rp4>=999997
+(23 real changes made)
+
+->  replace missks06rp5=1 if ks06rp5>=999997
+(56 real changes made)
+
+->  replace missks06rp6=1 if ks06rp6>=999997
+(16 real changes made)
+
+->  replace missks06rp7=1 if ks06rp7>=999997
+(22 real changes made)
+
+. for var ks06rp*: replace naX=1 if X==999996;
+
+->  replace naks06rp1=1 if ks06rp1==999996
+(10 real changes made)
+
+->  replace naks06rp2=1 if ks06rp2==999996
+(10 real changes made)
+
+->  replace naks06rp3=1 if ks06rp3==999996
+(10 real changes made)
+
+->  replace naks06rp4=1 if ks06rp4==999996
+(10 real changes made)
+
+->  replace naks06rp5=1 if ks06rp5==999996
+(10 real changes made)
+
+->  replace naks06rp6=1 if ks06rp6==999996
+(10 real changes made)
+
+->  replace naks06rp7=1 if ks06rp7==999996
+(10 real changes made)
+
+. for var ks06rp*: replace X=. if X>=999995;
+
+->  replace ks06rp1=. if ks06rp1>=999995
+(20 real changes made, 20 to missing)
+
+->  replace ks06rp2=. if ks06rp2>=999995
+(32 real changes made, 32 to missing)
+
+->  replace ks06rp3=. if ks06rp3>=999995
+(39 real changes made, 39 to missing)
+
+->  replace ks06rp4=. if ks06rp4>=999995
+(37 real changes made, 37 to missing)
+
+->  replace ks06rp5=. if ks06rp5>=999995
+(72 real changes made, 72 to missing)
+
+->  replace ks06rp6=. if ks06rp6>=999995
+(27 real changes made, 27 to missing)
+
+->  replace ks06rp7=. if ks06rp7>=999995
+(33 real changes made, 33 to missing)
+
+. for var ks06rp*: egen medcomX=median(X), by(commid93);
+
+->  egen medcomks06rp1=median(ks06rp1), by(commid93)
+
+->  egen medcomks06rp2=median(ks06rp2), by(commid93)
+
+->  egen medcomks06rp3=median(ks06rp3), by(commid93)
+
+->  egen medcomks06rp4=median(ks06rp4), by(commid93)
+
+->  egen medcomks06rp5=median(ks06rp5), by(commid93)
+
+->  egen medcomks06rp6=median(ks06rp6), by(commid93)
+
+->  egen medcomks06rp7=median(ks06rp7), by(commid93)
+
+. for var ks06rp*: egen medkecX=median(X), by(kecid93);
+
+->  egen medkecks06rp1=median(ks06rp1), by(kecid93)
+
+->  egen medkecks06rp2=median(ks06rp2), by(kecid93)
+
+->  egen medkecks06rp3=median(ks06rp3), by(kecid93)
+
+->  egen medkecks06rp4=median(ks06rp4), by(kecid93)
+
+->  egen medkecks06rp5=median(ks06rp5), by(kecid93)
+
+->  egen medkecks06rp6=median(ks06rp6), by(kecid93)
+
+->  egen medkecks06rp7=median(ks06rp7), by(kecid93)
+
+. for var ks06rp*: egen medkabX=median(X), by(kabid93);
+
+->  egen medkabks06rp1=median(ks06rp1), by(kabid93)
+
+->  egen medkabks06rp2=median(ks06rp2), by(kabid93)
+
+->  egen medkabks06rp3=median(ks06rp3), by(kabid93)
+
+->  egen medkabks06rp4=median(ks06rp4), by(kabid93)
+
+->  egen medkabks06rp5=median(ks06rp5), by(kabid93)
+
+->  egen medkabks06rp6=median(ks06rp6), by(kabid93)
+
+->  egen medkabks06rp7=median(ks06rp7), by(kabid93)
+
+. for var ks06rp*: replace X=medcomX if X==. & naX==0;
+
+->  replace ks06rp1=medcomks06rp1 if ks06rp1==. & naks06rp1==0
+(10 real changes made)
+
+->  replace ks06rp2=medcomks06rp2 if ks06rp2==. & naks06rp2==0
+(22 real changes made)
+
+->  replace ks06rp3=medcomks06rp3 if ks06rp3==. & naks06rp3==0
+(29 real changes made)
+
+->  replace ks06rp4=medcomks06rp4 if ks06rp4==. & naks06rp4==0
+(27 real changes made)
+
+->  replace ks06rp5=medcomks06rp5 if ks06rp5==. & naks06rp5==0
+(62 real changes made)
+
+->  replace ks06rp6=medcomks06rp6 if ks06rp6==. & naks06rp6==0
+(17 real changes made)
+
+->  replace ks06rp7=medcomks06rp7 if ks06rp7==. & naks06rp7==0
+(23 real changes made)
+
+. for var ks06rp*: replace X=medkecX if X==. & naX==0;
+
+->  replace ks06rp1=medkecks06rp1 if ks06rp1==. & naks06rp1==0
+(0 real changes made)
+
+->  replace ks06rp2=medkecks06rp2 if ks06rp2==. & naks06rp2==0
+(0 real changes made)
+
+->  replace ks06rp3=medkecks06rp3 if ks06rp3==. & naks06rp3==0
+(0 real changes made)
+
+->  replace ks06rp4=medkecks06rp4 if ks06rp4==. & naks06rp4==0
+(0 real changes made)
+
+->  replace ks06rp5=medkecks06rp5 if ks06rp5==. & naks06rp5==0
+(0 real changes made)
+
+->  replace ks06rp6=medkecks06rp6 if ks06rp6==. & naks06rp6==0
+(0 real changes made)
+
+->  replace ks06rp7=medkecks06rp7 if ks06rp7==. & naks06rp7==0
+(0 real changes made)
+
+. for var ks06rp*: replace X=medkabX if X==. & naX==0;
+
+->  replace ks06rp1=medkabks06rp1 if ks06rp1==. & naks06rp1==0
+(0 real changes made)
+
+->  replace ks06rp2=medkabks06rp2 if ks06rp2==. & naks06rp2==0
+(0 real changes made)
+
+->  replace ks06rp3=medkabks06rp3 if ks06rp3==. & naks06rp3==0
+(0 real changes made)
+
+->  replace ks06rp4=medkabks06rp4 if ks06rp4==. & naks06rp4==0
+(0 real changes made)
+
+->  replace ks06rp5=medkabks06rp5 if ks06rp5==. & naks06rp5==0
+(0 real changes made)
+
+->  replace ks06rp6=medkabks06rp6 if ks06rp6==. & naks06rp6==0
+(0 real changes made)
+
+->  replace ks06rp7=medkabks06rp7 if ks06rp7==. & naks06rp7==0
+(0 real changes made)
+
+. *utility personal medical cerem tax other  transf;
+. lab var ks06rp1 "Monthly non-food exp. ks06rp: utility";
+
+. lab var ks06rp2 "Monthly non-food exp. ks06rp: personal items";
+
+. lab var ks06rp3 "Monthly non-food exp. ks06rp: hh goods";
+
+. lab var ks06rp4 "Monthly non-food exp. ks06rp: recreation";
+
+. lab var ks06rp5 "Monthly non-food exp. ks06rp: transportation";
+
+. lab var ks06rp6 "Monthly non-food exp. ks06rp: lottery";
+
+. lab var ks06rp7 "Monthly non-food exp. ks06rp: transfer";
+
+. rename ks06rp1 xutility;
+
+. rename ks06rp2 xpersonal;
+
+. rename ks06rp3 xhhgood;
+
+. rename ks06rp4 xrecreat;
+
+. rename ks06rp5 xtransp;
+
+. rename ks06rp6 xlottery;
+
+. rename ks06rp7 xtransfer;
+
+. *xnonfood2 IS ALL KS06 EXCLUDING TRANSFER AND ARISAN ;
+. gen xnonfood2=xutility+xpersonal+xhhgood+xrecreat+xtransp+xlottery;
+(10 missing values generated)
+
+. lab var xnonfood2 "Monthly non-food exp. ks06rp: all";
+
+. drop med* na* miss*;
+
+. sort hhid93;
+
+. save $dir0\nfoodks2, replace;
+file C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\temp\\nfoodks2.dta saved
+
+. ****************** NON-FOOD 2 (DURABLES);
+. * - If missing, impute by: commid median and up to kecamatan, kabupaten;
+. * - Convert annual to monthly;
+. ******************;
+. use $dir1\buk1ks3a, clear;
+(SAS creation date 15MAR00:14:43)
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\kabkec93;
+variable hhid93 does not uniquely identify observations in the master data
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |         12        0.03        0.03
+          2 |         10        0.02        0.05
+          3 |     43,284       99.95      100.00
+------------+-----------------------------------
+      Total |     43,306      100.00
+
+. keep if _merge==3;
+(22 observations deleted)
+
+. drop _merge;
+
+. keep ks08rp hhid93 nf_item2 commid93 kecid93 kabid93 ks09;
+
+. reshape wide ks08rp ks09, i(hhid93) j(nf_item2) ;
+(note: j = 1 2 3 4 5 6)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    43284   ->    7214
+Number of variables                   7   ->      16
+j variable (6 values)          nf_item2   ->   (dropped)
+xij variables:
+                                 ks08rp   ->   ks08rp1 ks08rp2 ... ks08rp6
+                                   ks09   ->   ks091 ks092 ... ks096
+-----------------------------------------------------------------------------
+
+. for var ks08rp*: gen missX=0;
+
+->  gen missks08rp1=0
+
+->  gen missks08rp2=0
+
+->  gen missks08rp3=0
+
+->  gen missks08rp4=0
+
+->  gen missks08rp5=0
+
+->  gen missks08rp6=0
+
+. for var ks08rp*: gen naX=0;
+
+->  gen naks08rp1=0
+
+->  gen naks08rp2=0
+
+->  gen naks08rp3=0
+
+->  gen naks08rp4=0
+
+->  gen naks08rp5=0
+
+->  gen naks08rp6=0
+
+. for var ks08rp*: replace missX=1 if X>=99999997;
+
+->  replace missks08rp1=1 if ks08rp1>=99999997
+(89 real changes made)
+
+->  replace missks08rp2=1 if ks08rp2>=99999997
+(27 real changes made)
+
+->  replace missks08rp3=1 if ks08rp3>=99999997
+(73 real changes made)
+
+->  replace missks08rp4=1 if ks08rp4>=99999997
+(147 real changes made)
+
+->  replace missks08rp5=1 if ks08rp5>=99999997
+(125 real changes made)
+
+->  replace missks08rp6=1 if ks08rp6>=99999997
+(26 real changes made)
+
+. for var ks08rp*: replace naX=1 if X==99999996;
+
+->  replace naks08rp1=1 if ks08rp1==99999996
+(10 real changes made)
+
+->  replace naks08rp2=1 if ks08rp2==99999996
+(13 real changes made)
+
+->  replace naks08rp3=1 if ks08rp3==99999996
+(12 real changes made)
+
+->  replace naks08rp4=1 if ks08rp4==99999996
+(13 real changes made)
+
+->  replace naks08rp5=1 if ks08rp5==99999996
+(14 real changes made)
+
+->  replace naks08rp6=1 if ks08rp6==99999996
+(12 real changes made)
+
+. for var ks08rp*: replace X=. if X>=99999995;
+
+->  replace ks08rp1=. if ks08rp1>=99999995
+(99 real changes made, 99 to missing)
+
+->  replace ks08rp2=. if ks08rp2>=99999995
+(40 real changes made, 40 to missing)
+
+->  replace ks08rp3=. if ks08rp3>=99999995
+(85 real changes made, 85 to missing)
+
+->  replace ks08rp4=. if ks08rp4>=99999995
+(163 real changes made, 163 to missing)
+
+->  replace ks08rp5=. if ks08rp5>=99999995
+(140 real changes made, 140 to missing)
+
+->  replace ks08rp6=. if ks08rp6>=99999995
+(38 real changes made, 38 to missing)
+
+. for var ks08rp*: egen medcomX=median(X), by(commid93);
+
+->  egen medcomks08rp1=median(ks08rp1), by(commid93)
+
+->  egen medcomks08rp2=median(ks08rp2), by(commid93)
+
+->  egen medcomks08rp3=median(ks08rp3), by(commid93)
+
+->  egen medcomks08rp4=median(ks08rp4), by(commid93)
+
+->  egen medcomks08rp5=median(ks08rp5), by(commid93)
+
+->  egen medcomks08rp6=median(ks08rp6), by(commid93)
+
+. for var ks08rp*: egen medkecX=median(X), by(kecid93);
+
+->  egen medkecks08rp1=median(ks08rp1), by(kecid93)
+
+->  egen medkecks08rp2=median(ks08rp2), by(kecid93)
+
+->  egen medkecks08rp3=median(ks08rp3), by(kecid93)
+
+->  egen medkecks08rp4=median(ks08rp4), by(kecid93)
+
+->  egen medkecks08rp5=median(ks08rp5), by(kecid93)
+
+->  egen medkecks08rp6=median(ks08rp6), by(kecid93)
+
+. for var ks08rp*: egen medkabX=median(X), by(kabid93);
+
+->  egen medkabks08rp1=median(ks08rp1), by(kabid93)
+
+->  egen medkabks08rp2=median(ks08rp2), by(kabid93)
+
+->  egen medkabks08rp3=median(ks08rp3), by(kabid93)
+
+->  egen medkabks08rp4=median(ks08rp4), by(kabid93)
+
+->  egen medkabks08rp5=median(ks08rp5), by(kabid93)
+
+->  egen medkabks08rp6=median(ks08rp6), by(kabid93)
+
+. for var ks08rp*: replace X=medcomX if X==. & naX==0;
+
+->  replace ks08rp1=medcomks08rp1 if ks08rp1==. & naks08rp1==0
+(89 real changes made)
+
+->  replace ks08rp2=medcomks08rp2 if ks08rp2==. & naks08rp2==0
+(27 real changes made)
+
+->  replace ks08rp3=medcomks08rp3 if ks08rp3==. & naks08rp3==0
+(73 real changes made)
+
+->  replace ks08rp4=medcomks08rp4 if ks08rp4==. & naks08rp4==0
+(150 real changes made)
+
+->  replace ks08rp5=medcomks08rp5 if ks08rp5==. & naks08rp5==0
+ks08rp5 was long now double
+(126 real changes made)
+
+->  replace ks08rp6=medcomks08rp6 if ks08rp6==. & naks08rp6==0
+(26 real changes made)
+
+. for var ks08rp*: replace X=medkecX if X==. & naX==0;
+
+->  replace ks08rp1=medkecks08rp1 if ks08rp1==. & naks08rp1==0
+(0 real changes made)
+
+->  replace ks08rp2=medkecks08rp2 if ks08rp2==. & naks08rp2==0
+(0 real changes made)
+
+->  replace ks08rp3=medkecks08rp3 if ks08rp3==. & naks08rp3==0
+(0 real changes made)
+
+->  replace ks08rp4=medkecks08rp4 if ks08rp4==. & naks08rp4==0
+(0 real changes made)
+
+->  replace ks08rp5=medkecks08rp5 if ks08rp5==. & naks08rp5==0
+(0 real changes made)
+
+->  replace ks08rp6=medkecks08rp6 if ks08rp6==. & naks08rp6==0
+(0 real changes made)
+
+. for var ks08rp*: replace X=medkabX if X==. & naX==0;
+
+->  replace ks08rp1=medkabks08rp1 if ks08rp1==. & naks08rp1==0
+(0 real changes made)
+
+->  replace ks08rp2=medkabks08rp2 if ks08rp2==. & naks08rp2==0
+(0 real changes made)
+
+->  replace ks08rp3=medkabks08rp3 if ks08rp3==. & naks08rp3==0
+(0 real changes made)
+
+->  replace ks08rp4=medkabks08rp4 if ks08rp4==. & naks08rp4==0
+(0 real changes made)
+
+->  replace ks08rp5=medkabks08rp5 if ks08rp5==. & naks08rp5==0
+(0 real changes made)
+
+->  replace ks08rp6=medkabks08rp6 if ks08rp6==. & naks08rp6==0
+(0 real changes made)
+
+. *monthly;
+. for var ks08rp*: replace X=X/12;
+
+->  replace ks08rp1=ks08rp1/12
+ks08rp1 was long now double
+(6485 real changes made)
+
+->  replace ks08rp2=ks08rp2/12
+ks08rp2 was long now double
+(3450 real changes made)
+
+->  replace ks08rp3=ks08rp3/12
+ks08rp3 was long now double
+(5738 real changes made)
+
+->  replace ks08rp4=ks08rp4/12
+ks08rp4 was long now double
+(6549 real changes made)
+
+->  replace ks08rp5=ks08rp5/12
+(4971 real changes made)
+
+->  replace ks08rp6=ks08rp6/12
+ks08rp6 was long now double
+(1225 real changes made)
+
+. *cloth furn medical cerem tax other  ;
+. lab var ks08rp1 "Monthly non-food exp. ks08rp: clothing";
+
+. lab var ks08rp2 "Monthly non-food exp. ks08rp: furniture";
+
+. lab var ks08rp3 "Monthly non-food exp. ks08rp: medical";
+
+. lab var ks08rp4 "Monthly non-food exp. ks08rp: ceremonies";
+
+. lab var ks08rp5 "Monthly non-food exp. ks08rp: tax";
+
+. lab var ks08rp6 "Monthly non-food exp. ks08rp: other";
+
+. rename ks08rp1 xcloth;
+
+. rename ks08rp2 xfurn;
+
+. rename ks08rp3 xmedical;
+
+. rename ks08rp4 xcerem;
+
+. rename ks08rp5 xtax;
+
+. rename ks08rp6 xoth;
+
+. gen xnonfood3=xcloth+xfurn+xmedical+xcerem+xtax+xoth;
+(16 missing values generated)
+
+. lab var xnonfood3 "Monthly non-food exp. ks08rp: all";
+
+. drop med* na* miss* ;
+
+. sort hhid93;
+
+. save $dir0\nfoodks3, replace;
+file C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\temp\\nfoodks3.dta saved
+
+. ****************** EDUCATION;
+. * - If missing, impute by: commid median and up to kecamatan, kabupaten;
+. * - Convert the annual to  monthly;
+. ******************;
+. use $dir1\buk1ks3b, clear;
+(SAS creation date 15MAR00:14:43)
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\kabkec93;
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |          2        0.03        0.03
+          2 |         10        0.14        0.17
+          3 |      7,214       99.83      100.00
+------------+-----------------------------------
+      Total |      7,226      100.00
+
+. keep if _merge==3;
+(12 observations deleted)
+
+. drop _merge;
+
+. for var ks1*1: gen missX=0;
+
+->  gen missks10a1=0
+
+->  gen missks10b1=0
+
+->  gen missks11a1=0
+
+->  gen missks11b1=0
+
+->  gen missks12b1=0
+
+. for var ks1*1: gen naX=0;
+
+->  gen naks10a1=0
+
+->  gen naks10b1=0
+
+->  gen naks11a1=0
+
+->  gen naks11b1=0
+
+->  gen naks12b1=0
+
+. for var ks1*1: replace missX=1 if X>=999997;
+
+->  replace missks10a1=1 if ks10a1>=999997
+(36 real changes made)
+
+->  replace missks10b1=1 if ks10b1>=999997
+(42 real changes made)
+
+->  replace missks11a1=1 if ks11a1>=999997
+(92 real changes made)
+
+->  replace missks11b1=1 if ks11b1>=999997
+(57 real changes made)
+
+->  replace missks12b1=1 if ks12b1>=999997
+(44 real changes made)
+
+. for var ks1*1: replace naX=1 if X==999996;
+
+->  replace naks10a1=1 if ks10a1==999996
+(114 real changes made)
+
+->  replace naks10b1=1 if ks10b1==999996
+(294 real changes made)
+
+->  replace naks11a1=1 if ks11a1==999996
+(115 real changes made)
+
+->  replace naks11b1=1 if ks11b1==999996
+(294 real changes made)
+
+->  replace naks12b1=1 if ks12b1==999996
+(292 real changes made)
+
+. for var ks1*1: replace X=. if X>=999995;
+
+->  replace ks10a1=. if ks10a1>=999995
+(161 real changes made, 161 to missing)
+
+->  replace ks10b1=. if ks10b1>=999995
+(340 real changes made, 340 to missing)
+
+->  replace ks11a1=. if ks11a1>=999995
+(235 real changes made, 235 to missing)
+
+->  replace ks11b1=. if ks11b1>=999995
+(368 real changes made, 368 to missing)
+
+->  replace ks12b1=. if ks12b1>=999995
+(337 real changes made, 337 to missing)
+
+. for var ks1*1: egen medcomX=median(X), by(commid93);
+
+->  egen medcomks10a1=median(ks10a1), by(commid93)
+
+->  egen medcomks10b1=median(ks10b1), by(commid93)
+(20 missing values generated)
+
+->  egen medcomks11a1=median(ks11a1), by(commid93)
+
+->  egen medcomks11b1=median(ks11b1), by(commid93)
+(20 missing values generated)
+
+->  egen medcomks12b1=median(ks12b1), by(commid93)
+(20 missing values generated)
+
+. for var ks1*1: egen medkecX=median(X), by(kecid93);
+
+->  egen medkecks10a1=median(ks10a1), by(kecid93)
+
+->  egen medkecks10b1=median(ks10b1), by(kecid93)
+(20 missing values generated)
+
+->  egen medkecks11a1=median(ks11a1), by(kecid93)
+
+->  egen medkecks11b1=median(ks11b1), by(kecid93)
+(20 missing values generated)
+
+->  egen medkecks12b1=median(ks12b1), by(kecid93)
+(20 missing values generated)
+
+. for var ks1*1: egen medkabX=median(X), by(kabid93);
+
+->  egen medkabks10a1=median(ks10a1), by(kabid93)
+
+->  egen medkabks10b1=median(ks10b1), by(kabid93)
+(20 missing values generated)
+
+->  egen medkabks11a1=median(ks11a1), by(kabid93)
+
+->  egen medkabks11b1=median(ks11b1), by(kabid93)
+(20 missing values generated)
+
+->  egen medkabks12b1=median(ks12b1), by(kabid93)
+(20 missing values generated)
+
+. for var ks1*1: replace X=medcomX if X==. & naX==0;
+
+->  replace ks10a1=medcomks10a1 if ks10a1==. & naks10a1==0
+(47 real changes made)
+
+->  replace ks10b1=medcomks10b1 if ks10b1==. & naks10b1==0
+(46 real changes made)
+
+->  replace ks11a1=medcomks11a1 if ks11a1==. & naks11a1==0
+ks11a1 was long now double
+(120 real changes made)
+
+->  replace ks11b1=medcomks11b1 if ks11b1==. & naks11b1==0
+(74 real changes made)
+
+->  replace ks12b1=medcomks12b1 if ks12b1==. & naks12b1==0
+(44 real changes made)
+
+. for var ks1*1: replace X=medkecX if X==. & naX==0;
+
+->  replace ks10a1=medkecks10a1 if ks10a1==. & naks10a1==0
+(0 real changes made)
+
+->  replace ks10b1=medkecks10b1 if ks10b1==. & naks10b1==0
+(0 real changes made)
+
+->  replace ks11a1=medkecks11a1 if ks11a1==. & naks11a1==0
+(0 real changes made)
+
+->  replace ks11b1=medkecks11b1 if ks11b1==. & naks11b1==0
+(0 real changes made)
+
+->  replace ks12b1=medkecks12b1 if ks12b1==. & naks12b1==0
+(0 real changes made)
+
+. for var ks1*1: replace X=medkabX if X==. & naX==0;
+
+->  replace ks10a1=medkabks10a1 if ks10a1==. & naks10a1==0
+(0 real changes made)
+
+->  replace ks10b1=medkabks10b1 if ks10b1==. & naks10b1==0
+(0 real changes made)
+
+->  replace ks11a1=medkabks11a1 if ks11a1==. & naks11a1==0
+(0 real changes made)
+
+->  replace ks11b1=medkabks11b1 if ks11b1==. & naks11b1==0
+(0 real changes made)
+
+->  replace ks12b1=medkabks12b1 if ks12b1==. & naks12b1==0
+(0 real changes made)
+
+. for var ks1*1: replace X=0 if X==. & naX==0;
+
+->  replace ks10a1=0 if ks10a1==. & naks10a1==0
+(0 real changes made)
+
+->  replace ks10b1=0 if ks10b1==. & naks10b1==0
+(0 real changes made)
+
+->  replace ks11a1=0 if ks11a1==. & naks11a1==0
+(0 real changes made)
+
+->  replace ks11b1=0 if ks11b1==. & naks11b1==0
+(0 real changes made)
+
+->  replace ks12b1=0 if ks12b1==. & naks12b1==0
+(1 real change made)
+
+. for var ks1*1: replace X=0 if X==. & naX==0;
+
+->  replace ks10a1=0 if ks10a1==. & naks10a1==0
+(0 real changes made)
+
+->  replace ks10b1=0 if ks10b1==. & naks10b1==0
+(0 real changes made)
+
+->  replace ks11a1=0 if ks11a1==. & naks11a1==0
+(0 real changes made)
+
+->  replace ks11b1=0 if ks11b1==. & naks11b1==0
+(0 real changes made)
+
+->  replace ks12b1=0 if ks12b1==. & naks12b1==0
+(0 real changes made)
+
+. for var ks1*1: replace X=0 if X==. & naX==0;
+
+->  replace ks10a1=0 if ks10a1==. & naks10a1==0
+(0 real changes made)
+
+->  replace ks10b1=0 if ks10b1==. & naks10b1==0
+(0 real changes made)
+
+->  replace ks11a1=0 if ks11a1==. & naks11a1==0
+(0 real changes made)
+
+->  replace ks11b1=0 if ks11b1==. & naks11b1==0
+(0 real changes made)
+
+->  replace ks12b1=0 if ks12b1==. & naks12b1==0
+(0 real changes made)
+
+. replace ks11a1=ks11a1/12;
+(3998 real changes made)
+
+. replace ks11b1=ks11b1/12;
+ks11b1 was long now double
+(381 real changes made)
+
+. gen xeducall=ks10a1+ks10b1+ks11a1+ks11b1+ks12b1;
+(317 missing values generated)
+
+. ***!!!;
+. replace xeducall=0 if xeducall==.;
+(317 real changes made)
+
+. lab var ks10a1 "Monthly educ expend ks10a1: tuition in hh";
+
+. lab var ks10b1 "Monthly educ expend ks10b1: tuition out hh";
+
+. lab var ks11a1 "Monthly educ expend ks11a1: other in hh";
+
+. lab var ks11b1 "Monthly educ expend ks11b1: other out hh";
+
+. lab var ks12b1 "Monthly educ expend ks12b1: boarding out hh";
+
+. rename ks10a1 xedutuit;
+
+. rename ks10b1 xedutuitout;
+
+. rename ks11a1 xeduoth;
+
+. rename ks11b1 xeduothout;
+
+. rename ks12b1 xedubordout;
+
+. lab var xeducall "Monthly educ expend: all";
+
+. drop med* na* miss* *_ ks*;
+
+. sort hhid93;
+
+. save $dir0\educexp, replace;
+file C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\temp\\educexp.dta saved
+
+. ******************HOUSING;
+. * - If missing, impute by: commid median and up to kecamatan, kabupaten;
+. * - Already  monthly;
+. ******************;
+. use $dir1\buk1kr1, clear;
+(SAS creation date 15MAR00:14:43)
+
+. keep hhid93 kr03* kr04* kr05* commid93;
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\kabkec93;
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |          2        0.03        0.03
+          2 |         10        0.14        0.17
+          3 |      7,214       99.83      100.00
+------------+-----------------------------------
+      Total |      7,226      100.00
+
+. keep if _merge==3;
+(12 observations deleted)
+
+. drop _merge;
+
+. for var kr04* kr05*: gen missX=0;
+
+->  gen misskr04r1=0
+
+->  gen misskr05r1=0
+
+. for var kr04* kr05*: gen naX=0;
+
+->  gen nakr04r1=0
+
+->  gen nakr05r1=0
+
+. for var kr04* kr05*: replace missX=1 if X>=999997;
+
+->  replace misskr04r1=1 if kr04r1>=999997
+(6573 real changes made)
+
+->  replace misskr05r1=1 if kr05r1>=999997
+(1830 real changes made)
+
+. for var kr04* kr05*: replace naX=1 if X==999996;
+
+->  replace nakr04r1=1 if kr04r1==999996
+(3 real changes made)
+
+->  replace nakr05r1=1 if kr05r1==999996
+(8 real changes made)
+
+. for var kr04* kr05*: replace X=. if X>=999995;
+
+->  replace kr04r1=. if kr04r1>=999995
+(17 real changes made, 17 to missing)
+
+->  replace kr05r1=. if kr05r1>=999995
+(1204 real changes made, 1204 to missing)
+
+. for var kr04* kr05*: egen medcomX=median(X), by(commid93);
+
+->  egen medcomkr04r1=median(kr04r1), by(commid93)
+(4222 missing values generated)
+
+->  egen medcomkr05r1=median(kr05r1), by(commid93)
+
+. for var kr04* kr05*: egen medkecX=median(X), by(kecid93);
+
+->  egen medkeckr04r1=median(kr04r1), by(kecid93)
+(4055 missing values generated)
+
+->  egen medkeckr05r1=median(kr05r1), by(kecid93)
+
+. for var kr04* kr05*: egen medkabX=median(X), by(kabid93);
+
+->  egen medkabkr04r1=median(kr04r1), by(kabid93)
+(2630 missing values generated)
+
+->  egen medkabkr05r1=median(kr05r1), by(kabid93)
+
+. for var kr04* kr05*: replace X=medcomX if X==. & naX==0;
+
+->  replace kr04r1=medcomkr04r1 if kr04r1==. & nakr04r1==0
+kr04r1 was long now double
+(2352 real changes made)
+
+->  replace kr05r1=medcomkr05r1 if kr05r1==. & nakr05r1==0
+(1851 real changes made)
+
+. for var kr04* kr05*: replace X=medkecX if X==. & naX==0;
+
+->  replace kr04r1=medkeckr04r1 if kr04r1==. & nakr04r1==0
+(167 real changes made)
+
+->  replace kr05r1=medkeckr05r1 if kr05r1==. & nakr05r1==0
+(0 real changes made)
+
+. for var kr04* kr05*: replace X=medkabX if X==. & naX==0;
+
+->  replace kr04r1=medkabkr04r1 if kr04r1==. & nakr04r1==0
+(1425 real changes made)
+
+->  replace kr05r1=medkabkr05r1 if kr05r1==. & nakr05r1==0
+(0 real changes made)
+
+. lab var kr04r1 "Monthly rent, rent: kr04r1";
+
+. lab var kr04r1 "Monthly rent, own: kr05r1";
+
+. rename kr04r1 xrent;
+
+. rename kr05r1 xown;
+
+. gen xhouse=xrent if xrent~=.;
+(2633 missing values generated)
+
+. replace xhouse=xown if xrent==. & xown~=.;
+(2627 real changes made)
+
+. lab var xhouse "Monthly housing expend: kr04r1/kr05r1";
+
+. drop med* na* miss* kr*;
+
+. sort hhid93;
+
+. save $dir0\housingexp, replace;
+file C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\temp\\housingexp.dta saved
+
+. ****************** COMBINE;
+. use $dir0\foodexp, clear;
+(SAS creation date 15MAR00:14:43)
+
+. merge hhid93 using $dir0\foodtr;
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          2 |         64        0.89        0.89
+          3 |      7,150       99.11      100.00
+------------+-----------------------------------
+      Total |      7,214      100.00
+
+. drop _merge;
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\nfoodks2;
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          3 |      7,214      100.00      100.00
+------------+-----------------------------------
+      Total |      7,214      100.00
+
+. drop _merge;
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\nfoodks3;
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          3 |      7,214      100.00      100.00
+------------+-----------------------------------
+      Total |      7,214      100.00
+
+. drop _merge;
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\educexp;
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          3 |      7,214      100.00      100.00
+------------+-----------------------------------
+      Total |      7,214      100.00
+
+. drop _merge;
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\housingexp;
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          3 |      7,214      100.00      100.00
+------------+-----------------------------------
+      Total |      7,214      100.00
+
+. drop _merge;
+
+. sort hhid93;
+
+. gen xfoodtot=xfood+xfdin+xfdout;
+(65 missing values generated)
+
+. gen xnonfoodtot=xnonfood2+xnonfood3+xeducall+xhouse;
+(23 missing values generated)
+
+. lab var xfoodtot "Monthly food expend: ks02+ks03+ks04";
+
+. lab var xnonfoodtot "Monthly non-food expend: ks06+ks08+educ";
+
+. gen xhhexp=xfoodtot+xnonfoodtot;
+(78 missing values generated)
+
+. lab var xhhexp "Monthly hh expenditure";
+
+. gen wtobacco=xtob/xhhexp*100;
+(78 missing values generated)
+
+. gen wtobfood=xtob/xfoodtot*100;
+(65 missing values generated)
+
+. gen wrice=xrice/xhhexp*100;
+(78 missing values generated)
+
+. gen wricefood=xrice/xfoodtot*100;
+(65 missing values generated)
+
+. lab  var wtobacco "Monthly share of tobacco out of hhexp";
+
+. lab  var wrice "Monthly share of rice out of hhexp";
+
+. lab  var wtobfood "Monthly share of tobacco out of food expend";
+
+. lab  var wricefood "Monthly share of rice out of food expend";
+
+. sum xhhexp xfoodtot xnonfoodtot wtob* wrice*;
+
+    Variable |       Obs        Mean    Std. Dev.       Min        Max
+-------------+--------------------------------------------------------
+      xhhexp |      7136    297892.1    373372.1       4600    7379754
+    xfoodtot |      7149    157868.9    195606.9   108.3333    5384600
+ xnonfoodtot |      7191    140226.3    257454.6   1141.667    6276667
+    wtobacco |      7136    4.035752    5.684486          0   62.21159
+    wtobfood |      7149    6.726507    9.184765          0        100
+-------------+--------------------------------------------------------
+       wrice |      7136    12.77599    12.16965          0   84.82589
+   wricefood |      7149    20.49162    17.64306          0        100
+
+. compress;
+kabid93 was float now int
+provid93 was float now byte
+
+. sort hhid93;
+
+. merge hhid93 using $dir0\hhsize93;
+
+. tab _merge;
+
+     _merge |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          2 |         10        0.14        0.14
+          3 |      7,214       99.86      100.00
+------------+-----------------------------------
+      Total |      7,224      100.00
+
+. drop _merge;
+
+. gen pce=xhhexp/hhsize;
+(88 missing values generated)
+
+. lab var pce "Monthly HH per capita expenditure";
+
+. sort hhid93;
+
+. compress;
+hhsize93 was float now byte
+
+. lab data "HH expenditure file - 1993";
+
+. compress;
+
+. capture drop med*;
+
+. capture drop miss1*;
+
+. capture drop miss4b;
+
+. capture drop miss7a ;
+
+. capture drop missk*;
+
+.  capture drop kr*;
+
+.  capture drop ks*;
+
+.  capture drop _m*;
+
+. capture drop imptype*;
+
+. capture drop origk*;
+
+. des;
+
+Contains data from C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\temp\\foodexp.dta
+  obs:         7,224                          HH expenditure file - 1993
+ vars:            84                          9 Aug 2007 16:29
+ size:     2,774,016 (94.5% of memory free)
+-------------------------------------------------------------------------------
+              storage  display     value
+variable name   type   format      label      variable label
+-------------------------------------------------------------------------------
+hhid93          str7   %9s                    HHID(93) EA+HHNUM+00
+commid93        str4   %9s                    COMMUNITY ID TO MATCH IFLS2
+                                                COMMID93
+kabid93         int    %9.0g                  
+kecid93         float  %9.0g                  
+provid93        byte   %9.0g                  
+mstaple         float  %9.0g                  
+mvege           float  %9.0g                  Monthly food consump. ks02:
+                                                vegetable
+mdried          float  %9.0g                  Monthly food consump. ks02:
+                                                dried food
+mmeat           float  %9.0g                  Monthly food consump. ks02: meat
+mfish           float  %9.0g                  Monthly food consump. ks02: fish
+mdairy          float  %9.0g                  Monthly food consump. ks02:
+                                                dairy
+moil            float  %9.0g                  Monthly food consump. ks02: oil
+mspices         float  %9.0g                  Monthly food consump. ks02:
+                                                spices
+mbeve           float  %9.0g                  Monthly food consump. ks02:
+                                                beverage
+maltb           float  %9.0g                  Monthly food consump. ks02:
+                                                alcohol, tobacco
+msnack          float  %9.0g                  Monthly food consump. ks02:
+                                                snacks
+mrice           float  %9.0g                  Monthly food consump. ks02: rice
+mtob            float  %9.0g                  Monthly food consump. ks02:
+                                                tobacco
+mfood           float  %9.0g                  Monthly food consump. ks02: all
+                                                food
+istaple         float  %9.0g                  Monthly food consump. ks03:
+                                                staple
+ivege           float  %9.0g                  Monthly food consump. ks03:
+                                                vegetable
+idried          float  %9.0g                  Monthly food consump. ks03:
+                                                dried food
+imeat           float  %9.0g                  Monthly food consump. ks03: meat
+ifish           float  %9.0g                  Monthly food consump. ks03: fish
+idairy          float  %9.0g                  Monthly food consump. ks03:
+                                                dairy
+ioil            float  %9.0g                  Monthly food consump. ks03: oil
+ispices         float  %9.0g                  Monthly food consump. ks03:
+                                                spices
+ibeve           float  %9.0g                  Monthly food consump. ks03:
+                                                beverage
+ialtb           float  %9.0g                  Monthly food consump. ks03:
+                                                alcohol, tobacco
+isnack          float  %9.0g                  Monthly food consump. ks03:
+                                                snacks
+irice           float  %9.0g                  Monthly food consump. ks03: rice
+itob            float  %9.0g                  Monthly food consump. ks03:
+                                                tobacco
+ifood           float  %9.0g                  Monthly food consump. ks03: all
+                                                food
+xstaple         float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: staple
+xvege           float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: vegetable
+xdried          float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: dried food
+xmeat           float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: meat
+xfish           float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: fish
+xdairy          float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: dairy
+xoil            float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: oil
+xspices         float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: spices
+xbeve           float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: beverage
+xaltb           float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: alcohol, tobacco
+xsnack          float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: snacks
+xrice           float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: rice
+xtob            float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: tobacco
+xfood           float  %9.0g                  Monthly food consump.
+                                                ks02+ks03: all food
+xfdin           double %12.0g                 Monthly food transfer in -
+                                                ks04a1
+xfdout          double %12.0g                 Monthly food transfer out -
+                                                ks04b1
+xutility        long   %12.0g                 Monthly non-food exp. ks06rp:
+                                                utility
+xpersonal       long   %12.0g                 Monthly non-food exp. ks06rp:
+                                                personal items
+xhhgood         long   %12.0g                 Monthly non-food exp. ks06rp:
+                                                hh goods
+xrecreat        long   %12.0g                 Monthly non-food exp. ks06rp:
+                                                recreation
+xtransp         long   %12.0g                 Monthly non-food exp. ks06rp:
+                                                transportation
+xlottery        long   %12.0g                 Monthly non-food exp. ks06rp:
+                                                lottery
+xtransfer       long   %12.0g                 Monthly non-food exp. ks06rp:
+                                                transfer
+xnonfood2       float  %9.0g                  Monthly non-food exp. ks06rp:
+                                                all
+xcloth          double %12.0g                 Monthly non-food exp. ks08rp:
+                                                clothing
+xfurn           double %12.0g                 Monthly non-food exp. ks08rp:
+                                                furniture
+xmedical        double %12.0g                 Monthly non-food exp. ks08rp:
+                                                medical
+xcerem          double %12.0g                 Monthly non-food exp. ks08rp:
+                                                ceremonies
+xtax            double %12.0g                 Monthly non-food exp. ks08rp:
+                                                tax
+xoth            double %12.0g                 Monthly non-food exp. ks08rp:
+                                                other
+xnonfood3       float  %9.0g                  Monthly non-food exp. ks08rp:
+                                                all
+case            long   %12.0g                 IFLS HHLD NUMBER
+xedutuit        long   %12.0g                 Monthly educ expend ks10a1:
+                                                tuition in hh
+xedutuitout     long   %12.0g                 Monthly educ expend ks10b1:
+                                                tuition out hh
+xeduoth         double %12.0g                 Monthly educ expend ks11a1:
+                                                other in hh
+xeduothout      double %12.0g                 Monthly educ expend ks11b1:
+                                                other out hh
+xedubordout     long   %12.0g                 Monthly educ expend ks12b1:
+                                                boarding out hh
+hhid            str9   %9s                    HHID(=case)
+xeducall        float  %9.0g                  Monthly educ expend: all
+xrent           double %12.0g                 Monthly rent, own: kr05r1
+xown            long   %12.0g                 NUMERIC VALUE: RENTAL VALUE OF
+                                                HOUSE
+xhouse          float  %9.0g                  Monthly housing expend:
+                                                kr04r1/kr05r1
+xfoodtot        float  %9.0g                  Monthly food expend:
+                                                ks02+ks03+ks04
+xnonfoodtot     float  %9.0g                  Monthly non-food expend:
+                                                ks06+ks08+educ
+xhhexp          float  %9.0g                  Monthly hh expenditure
+wtobacco        float  %9.0g                  Monthly share of tobacco out of
+                                                hhexp
+wtobfood        float  %9.0g                  Monthly share of tobacco out of
+                                                food expend
+wrice           float  %9.0g                  Monthly share of rice out of
+                                                hhexp
+wricefood       float  %9.0g                  Monthly share of rice out of
+                                                food expend
+hhsize93        byte   %9.0g                  
+pce             float  %9.0g                  Monthly HH per capita
+                                                expenditure
+-------------------------------------------------------------------------------
+Sorted by:  hhid93
+     Note:  dataset has changed since last saved
+
+. sum;
+
+    Variable |       Obs        Mean    Std. Dev.       Min        Max
+-------------+--------------------------------------------------------
+      hhid93 |         0
+    commid93 |         0
+     kabid93 |      7214    3460.991     1526.39       1201       7371
+     kecid93 |      7214     3461082     1526385    1201020    7371110
+    provid93 |      7150     34.3428     15.3344         12         73
+-------------+--------------------------------------------------------
+     mstaple |      7150     24232.6    51973.54          0    2816667
+       mvege |      7150    19923.27    44543.88          0    1555667
+      mdried |      7150    4801.585    27306.61          0    2166667
+       mmeat |      7150    18729.54    42851.82          0    1612000
+       mfish |      7150    9223.498    54537.46          0    4333316
+-------------+--------------------------------------------------------
+      mdairy |      7150    8657.387    19597.93          0   433333.3
+        moil |      7150    4454.788    9943.317          0     591500
+     mspices |      7150    14013.39    17093.68          0     425100
+       mbeve |      7150    4403.126    12774.22          0   667333.3
+       maltb |      7150     10541.4    30741.32          0    1820000
+-------------+--------------------------------------------------------
+      msnack |      7150    19480.63    78617.76          0    4333312
+       mrice |      7150    21348.27    48729.83          0    2816667
+        mtob |      7150    10299.57    29742.69          0    1820000
+       mfood |      7150    138461.2    185141.4          0    5355350
+     istaple |      7150    5025.566    15288.94          0     442000
+-------------+--------------------------------------------------------
+       ivege |      7150    2036.892    5483.669          0   102266.7
+      idried |      7150    24.40909    553.8185          0   30333.33
+       imeat |      7150    1339.873    12042.28          0   697666.7
+       ifish |      7150    767.3939    4423.253          0   98583.34
+      idairy |      7150    466.0606    2564.277          0   87966.66
+-------------+--------------------------------------------------------
+        ioil |      7150    134.8636    1010.162          0   34666.67
+     ispices |      7150    221.5618     1400.87          0   55466.67
+       ibeve |      7150     140.303     1120.07          0      39000
+       ialtb |      7150    48.19697    849.2717          0      43550
+      isnack |      7150    395.7273     5896.29          0     273000
+-------------+--------------------------------------------------------
+       irice |      7150    4263.745    14445.15          0   433333.3
+        itob |      7150    43.68182    817.6232          0      43550
+       ifood |      7150    10600.85    25564.12          0     708500
+     xstaple |      7150    29258.17    52593.34          0    2816667
+       xvege |      7150    21960.16    44527.97          0    1555667
+-------------+--------------------------------------------------------
+      xdried |      7150    4825.994    27316.35          0    2166667
+       xmeat |      7150    20069.41    45470.89          0    1612000
+       xfish |      7150    9990.892    54647.07          0    4333316
+      xdairy |      7150    9123.447    19797.28          0   433333.3
+        xoil |      7150    4589.652    9935.994          0     591500
+-------------+--------------------------------------------------------
+     xspices |      7150    14234.95    17199.65          0     425100
+       xbeve |      7150    4543.429    12799.59          0   667333.3
+       xaltb |      7150     10589.6    30740.48          0    1820000
+      xsnack |      7150    19876.36    78996.26          0    4333312
+       xrice |      7150    25612.02    49195.76          0    2816667
+-------------+--------------------------------------------------------
+        xtob |      7150    10343.25    29741.37          0    1820000
+       xfood |      7150    149062.1    186677.7          0    5355350
+       xfdin |      7204    4807.161    25568.16          0     910000
+      xfdout |      7204    3991.914     23807.5          0   866666.7
+    xutility |      7204    12896.48    25922.41          0     938100
+-------------+--------------------------------------------------------
+   xpersonal |      7204    3477.414    7888.561          0     250000
+     xhhgood |      7204    5815.488    23212.73          0     800000
+    xrecreat |      7204    3625.917    21709.54          0     600000
+     xtransp |      7204    14230.49    40659.28          0     750000
+    xlottery |      7204    3788.584    24661.01          0     932000
+-------------+--------------------------------------------------------
+   xtransfer |      7204    1537.583    16328.38          0     750000
+   xnonfood2 |      7204    43834.37    88321.74          0    1526600
+      xcloth |      7204    10833.27    33263.79          0    1666667
+       xfurn |      7201    3120.036    13158.45          0   416666.7
+    xmedical |      7202    7152.255     34456.3          0    1666667
+-------------+--------------------------------------------------------
+      xcerem |      7201    6777.287    36598.89          0    2500000
+        xtax |      7200    2244.061    32652.38          0    2333333
+        xoth |      7202    10563.36      119994          0    5416667
+   xnonfood3 |      7198    40694.99    163310.8          0    5496950
+        case |      7214    3.46e+08    1.53e+08   1.20e+08   7.37e+08
+-------------+--------------------------------------------------------
+    xedutuit |      7100    22344.08    67740.65          0     990000
+ xedutuitout |      6920    5769.144    45095.89          0     960000
+     xeduoth |      7099    3011.131    6472.546          0      82500
+  xeduothout |      6920    613.3144    4345.604          0   78333.33
+ xedubordout |      6922    3751.253    31830.36          0     840000
+-------------+--------------------------------------------------------
+        hhid |         0
+    xeducall |      7214    34069.58    98026.29          0    1863333
+       xrent |      4581    23382.41     25419.9          0     400000
+        xown |      7206    39810.53    77439.14          0     900097
+      xhouse |      7208    21555.42    30829.13          0     900097
+-------------+--------------------------------------------------------
+    xfoodtot |      7149    157868.9    195606.9   108.3333    5384600
+ xnonfoodtot |      7191    140226.3    257454.6   1141.667    6276667
+      xhhexp |      7136    297892.1    373372.1       4600    7379754
+    wtobacco |      7136    4.035752    5.684486          0   62.21159
+    wtobfood |      7149    6.726507    9.184765          0        100
+-------------+--------------------------------------------------------
+       wrice |      7136    12.77599    12.16965          0   84.82589
+   wricefood |      7149    20.49162    17.64306          0        100
+    hhsize93 |      7224    4.579319    2.182918          1         20
+         pce |      7136    71924.11    102789.8   2654.762    4437095
+
+. lab data "Per Capita Expenditure 1993";
+
+. sort hhid;
+
+. save $dir09\pce93nom.dta, replace;
+(note: file C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\data\\pce93nom.dta not found)
+file C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\data\\pce93nom.dta saved
+
+. log close;
+       log:  C:\DOCUME~1\FIRMAN~1\MYDOCU~1\pce\logfile\\pce93.log
+  log type:  text
+ closed on:   9 Aug 2007, 16:29:52
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

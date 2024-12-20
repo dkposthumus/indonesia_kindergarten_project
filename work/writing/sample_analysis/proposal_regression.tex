@@ -1,0 +1,48 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Preliminary regression findings, robust standard errors}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+            &\multicolumn{1}{c}{educ14}&\multicolumn{1}{c}{educ14}&\multicolumn{1}{c}{educ14}\\
+\hline
+kinder\_ever &       2.608\sym{***}&       1.273\sym{***}&       2.461\sym{***}\\
+            &    (0.0769)         &    (0.0714)         &    (0.0797)         \\
+[1em]
+educ\_hh     &                     &       0.256\sym{***}&                     \\
+            &                     &   (0.00928)         &                     \\
+[1em]
+ln\_agg\_expend\_r\_pc&                     &       0.687\sym{***}&                     \\
+            &                     &    (0.0544)         &                     \\
+[1em]
+television  &                     &       1.149\sym{***}&                     \\
+            &                     &    (0.0820)         &                     \\
+[1em]
+urban\_97    &                     &       0.467\sym{***}&                     \\
+            &                     &    (0.0726)         &                     \\
+[1em]
+male        &                     &     -0.0190         &      0.0275         \\
+            &                     &    (0.0682)         &    (0.0741)         \\
+[1em]
+cohort2     &                     &       0.765\sym{***}&       0.574\sym{***}\\
+            &                     &    (0.0986)         &     (0.108)         \\
+[1em]
+cohort3     &                     &       1.083\sym{***}&       0.935\sym{***}\\
+            &                     &    (0.0993)         &     (0.109)         \\
+[1em]
+cohort4     &                     &       1.343\sym{***}&       1.189\sym{***}\\
+            &                     &    (0.0942)         &     (0.102)         \\
+[1em]
+cohort5     &                     &       1.133\sym{***}&       1.035\sym{***}\\
+            &                     &     (0.220)         &     (0.223)         \\
+[1em]
+\_cons      &       9.498\sym{***}&      -1.362\sym{*}  &       9.060\sym{***}\\
+            &    (0.0509)         &     (0.645)         &    (0.0742)         \\
+\hline
+\(N\)       &        7892         &        7837         &        7889         \\
+adj. \(R^{2}\)&       0.112         &       0.326         &                     \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

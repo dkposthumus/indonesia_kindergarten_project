@@ -1,0 +1,122 @@
+\def \data #1{/Users/danielposthumus/thesis_independent_study/work/writing/rough_draft/data/#1}
+\def \analysis #1{/Users/danielposthumus/thesis_independent_study/work/writing/rough_draft/analysis/#1}
+
+\documentclass{beamer}
+\setbeamertemplate{caption}[numbered]
+
+\newcommand\Fontvi{\fontsize{9}{10}\selectfont}
+
+\title{Starting Early: Returns on Kindergarten Attendance in Indonesia}
+\author{Daniel Posthumus \\ Advisor: Ranjan Shrestha}
+\institute{Economics, College of William and Mary}
+\date{March 22, 2024}
+
+\usepackage{graphicx}
+\def\bibfname{pres_bib.bib}
+\makeatother
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage[flushleft]{threeparttable}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Introduction}
+\Fontvi
+\begin{itemize}
+	\item Despite rapid economic growth, quality of education has lagged behind in Indonesia
+		\begin{itemize}
+		\Fontvi
+			\item Indonesia averaged 5.26\% economic growth from 2000 to 2019
+			\item Between 2012 and 2022, boys performed worse in math, and girls didn't improve
+			\item Indonesia ranked 71st in reading, 70th in math, and 67th in science (out of 81 countries) in 2022 
+		\end{itemize}
+	\item There's some correlation between kindergarten attendance and educational attainment:
+\end{itemize}
+\begin{figure}
+\begin{center}
+	\caption{\Fontvi Years of Education over Year of Birth, by Kindergarten Attendance}
+		\includegraphics[width=2in]{\data{kinder_binscatter.png}}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Data}
+\Fontvi
+\textbf{Indonesian Family Life Survey (IFLS)}
+\begin{itemize}
+	\item Multi-wave household and community survey,  five waves from 1993 to 2014
+	\item Tracks individuals from when they're kindergarten age in 1997 to post-graduation and adult life in 2014
+\end{itemize}
+\vspace{0.1in}
+\textbf{Village Potential Statistics (PODES)}
+\begin{itemize}
+	\item Survey of 65,000 villages in Indonesia
+	\item Contains data IFLS doesn't; I use the 1990 and 2000 waves to create my instrument relating to the presence of kindergartens in each kecamatan
+\end{itemize}
+\vspace{0.1in}
+\textbf{Sample}
+\begin{itemize}
+	\item All individuals aged between 3 and 9 in 1997 and were interviewed in both 1997 and 2014
+	\item My sample size is 3,232 individuals
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Empirical Methods}
+\Fontvi
+\vspace{0.1in}
+\textbf{Mother fixed-effects model:}
+\begin{gather}
+Y_{if} = \beta_0 + \beta_1\text{KINDER}_{if} + \beta_2 \mathbf{K}_{if} + \mu_f + \epsilon_{if}
+\end{gather}
+$Y$ is my outcome variable, KINDER is whether a child attended kindergarten, and $\mathbf{K}$ is a vector of individual characteristics.
+\vspace{0.1in} \\
+\textbf{2-Stage Least Squares (2SLS) model:}
+\begin{gather}
+\text{Main equation:   } Y_i = \alpha_0 + \rho \text{KINDER}_i + \gamma_0 \mathbf{K}_{if} + \mathbf{C}_{f} + \epsilon_{0i} \\ 
+\text{First stage:   } \text{KINDER}_i = \alpha_1 + \phi Z_i + \gamma_1 \mathbf{K}_{if} + \mathbf{C}_{f} + \epsilon_{1i}
+\end{gather}
+$Z$ is the instrument and $\mathbf{C}$ is a vector of household characteristics. \\
+\vspace{0.1in}
+Instruments:
+\begin{enumerate}
+	\item kindergartens per 10,000 people in each kecamatan in 1990
+	\item kindergartens per 10,000 people in each kecamatan in 2000
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fixed Effects Results}
+\Fontvi
+\begin{table}
+\caption{Kindergarten's Effects on Various Educational Outcomes}
+\begin{adjustbox}{width=1.1\textwidth,center=\textwidth}
+	\input{fe_results.tex}
+\end{adjustbox}
+\label{tab:fe_results}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instrumental Variable Estimation Results}
+\Fontvi
+\begin{table}
+\caption{Instrumental Variable (IV) Estimation Results}
+\begin{adjustbox}{width=0.8\textwidth,center=\textwidth}
+	\input{\analysis{iv_results_main.tex}}
+\end{adjustbox}
+\end{table}
+
+\begin{table}
+\caption{First Stage Regression Results}
+\begin{adjustbox}{width=0.8\textwidth,center=\textwidth}
+	\input{\analysis{iv_first_stage.tex}}
+\end{adjustbox}
+\end{table}
+\end{frame}
+
+\end{document}

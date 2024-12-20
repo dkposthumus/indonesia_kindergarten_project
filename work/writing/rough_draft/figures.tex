@@ -1,0 +1,195 @@
+\def \data #1{/Users/danielposthumus/thesis_independent_study/work/writing/rough_draft/data/#1}
+\def \analysis #1{/Users/danielposthumus/thesis_independent_study/work/writing/rough_draft/analysis/#1}
+
+\begin{figure}[!ht]
+\caption{Years of Education Over Age, by Kindergarten Attendance}
+\begin{center}
+	\includegraphics[width=5in]{\data{kinder_binscatter.png}}
+\end{center}
+\label{fig:kinder_binscatter}
+\end{figure}
+
+\begin{figure}[!ht]
+\caption{Number of Kindergartens per 10,000 People, 1990 and 2000}
+\begin{center}
+	\includegraphics[width=5in]{\data{kinder_box.png}}
+\end{center}
+\label{fig:kinder_numscatter}
+\end{figure}
+
+\begin{figure}[!ht]
+\caption{Number of Schools per 10,000 People, by Kabupaten and Year}
+\begin{center}
+	\includegraphics[width=5in]{\data{schl_box.png}}
+\end{center}
+\label{fig:num_schl}
+\end{figure}
+
+\begin{figure}[!ht]
+\caption{Association between Years of Education and Kindergarten, by Province}
+\begin{center}
+	\includegraphics[width=5in]{\data{kinder_educ_prov.png}}
+\end{center}
+\label{fig:kinder_prov}
+\end{figure}
+
+\begin{figure}[!ht]
+\caption{Switching Sample Diagnosis Scatterplot}
+\begin{center}
+	\includegraphics[width=5in]{\analysis{scatter_switching.png}}
+\end{center}
+\label{fig:scatter_switching}
+\end{figure}
+
+\begin{figure}[!ht]
+\caption{Attendance Rates and Marginal Effects of Kindergarten on Attendance Rates, by Grade}
+\begin{center}
+	\includegraphics[width=5in]{\analysis{in_schl_reg_line.png}}
+\end{center}
+\label{fig:inschl_reg}
+\end{figure}
+
+\begin{figure}[!ht]
+\caption{Sample Page from 2000 IFLS Cognitive Test (EK) for Respondents Aged 15-24, Visual}
+\begin{center} 
+	\includegraphics[angle=270,origin=c,width=5in]{\analysis{15-24_ek_shapes.png}}
+\end{center} 
+\label{fig:ek_shapes}
+\end{figure}
+
+\begin{figure}[!ht]
+\caption{Sample Page from 2000 IFLS Cognitive Test (EK) for Respondents Aged 7-14, Arithmetic} 
+\begin{center}
+	\includegraphics[angle=270,origin=c,width=5in]{\analysis{7-14_ek_math.png}}
+\end{center}
+\label{fig:ek_math}
+\end{figure}
+
+\clearpage
+
+\begin{table}
+\caption{Summary Statistics of Variables of Interest}
+\begin{center}
+\begin{threeparttable}
+	{\small \input{\data{summary_table.tex}}}
+\begin{tablenotes}
+	\item {\footnotesize Standard deviations are in parentheses.}
+\end{tablenotes}
+\end{threeparttable}
+\label{table:summary_table}
+\end{center}
+\end{table}
+	\clearpage
+\begin{table}
+\caption{Summary Statistics of Pre-Treatment Variables by Attrition Status}
+\begin{center}
+\begin{threeparttable}
+	{\small \input{\data{attrition_table.tex}}}
+\begin{tablenotes}
+	\item {\footnotesize Standard deviations are in parentheses.}
+\end{tablenotes}
+\end{threeparttable}
+\label{table:attrition_table}
+\end{center}
+\end{table}
+	\clearpage
+\begin{table}
+\caption{Instrumental Variable First-Stage Regression, Kindergarten Attendance as Outcome Variable}
+\begin{center}
+\begin{threeparttable}
+	{\small \input{\analysis{iv_first_stage.tex}}}
+\begin{tablenotes}
+	\item {\footnotesize Heteroskedastic-robust standard errors are reported in parentheses. \\ $^{***}p<0.01$; $^{**}p<0.05$; $^{*}p<0.10$}
+\end{tablenotes} 
+\end{threeparttable}
+\label{table:iv_first_stage}
+\end{center}
+\end{table}
+	\clearpage
+\begin{table}
+\caption{OLS and Fixed-Effects Model Results, Years of Education as Outcome Variable}
+\begin{center}
+\begin{threeparttable}
+	{\small \input{\analysis{regression_results_full.tex}}}
+\begin{tablenotes}
+	\item {\footnotesize Heteroskedastic-robust standard errors are reported in parentheses. \\ $^{***}p<0.01$; $^{**}p<0.05$; $^{*}p<0.10$}
+\end{tablenotes}
+\end{threeparttable}
+\label{table:full_results}
+\end{center}
+\end{table}
+	\clearpage
+\begin{table}
+\caption{Instrumental Variable Estimation, Years of Education as Outcome Variable}
+\begin{center}
+\begin{threeparttable}
+	{\small \input{\analysis{iv_results_main.tex}}}
+\begin{tablenotes}
+	\item {\footnotesize Heteroskedastic-robust standard errors are reported in parentheses. \\ $^{***}p<0.01$; $^{**}p<0.05$; $^{*}p<0.10$}
+\end{tablenotes}
+\end{threeparttable}
+\label{table:iv_main_results}
+\end{center}
+\end{table}
+	\clearpage
+\begin{table}
+\caption{Estimated Effects of Kindergarten Attendance, School Completion as Outcome Variables}
+\begin{center}
+\begin{threeparttable}
+	{\small \input{\analysis{full_complete.tex}}}
+\begin{tablenotes}
+	\item {\footnotesize Heteroskedastic-robust standard errors are reported in parentheses. \\ $^{***}p<0.01$; $^{**}p<0.05$; $^{*}p<0.10$}
+\end{tablenotes}
+\end{threeparttable}
+\label{table:full_complete}
+\end{center}
+\end{table}
+	\clearpage
+\begin{table}
+\caption{Estimated Effects of Kindergarten Attendance, Stay-On as Outcome Variable}
+\begin{center}
+\begin{threeparttable}
+	{\small \input{\analysis{full_stayon.tex}}}
+\begin{tablenotes}
+	\item {\footnotesize Heteroskedastic-robust standard errors are reported in parentheses. \\ $^{***}p<0.01$; $^{**}p<0.05$; $^{*}p<0.10$}
+\end{tablenotes}
+\end{threeparttable}
+\label{table:full_stayon}
+\end{center}
+\end{table}
+	\clearpage
+\begin{table}
+\caption{Estimated Effects of Kindergarten Attendance, Cognitive Test Scores as Outcome Variables}
+\begin{center}
+\begin{threeparttable}
+	{\small \input{\analysis{full_ek.tex}}}
+\begin{tablenotes}
+	\item {\footnotesize Heteroskedastic-robust standard errors are reported in parentheses. \\ $^{***}p<0.01$; $^{**}p<0.05$; $^{*}p<0.10$}
+\end{tablenotes}
+\end{threeparttable}
+\label{table:full_ek}
+\end{center}
+\end{table}
+	\clearpage
+\begin{table}
+\caption{Means of Controls and Outcomes by Switching Status}
+\begin{center}
+\begin{threeparttable}
+	{\small \input{\analysis{switching_statistics.tex}}}
+\end{threeparttable}
+\label{table:switching_stats}
+\end{center}
+\end{table}
+	\clearpage
+\begin{table}
+\caption{Selection into Kindergarten Attendance} 
+\begin{center}
+\begin{threeparttable}
+	{\small \input{\analysis{kinder_logit.tex}}}
+\begin{tablenotes}
+	\item {\footnotesize Heteroskedastic-robust standard errors are reported in parentheses. \\ $^{***}p<0.01$; $^{**}p<0.05$; $^{*}p<0.10$}
+\end{tablenotes}
+\end{threeparttable}
+\label{table:kinder_logit}
+\end{center}
+\end{table}

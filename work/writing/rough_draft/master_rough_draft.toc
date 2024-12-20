@@ -1,0 +1,38 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {2}Literature Review}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Determinants of Educational Outcomes}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Theoretical Approaches to Studying Early Childhood Education}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Empirical Findings of the Effects of Kindergarten}{6}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Data}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Indonesian Family Life Survey}{9}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Village Potential Statistics}{10}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Sample Construction and Description}{11}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Methodology}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}OLS}{13}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Mother Fixed-Effects}{14}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Instrumental Variable (IV) Estimation}{16}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Instrument Strength}{17}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Instrument Validity}{18}{subsubsection.4.3.2}%
+\contentsline {section}{\numberline {5}Results}{18}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Years of Education}{19}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}School Completion}{20}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}School Attendance and Stay-On Decision}{21}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Cognitive Test Scores}{23}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Conclusion}{24}{section.6}%
+\contentsline {section}{Bibliography}{27}{section.6}%
+\contentsline {section}{Figures and Tables}{31}{section.6}%
+\contentsline {section}{Appendices}{45}{section*.29}%
+\contentsline {section}{Appendix \numberline {A}Logit Regression}{45}{appendix.1.A}%
+\contentsline {section}{Appendix \numberline {B}Sample Attrition}{45}{appendix.1.B}%
+\contentsline {section}{Appendix \numberline {C}Switching Sample Restriction}{46}{appendix.1.C}%
+\contentsline {section}{Appendix \numberline {D}Selection into Kindergarten Attendance}{48}{appendix.1.D}%
+\contentsline {section}{Appendix \numberline {E}OLS Regression - Post-Estimation Analysis and Robustness Checks}{49}{appendix.1.E}%
+\contentsline {subsection}{\numberline {E.1}OLS Assumptions - Homoskedasticity and Zero Conditional Mean of Errors}{49}{subsection.1.E.1}%
+\contentsline {subsection}{\numberline {E.2}Omitted Variables Bias and Specification Tests}{49}{subsection.1.E.2}%
+\contentsline {subsection}{\numberline {E.3}Switching Sample}{50}{subsection.1.E.3}%
+\contentsline {subsection}{\numberline {E.4}Migration}{50}{subsection.1.E.4}%
+\contentsline {section}{Appendix \numberline {F}IV Estimation - Post-Estimation Analysis and Robustness Checks}{51}{appendix.1.F}%
+\contentsline {subsection}{\numberline {F.1}Treatment Effects IV Model}{51}{subsection.1.F.1}%
+\contentsline {subsection}{\numberline {F.2}Switching Sample}{52}{subsection.1.F.2}%
+\contentsline {subsection}{\numberline {F.3}Alternative Instruments}{52}{subsection.1.F.3}%
+\contentsline {subsection}{\numberline {F.4}Migration}{53}{subsection.1.F.4}%

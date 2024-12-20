@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2022)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: master_rough_draft.aux
+The style file: ecta.bst
+Database file #1: bibliography.bib
+Warning--empty journal in Dean2020
+You've used 42 entries,
+            2849 wiz_defined-function locations,
+            898 strings with 13013 characters,
+and the built_in function-call counts, 26874 in all, are:
+= -- 2165
+> -- 1392
+< -- 41
++ -- 457
+- -- 399
+* -- 2389
+:= -- 4161
+add.period$ -- 82
+call.type$ -- 42
+change.case$ -- 302
+chr.to.int$ -- 42
+cite$ -- 43
+duplicate$ -- 1944
+empty$ -- 1860
+format.name$ -- 605
+if$ -- 5285
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 365
+newline$ -- 131
+num.names$ -- 210
+pop$ -- 715
+preamble$ -- 1
+purify$ -- 300
+quote$ -- 0
+skip$ -- 657
+stack$ -- 0
+substring$ -- 1151
+swap$ -- 963
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 496
+warning$ -- 1
+while$ -- 175
+width$ -- 0
+write$ -- 497
+(There was 1 warning)

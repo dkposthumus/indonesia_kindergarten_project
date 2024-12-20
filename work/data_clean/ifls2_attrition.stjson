@@ -1,0 +1,608 @@
+{
+  "AutoHideDims": [
+    "var"
+  ],
+  "Items": {
+    "cmdset[1]#colname[educ14]#command[0]#ifls2[.m]#result[count]#statcmd[3]#var[educ14]#variable1[educ14]": {
+      "d": 34298.0
+    },
+    "cmdset[1]#colname[educ14]#command[0]#ifls2[.m]#result[mean]#statcmd[1]#var[educ14]#variable1[educ14]": {
+      "d": 8.653390868272202
+    },
+    "cmdset[1]#colname[educ14]#command[0]#ifls2[.m]#result[sd]#statcmd[2]#var[educ14]#variable1[educ14]": {
+      "d": 4.401476129340652
+    },
+    "cmdset[1]#colname[educ14]#command[0]#ifls2[0]#result[count]#statcmd[3]#sum[no]#var[educ14]#variable1[educ14]": {
+      "d": 13097.0
+    },
+    "cmdset[1]#colname[educ14]#command[0]#ifls2[0]#result[mean]#statcmd[1]#sum[no]#var[educ14]#variable1[educ14]": {
+      "d": 9.2618920363442
+    },
+    "cmdset[1]#colname[educ14]#command[0]#ifls2[0]#result[sd]#statcmd[2]#sum[no]#var[educ14]#variable1[educ14]": {
+      "d": 3.857808984186634
+    },
+    "cmdset[1]#colname[educ14]#command[0]#ifls2[1]#result[count]#statcmd[3]#sum[yes]#var[educ14]#variable1[educ14]": {
+      "d": 21201.0
+    },
+    "cmdset[1]#colname[educ14]#command[0]#ifls2[1]#result[mean]#statcmd[1]#sum[yes]#var[educ14]#variable1[educ14]": {
+      "d": 8.277486910994764
+    },
+    "cmdset[1]#colname[educ14]#command[0]#ifls2[1]#result[sd]#statcmd[2]#sum[yes]#var[educ14]#variable1[educ14]": {
+      "d": 4.66665481833874
+    },
+    "cmdset[1]#colname[exit_age]#command[0]#ifls2[.m]#result[count]#statcmd[3]#var[exit_age]#variable1[exit_age]": {
+      "d": 12422.0
+    },
+    "cmdset[1]#colname[exit_age]#command[0]#ifls2[.m]#result[mean]#statcmd[1]#var[exit_age]#variable1[exit_age]": {
+      "d": 17.671711479632908
+    },
+    "cmdset[1]#colname[exit_age]#command[0]#ifls2[.m]#result[sd]#statcmd[2]#var[exit_age]#variable1[exit_age]": {
+      "d": 4.769421622295177
+    },
+    "cmdset[1]#colname[exit_age]#command[0]#ifls2[0]#result[count]#statcmd[3]#sum[no]#var[exit_age]#variable1[exit_age]": {
+      "d": 6982.0
+    },
+    "cmdset[1]#colname[exit_age]#command[0]#ifls2[0]#result[mean]#statcmd[1]#sum[no]#var[exit_age]#variable1[exit_age]": {
+      "d": 16.994414207963334
+    },
+    "cmdset[1]#colname[exit_age]#command[0]#ifls2[0]#result[sd]#statcmd[2]#sum[no]#var[exit_age]#variable1[exit_age]": {
+      "d": 4.570365078512095
+    },
+    "cmdset[1]#colname[exit_age]#command[0]#ifls2[1]#result[count]#statcmd[3]#sum[yes]#var[exit_age]#variable1[exit_age]": {
+      "d": 5440.0
+    },
+    "cmdset[1]#colname[exit_age]#command[0]#ifls2[1]#result[mean]#statcmd[1]#sum[yes]#var[exit_age]#variable1[exit_age]": {
+      "d": 18.540992647058822
+    },
+    "cmdset[1]#colname[exit_age]#command[0]#ifls2[1]#result[sd]#statcmd[2]#sum[yes]#var[exit_age]#variable1[exit_age]": {
+      "d": 4.877820672935807
+    },
+    "cmdset[1]#colname[kinder_ever]#command[0]#ifls2[.m]#result[count]#statcmd[3]#var[kinder_ever]#variable1[kinder_ever]": {
+      "d": 34293.0
+    },
+    "cmdset[1]#colname[kinder_ever]#command[0]#ifls2[.m]#result[mean]#statcmd[1]#var[kinder_ever]#variable1[kinder_ever]": {
+      "d": 0.25807016009098066
+    },
+    "cmdset[1]#colname[kinder_ever]#command[0]#ifls2[.m]#result[sd]#statcmd[2]#var[kinder_ever]#variable1[kinder_ever]": {
+      "d": 0.4375791769249619
+    },
+    "cmdset[1]#colname[kinder_ever]#command[0]#ifls2[0]#result[count]#statcmd[3]#sum[no]#var[kinder_ever]#variable1[kinder_ever]": {
+      "d": 13063.0
+    },
+    "cmdset[1]#colname[kinder_ever]#command[0]#ifls2[0]#result[mean]#statcmd[1]#sum[no]#var[kinder_ever]#variable1[kinder_ever]": {
+      "d": 0.315164969761923
+    },
+    "cmdset[1]#colname[kinder_ever]#command[0]#ifls2[0]#result[sd]#statcmd[2]#sum[no]#var[kinder_ever]#variable1[kinder_ever]": {
+      "d": 0.4645993279810333
+    },
+    "cmdset[1]#colname[kinder_ever]#command[0]#ifls2[1]#result[count]#statcmd[3]#sum[yes]#var[kinder_ever]#variable1[kinder_ever]": {
+      "d": 21230.0
+    },
+    "cmdset[1]#colname[kinder_ever]#command[0]#ifls2[1]#result[mean]#statcmd[1]#sum[yes]#var[kinder_ever]#variable1[kinder_ever]": {
+      "d": 0.22293923692887424
+    },
+    "cmdset[1]#colname[kinder_ever]#command[0]#ifls2[1]#result[sd]#statcmd[2]#sum[yes]#var[kinder_ever]#variable1[kinder_ever]": {
+      "d": 0.4162276948689466
+    },
+    "cmdset[1]#colname[labor_force]#command[0]#ifls2[.m]#result[count]#statcmd[3]#var[labor_force]#variable1[labor_force]": {
+      "d": 34433.0
+    },
+    "cmdset[1]#colname[labor_force]#command[0]#ifls2[.m]#result[mean]#statcmd[1]#var[labor_force]#variable1[labor_force]": {
+      "d": 0.7339180437371127
+    },
+    "cmdset[1]#colname[labor_force]#command[0]#ifls2[.m]#result[sd]#statcmd[2]#var[labor_force]#variable1[labor_force]": {
+      "d": 0.4419140418123329
+    },
+    "cmdset[1]#colname[labor_force]#command[0]#ifls2[0]#result[count]#statcmd[3]#sum[no]#var[labor_force]#variable1[labor_force]": {
+      "d": 13134.0
+    },
+    "cmdset[1]#colname[labor_force]#command[0]#ifls2[0]#result[mean]#statcmd[1]#sum[no]#var[labor_force]#variable1[labor_force]": {
+      "d": 0.7030607583371402
+    },
+    "cmdset[1]#colname[labor_force]#command[0]#ifls2[0]#result[sd]#statcmd[2]#sum[no]#var[labor_force]#variable1[labor_force]": {
+      "d": 0.45692693588838235
+    },
+    "cmdset[1]#colname[labor_force]#command[0]#ifls2[1]#result[count]#statcmd[3]#sum[yes]#var[labor_force]#variable1[labor_force]": {
+      "d": 21299.0
+    },
+    "cmdset[1]#colname[labor_force]#command[0]#ifls2[1]#result[mean]#statcmd[1]#sum[yes]#var[labor_force]#variable1[labor_force]": {
+      "d": 0.7529461477064651
+    },
+    "cmdset[1]#colname[labor_force]#command[0]#ifls2[1]#result[sd]#statcmd[2]#sum[yes]#var[labor_force]#variable1[labor_force]": {
+      "d": 0.43130845161162595
+    },
+    "cmdset[1]#colname[ln_earnings]#command[0]#ifls2[.m]#result[count]#statcmd[3]#var[ln_earnings]#variable1[ln_earnings]": {
+      "d": 13086.0
+    },
+    "cmdset[1]#colname[ln_earnings]#command[0]#ifls2[.m]#result[mean]#statcmd[1]#var[ln_earnings]#variable1[ln_earnings]": {
+      "d": 16.002713625973634
+    },
+    "cmdset[1]#colname[ln_earnings]#command[0]#ifls2[.m]#result[sd]#statcmd[2]#var[ln_earnings]#variable1[ln_earnings]": {
+      "d": 1.5246831111009278
+    },
+    "cmdset[1]#colname[ln_earnings]#command[0]#ifls2[0]#result[count]#statcmd[3]#sum[no]#var[ln_earnings]#variable1[ln_earnings]": {
+      "d": 5061.0
+    },
+    "cmdset[1]#colname[ln_earnings]#command[0]#ifls2[0]#result[mean]#statcmd[1]#sum[no]#var[ln_earnings]#variable1[ln_earnings]": {
+      "d": 16.059242274162443
+    },
+    "cmdset[1]#colname[ln_earnings]#command[0]#ifls2[0]#result[sd]#statcmd[2]#sum[no]#var[ln_earnings]#variable1[ln_earnings]": {
+      "d": 1.532024001919188
+    },
+    "cmdset[1]#colname[ln_earnings]#command[0]#ifls2[1]#result[count]#statcmd[3]#sum[yes]#var[ln_earnings]#variable1[ln_earnings]": {
+      "d": 8025.0
+    },
+    "cmdset[1]#colname[ln_earnings]#command[0]#ifls2[1]#result[mean]#statcmd[1]#sum[yes]#var[ln_earnings]#variable1[ln_earnings]": {
+      "d": 15.967063596256054
+    },
+    "cmdset[1]#colname[ln_earnings]#command[0]#ifls2[1]#result[sd]#statcmd[2]#sum[yes]#var[ln_earnings]#variable1[ln_earnings]": {
+      "d": 1.5190495492203089
+    },
+    "cmdset[1]#program_class[rclass]#result[N]#result_type[scalar]#var[_hide]": {
+      "d": 52367.0
+    }
+  },
+  "Labels": {
+    "Dimensions": {
+      "_dimensions": {
+        "border_block": "Table border block",
+        "cell_type": "Table cell type",
+        "cmdset": "Command results index",
+        "colname": "Covariate names and column names",
+        "command": "Command option index",
+        "ifls2": "does respondent appear in ifls2 (dummy)",
+        "program_class": "Result program class",
+        "result": "Result",
+        "result_type": "Result type",
+        "statcmd": "Statistic/command option index",
+        "var": "Statistic option variable"
+      },
+      "colname": {
+        "educ14": "years of education",
+        "exit_age": "exit age at highest level of education attended",
+        "kinder_ever": "did you ever attend kindergarten?",
+        "labor_force": "are you currently in the labor force?",
+        "ln_earnings": "natural log of salary/wage during the last year, total"
+      },
+      "command": {
+        "0": "Statistic"
+      },
+      "ifls2": {
+        ".m": "Total",
+        "0": "No",
+        "1": "Yes"
+      },
+      "result": {
+        "count": "Number of nonmissing values",
+        "mean": "Mean",
+        "sd": "Standard deviation"
+      },
+      "result_type": {
+        "scalar": "Scalar"
+      },
+      "var": {
+        "educ14": "years of education",
+        "exit_age": "exit age at highest level of education attended",
+        "kinder_ever": "did you ever attend kindergarten?",
+        "labor_force": "are you currently in the labor force?",
+        "ln_earnings": "natural log of salary/wage during the last year, total"
+      }
+    }
+  },
+  "Layout": {
+    "columns": "result#sum[yes no]",
+    "rows": "variable1",
+    "tables": ""
+  },
+  "NumericDimNames": [
+    "ifls2"
+  ],
+  "ScalarResults": [
+    "N"
+  ],
+  "Styles": {
+    "cell": {
+      "base": {
+        "ci-delimiter": "   ",
+        "cri-delimiter": "   ",
+        "nformat": "%9.0g"
+      },
+      "edits": [
+        [
+          "cell_type[item]",
+          {
+            "smcl": "result"
+          }
+        ],
+        [
+          "result[_r_b _r_se _r_lb _r_ub _r_ci _r_crlb _r_crub _r_cri]",
+          {
+            "nformat": "%9.0g"
+          }
+        ],
+        [
+          "result[_r_z _r_z_abs]",
+          {
+            "nformat": "%8.2f"
+          }
+        ],
+        [
+          "result[_r_p]",
+          {
+            "nformat": "%5.3f"
+          }
+        ],
+        [
+          "result[count frequency fvrawfrequency]",
+          {
+            "nformat": "%18.0fc"
+          }
+        ],
+        [
+          "result[fvpercent fvrawpercent percent rawpercent]",
+          {
+            "nformat": "%9.2f"
+          }
+        ],
+        [
+          "result[fvproportion fvrawproportion proportion rawproportion]",
+          {
+            "nformat": "%9.4g"
+          }
+        ],
+        [
+          "result[rawtotal sumw total fvfrequency]",
+          {
+            "nformat": "%18.6gc"
+          }
+        ],
+        [
+          "cell_type[item]",
+          {
+            "margin-left": {
+              "width": "10pt"
+            }
+          }
+        ],
+        [
+          "cell_type[corner]",
+          {
+            "halign": "center"
+          }
+        ],
+        [
+          "cell_type[column-header]",
+          {
+            "halign": "right"
+          }
+        ],
+        [
+          "cell_type[column-header]#result[_r_ci _r_cri]",
+          {
+            "halign": "center"
+          }
+        ],
+        [
+          "cell_type[item]",
+          {
+            "halign": "right"
+          }
+        ],
+        [
+          "cell_type[row-header]",
+          {
+            "halign": "left"
+          }
+        ],
+        [
+          "border_block[corner]",
+          {
+            "border-right": {
+              "pattern": "single"
+            },
+            "border-top": {
+              "pattern": "single"
+            }
+          }
+        ],
+        [
+          "border_block[column-header]",
+          {
+            "border-top": {
+              "pattern": "single"
+            }
+          }
+        ],
+        [
+          "border_block[row-header]",
+          {
+            "border-bottom": {
+              "pattern": "single"
+            },
+            "border-right": {
+              "pattern": "single"
+            },
+            "border-top": {
+              "pattern": "single"
+            }
+          }
+        ],
+        [
+          "border_block[item]",
+          {
+            "border-bottom": {
+              "pattern": "single"
+            },
+            "border-top": {
+              "pattern": "single"
+            }
+          }
+        ]
+      ]
+    },
+    "export": {
+      "tex": {
+        "begintable": "true",
+        "centering": "true"
+      }
+    },
+    "header": {
+      "auto-levels": {
+        "result": [
+          {
+            "stripe": "count",
+            "term-index": 2
+          },
+          {
+            "stripe": "mean",
+            "term-index": 0
+          },
+          {
+            "stripe": "sd",
+            "term-index": 1
+          }
+        ]
+      },
+      "base": {
+        "level": "label",
+        "title": "label"
+      },
+      "column": {
+        "dups": "center",
+        "extra-space": 1
+      },
+      "dimensions": {
+        "across": {
+          "title": "hide"
+        },
+        "coleq": {
+          "title": "hide"
+        },
+        "colname": {
+          "title": "hide"
+        },
+        "command": {
+          "title": "hide"
+        },
+        "ifls2": {
+          "nformat": "%9.0g"
+        },
+        "result": {
+          "title": "hide"
+        },
+        "roweq": {
+          "title": "hide"
+        },
+        "rowname": {
+          "title": "hide"
+        },
+        "stars": {
+          "level": "hide",
+          "title": "hide"
+        },
+        "statcmd": {
+          "title": "hide"
+        },
+        "var": {
+          "title": "hide"
+        }
+      },
+      "row": {
+        "arrangement": "stack"
+      }
+    }
+  },
+  "Tags": {
+    "border_block": [
+      {
+        "stripe": "column-header",
+        "term-index": 0
+      },
+      {
+        "stripe": "corner",
+        "term-index": 0
+      },
+      {
+        "stripe": "item",
+        "term-index": 0
+      },
+      {
+        "stripe": "row-header",
+        "term-index": 0
+      }
+    ],
+    "cell_type": [
+      {
+        "stripe": "column-header",
+        "term-index": 0
+      },
+      {
+        "stripe": "corner",
+        "term-index": 0
+      },
+      {
+        "stripe": "item",
+        "term-index": 0
+      },
+      {
+        "stripe": "row-header",
+        "term-index": 0
+      }
+    ],
+    "cmdset": [
+      {
+        "stripe": "1",
+        "term-index": 0
+      }
+    ],
+    "colname": [
+      {
+        "stripe": "educ14",
+        "term-index": 1
+      },
+      {
+        "stripe": "exit_age",
+        "term-index": 3
+      },
+      {
+        "stripe": "kinder_ever",
+        "term-index": 2
+      },
+      {
+        "stripe": "labor_force",
+        "term-index": 4
+      },
+      {
+        "stripe": "ln_earnings",
+        "term-index": 5
+      }
+    ],
+    "command": [
+      {
+        "stripe": "0",
+        "term-index": 0
+      }
+    ],
+    "ifls2": [
+      {
+        "stripe": ".m",
+        "term-index": 18446744073709551615
+      },
+      {
+        "stripe": "0",
+        "term-index": 1
+      },
+      {
+        "stripe": "1",
+        "term-index": 2
+      }
+    ],
+    "program_class": [
+      {
+        "stripe": "eclass",
+        "term-index": 0
+      },
+      {
+        "stripe": "rclass",
+        "term-index": 0
+      }
+    ],
+    "result": [
+      {
+        "stripe": "N",
+        "term-index": 0
+      },
+      {
+        "stripe": "count",
+        "term-index": 0
+      },
+      {
+        "stripe": "mean",
+        "term-index": 0
+      },
+      {
+        "stripe": "sd",
+        "term-index": 0
+      }
+    ],
+    "result_type": [
+      {
+        "stripe": "scalar",
+        "term-index": 0
+      }
+    ],
+    "statcmd": [
+      {
+        "stripe": "1",
+        "term-index": 0
+      },
+      {
+        "stripe": "2",
+        "term-index": 0
+      },
+      {
+        "stripe": "3",
+        "term-index": 0
+      }
+    ],
+    "sum": [
+      {
+        "stripe": "no",
+        "term-index": 1
+      },
+      {
+        "stripe": "yes",
+        "term-index": 0
+      }
+    ],
+    "var": [
+      {
+        "stripe": "_hide",
+        "term-index": 6
+      },
+      {
+        "stripe": "educ14",
+        "term-index": 1
+      },
+      {
+        "stripe": "exit_age",
+        "term-index": 3
+      },
+      {
+        "stripe": "kinder_ever",
+        "term-index": 2
+      },
+      {
+        "stripe": "labor_force",
+        "term-index": 4
+      },
+      {
+        "stripe": "ln_earnings",
+        "term-index": 5
+      }
+    ],
+    "variable1": [
+      {
+        "stripe": "educ14",
+        "term-index": 0
+      },
+      {
+        "stripe": "exit_age",
+        "term-index": 2
+      },
+      {
+        "stripe": "kinder_ever",
+        "term-index": 1
+      },
+      {
+        "stripe": "labor_force",
+        "term-index": 3
+      },
+      {
+        "stripe": "ln_earnings",
+        "term-index": 4
+      }
+    ]
+  },
+  "collection-name": "Table"
+}

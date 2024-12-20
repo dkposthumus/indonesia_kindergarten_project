@@ -1,0 +1,58 @@
+\documentclass[6pt]{article}
+\usepackage{graphicx}
+\usepackage{setspace} 
+\usepackage{booktabs}
+\usepackage{caption} 
+\captionsetup[table]{skip=10pt}
+\usepackage[hmargin = 1 cm, left=2cm, right=2cm, top=2cm]{geometry}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage{tabularray}
+
+\title{Honors Thesis Project - Sample Analysis}
+\author{Daniel Posthumus}
+\date{September 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Sample Summary Statistics}
+
+
+
+\section{Is there correlation?}
+
+
+
+\section{Appendix A - Tables}
+
+\include{sample_summary.tex}
+\include{sample_summary(2).tex}
+\include{correlations.tex}
+\include{kinder_prov_urban.tex}
+\include{kinder_prov_urban(1).tex}
+\include{kinder_cohort.tex}
+\include{kinder_cohort(1).tex}
+\include{proposal_regression.tex}
+\include{proposal_regression(1)t.tex}
+
+
+\section{Appendix B - Graphs}
+
+\includegraphics[width=\textwidth]{kinder_ever_educ14.png}
+\includegraphics[width=\textwidth]{educ_hh_educ14.png}
+\includegraphics[width=\textwidth]{ln_agg_expend_r_pc_educ14.png}
+\includegraphics[width=\textwidth]{television_educ14.png}
+\includegraphics[width=\textwidth]{stayon_sample.png}
+\includegraphics[width=\textwidth]{pass_sample.png}
+\includegraphics[width=\textwidth]{ek_sample.png}
+\includegraphics[width=\textwidth]{in_school.png}
+
+\section{Bibliography}
+\bibliographystyle{plain}
+\bibliography{bibliography.bib}
+
+
+\end{document}

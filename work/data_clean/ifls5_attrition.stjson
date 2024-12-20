@@ -1,0 +1,608 @@
+{
+  "AutoHideDims": [
+    "var"
+  ],
+  "Items": {
+    "cmdset[1]#colname[educ_hh]#command[0]#ifls5[.m]#result[count]#statcmd[3]#var[educ_hh]#variable2[educ_hh]": {
+      "d": 38045.0
+    },
+    "cmdset[1]#colname[educ_hh]#command[0]#ifls5[.m]#result[mean]#statcmd[1]#var[educ_hh]#variable2[educ_hh]": {
+      "d": 5.966119069522933
+    },
+    "cmdset[1]#colname[educ_hh]#command[0]#ifls5[.m]#result[sd]#statcmd[2]#var[educ_hh]#variable2[educ_hh]": {
+      "d": 4.487846552361738
+    },
+    "cmdset[1]#colname[educ_hh]#command[0]#ifls5[0]#result[count]#statcmd[3]#sum[no]#var[educ_hh]#variable2[educ_hh]": {
+      "d": 15819.0
+    },
+    "cmdset[1]#colname[educ_hh]#command[0]#ifls5[0]#result[mean]#statcmd[1]#sum[no]#var[educ_hh]#variable2[educ_hh]": {
+      "d": 6.146343005246855
+    },
+    "cmdset[1]#colname[educ_hh]#command[0]#ifls5[0]#result[sd]#statcmd[2]#sum[no]#var[educ_hh]#variable2[educ_hh]": {
+      "d": 4.727872283294899
+    },
+    "cmdset[1]#colname[educ_hh]#command[0]#ifls5[1]#result[count]#statcmd[3]#sum[yes]#var[educ_hh]#variable2[educ_hh]": {
+      "d": 22226.0
+    },
+    "cmdset[1]#colname[educ_hh]#command[0]#ifls5[1]#result[mean]#statcmd[1]#sum[yes]#var[educ_hh]#variable2[educ_hh]": {
+      "d": 5.837847565913795
+    },
+    "cmdset[1]#colname[educ_hh]#command[0]#ifls5[1]#result[sd]#statcmd[2]#sum[yes]#var[educ_hh]#variable2[educ_hh]": {
+      "d": 4.3043891724001435
+    },
+    "cmdset[1]#colname[electricity]#command[0]#ifls5[.m]#result[count]#statcmd[3]#var[electricity]#variable2[electricity]": {
+      "d": 37719.0
+    },
+    "cmdset[1]#colname[electricity]#command[0]#ifls5[.m]#result[mean]#statcmd[1]#var[electricity]#variable2[electricity]": {
+      "d": 0.8539197751796177
+    },
+    "cmdset[1]#colname[electricity]#command[0]#ifls5[.m]#result[sd]#statcmd[2]#var[electricity]#variable2[electricity]": {
+      "d": 0.35319130783768304
+    },
+    "cmdset[1]#colname[electricity]#command[0]#ifls5[0]#result[count]#statcmd[3]#sum[no]#var[electricity]#variable2[electricity]": {
+      "d": 15579.0
+    },
+    "cmdset[1]#colname[electricity]#command[0]#ifls5[0]#result[mean]#statcmd[1]#sum[no]#var[electricity]#variable2[electricity]": {
+      "d": 0.860581552089351
+    },
+    "cmdset[1]#colname[electricity]#command[0]#ifls5[0]#result[sd]#statcmd[2]#sum[no]#var[electricity]#variable2[electricity]": {
+      "d": 0.346393773386223
+    },
+    "cmdset[1]#colname[electricity]#command[0]#ifls5[1]#result[count]#statcmd[3]#sum[yes]#var[electricity]#variable2[electricity]": {
+      "d": 22140.0
+    },
+    "cmdset[1]#colname[electricity]#command[0]#ifls5[1]#result[mean]#statcmd[1]#sum[yes]#var[electricity]#variable2[electricity]": {
+      "d": 0.8492321589882565
+    },
+    "cmdset[1]#colname[electricity]#command[0]#ifls5[1]#result[sd]#statcmd[2]#sum[yes]#var[electricity]#variable2[electricity]": {
+      "d": 0.35783052196168724
+    },
+    "cmdset[1]#colname[fridge]#command[0]#ifls5[.m]#result[count]#statcmd[3]#var[fridge]#variable2[fridge]": {
+      "d": 37756.0
+    },
+    "cmdset[1]#colname[fridge]#command[0]#ifls5[.m]#result[mean]#statcmd[1]#var[fridge]#variable2[fridge]": {
+      "d": 0.30908994596885264
+    },
+    "cmdset[1]#colname[fridge]#command[0]#ifls5[.m]#result[sd]#statcmd[2]#var[fridge]#variable2[fridge]": {
+      "d": 0.4621244502979465
+    },
+    "cmdset[1]#colname[fridge]#command[0]#ifls5[0]#result[count]#statcmd[3]#sum[no]#var[fridge]#variable2[fridge]": {
+      "d": 15593.0
+    },
+    "cmdset[1]#colname[fridge]#command[0]#ifls5[0]#result[mean]#statcmd[1]#sum[no]#var[fridge]#variable2[fridge]": {
+      "d": 0.3520810620150067
+    },
+    "cmdset[1]#colname[fridge]#command[0]#ifls5[0]#result[sd]#statcmd[2]#sum[no]#var[fridge]#variable2[fridge]": {
+      "d": 0.47763439822142556
+    },
+    "cmdset[1]#colname[fridge]#command[0]#ifls5[1]#result[count]#statcmd[3]#sum[yes]#var[fridge]#variable2[fridge]": {
+      "d": 22163.0
+    },
+    "cmdset[1]#colname[fridge]#command[0]#ifls5[1]#result[mean]#statcmd[1]#sum[yes]#var[fridge]#variable2[fridge]": {
+      "d": 0.278843116906556
+    },
+    "cmdset[1]#colname[fridge]#command[0]#ifls5[1]#result[sd]#statcmd[2]#sum[yes]#var[fridge]#variable2[fridge]": {
+      "d": 0.44844030448148564
+    },
+    "cmdset[1]#colname[ln_agg_expend_r_pc]#command[0]#ifls5[.m]#result[count]#statcmd[3]#var[ln_agg_expend_r_pc]#variable2[ln_agg_expend_r_pc]": {
+      "d": 37646.0
+    },
+    "cmdset[1]#colname[ln_agg_expend_r_pc]#command[0]#ifls5[.m]#result[mean]#statcmd[1]#var[ln_agg_expend_r_pc]#variable2[ln_agg_expend_r_pc]": {
+      "d": 12.29723135353319
+    },
+    "cmdset[1]#colname[ln_agg_expend_r_pc]#command[0]#ifls5[.m]#result[sd]#statcmd[2]#var[ln_agg_expend_r_pc]#variable2[ln_agg_expend_r_pc]": {
+      "d": 0.7889539580868166
+    },
+    "cmdset[1]#colname[ln_agg_expend_r_pc]#command[0]#ifls5[0]#result[count]#statcmd[3]#sum[no]#var[ln_agg_expend_r_pc]#variable2[ln_agg_expend_r_pc]": {
+      "d": 15517.0
+    },
+    "cmdset[1]#colname[ln_agg_expend_r_pc]#command[0]#ifls5[0]#result[mean]#statcmd[1]#sum[no]#var[ln_agg_expend_r_pc]#variable2[ln_agg_expend_r_pc]": {
+      "d": 12.37781892287145
+    },
+    "cmdset[1]#colname[ln_agg_expend_r_pc]#command[0]#ifls5[0]#result[sd]#statcmd[2]#sum[no]#var[ln_agg_expend_r_pc]#variable2[ln_agg_expend_r_pc]": {
+      "d": 0.8438137414514886
+    },
+    "cmdset[1]#colname[ln_agg_expend_r_pc]#command[0]#ifls5[1]#result[count]#statcmd[3]#sum[yes]#var[ln_agg_expend_r_pc]#variable2[ln_agg_expend_r_pc]": {
+      "d": 22129.0
+    },
+    "cmdset[1]#colname[ln_agg_expend_r_pc]#command[0]#ifls5[1]#result[mean]#statcmd[1]#sum[yes]#var[ln_agg_expend_r_pc]#variable2[ln_agg_expend_r_pc]": {
+      "d": 12.240722821135803
+    },
+    "cmdset[1]#colname[ln_agg_expend_r_pc]#command[0]#ifls5[1]#result[sd]#statcmd[2]#sum[yes]#var[ln_agg_expend_r_pc]#variable2[ln_agg_expend_r_pc]": {
+      "d": 0.7429137662245702
+    },
+    "cmdset[1]#colname[television]#command[0]#ifls5[.m]#result[count]#statcmd[3]#var[television]#variable2[television]": {
+      "d": 37733.0
+    },
+    "cmdset[1]#colname[television]#command[0]#ifls5[.m]#result[mean]#statcmd[1]#var[television]#variable2[television]": {
+      "d": 0.6117191847984523
+    },
+    "cmdset[1]#colname[television]#command[0]#ifls5[.m]#result[sd]#statcmd[2]#var[television]#variable2[television]": {
+      "d": 0.487365487738833
+    },
+    "cmdset[1]#colname[television]#command[0]#ifls5[0]#result[count]#statcmd[3]#sum[no]#var[television]#variable2[television]": {
+      "d": 15575.0
+    },
+    "cmdset[1]#colname[television]#command[0]#ifls5[0]#result[mean]#statcmd[1]#sum[no]#var[television]#variable2[television]": {
+      "d": 0.6240128410914928
+    },
+    "cmdset[1]#colname[television]#command[0]#ifls5[0]#result[sd]#statcmd[2]#sum[no]#var[television]#variable2[television]": {
+      "d": 0.4843922791998648
+    },
+    "cmdset[1]#colname[television]#command[0]#ifls5[1]#result[count]#statcmd[3]#sum[yes]#var[television]#variable2[television]": {
+      "d": 22158.0
+    },
+    "cmdset[1]#colname[television]#command[0]#ifls5[1]#result[mean]#statcmd[1]#sum[yes]#var[television]#variable2[television]": {
+      "d": 0.6030778951168878
+    },
+    "cmdset[1]#colname[television]#command[0]#ifls5[1]#result[sd]#statcmd[2]#sum[yes]#var[television]#variable2[television]": {
+      "d": 0.4892706317769298
+    },
+    "cmdset[1]#program_class[rclass]#result[N]#result_type[scalar]#var[_hide]": {
+      "d": 52367.0
+    }
+  },
+  "Labels": {
+    "Dimensions": {
+      "_dimensions": {
+        "border_block": "Table border block",
+        "cell_type": "Table cell type",
+        "cmdset": "Command results index",
+        "colname": "Covariate names and column names",
+        "command": "Command option index",
+        "ifls5": "does respondent appear in ifls5 (dummy)",
+        "program_class": "Result program class",
+        "result": "Result",
+        "result_type": "Result type",
+        "statcmd": "Statistic/command option index",
+        "var": "Statistic option variable"
+      },
+      "colname": {
+        "educ_hh": "Years of education for head of household",
+        "electricity": "does the household use electricity?",
+        "fridge": "does the household have a refrigerator?",
+        "ln_agg_expend_r_pc": "natural log per capita total monthly aggregate (food + nonfood) real expenditure",
+        "television": "does the household have a television?"
+      },
+      "command": {
+        "0": "Statistic"
+      },
+      "ifls5": {
+        ".m": "Total",
+        "0": "No",
+        "1": "Yes"
+      },
+      "result": {
+        "count": "Number of nonmissing values",
+        "mean": "Mean",
+        "sd": "Standard deviation"
+      },
+      "result_type": {
+        "scalar": "Scalar"
+      },
+      "var": {
+        "educ_hh": "Years of education for head of household",
+        "electricity": "does the household use electricity?",
+        "fridge": "does the household have a refrigerator?",
+        "ln_agg_expend_r_pc": "natural log per capita total monthly aggregate (food + nonfood) real expenditure",
+        "television": "does the household have a television?"
+      }
+    }
+  },
+  "Layout": {
+    "columns": "result#sum[yes no]",
+    "rows": "variable1 variable2",
+    "tables": ""
+  },
+  "NumericDimNames": [
+    "ifls5"
+  ],
+  "ScalarResults": [
+    "N"
+  ],
+  "Styles": {
+    "cell": {
+      "base": {
+        "ci-delimiter": "   ",
+        "cri-delimiter": "   ",
+        "nformat": "%9.0g"
+      },
+      "edits": [
+        [
+          "cell_type[item]",
+          {
+            "smcl": "result"
+          }
+        ],
+        [
+          "result[_r_b _r_se _r_lb _r_ub _r_ci _r_crlb _r_crub _r_cri]",
+          {
+            "nformat": "%9.0g"
+          }
+        ],
+        [
+          "result[_r_z _r_z_abs]",
+          {
+            "nformat": "%8.2f"
+          }
+        ],
+        [
+          "result[_r_p]",
+          {
+            "nformat": "%5.3f"
+          }
+        ],
+        [
+          "result[count frequency fvrawfrequency]",
+          {
+            "nformat": "%18.0fc"
+          }
+        ],
+        [
+          "result[fvpercent fvrawpercent percent rawpercent]",
+          {
+            "nformat": "%9.2f"
+          }
+        ],
+        [
+          "result[fvproportion fvrawproportion proportion rawproportion]",
+          {
+            "nformat": "%9.4g"
+          }
+        ],
+        [
+          "result[rawtotal sumw total fvfrequency]",
+          {
+            "nformat": "%18.6gc"
+          }
+        ],
+        [
+          "cell_type[item]",
+          {
+            "margin-left": {
+              "width": "10pt"
+            }
+          }
+        ],
+        [
+          "cell_type[corner]",
+          {
+            "halign": "center"
+          }
+        ],
+        [
+          "cell_type[column-header]",
+          {
+            "halign": "right"
+          }
+        ],
+        [
+          "cell_type[column-header]#result[_r_ci _r_cri]",
+          {
+            "halign": "center"
+          }
+        ],
+        [
+          "cell_type[item]",
+          {
+            "halign": "right"
+          }
+        ],
+        [
+          "cell_type[row-header]",
+          {
+            "halign": "left"
+          }
+        ],
+        [
+          "border_block[corner]",
+          {
+            "border-right": {
+              "pattern": "single"
+            },
+            "border-top": {
+              "pattern": "single"
+            }
+          }
+        ],
+        [
+          "border_block[column-header]",
+          {
+            "border-top": {
+              "pattern": "single"
+            }
+          }
+        ],
+        [
+          "border_block[row-header]",
+          {
+            "border-bottom": {
+              "pattern": "single"
+            },
+            "border-right": {
+              "pattern": "single"
+            },
+            "border-top": {
+              "pattern": "single"
+            }
+          }
+        ],
+        [
+          "border_block[item]",
+          {
+            "border-bottom": {
+              "pattern": "single"
+            },
+            "border-top": {
+              "pattern": "single"
+            }
+          }
+        ]
+      ]
+    },
+    "export": {
+      "tex": {
+        "begintable": "true",
+        "centering": "true"
+      }
+    },
+    "header": {
+      "auto-levels": {
+        "result": [
+          {
+            "stripe": "count",
+            "term-index": 2
+          },
+          {
+            "stripe": "mean",
+            "term-index": 0
+          },
+          {
+            "stripe": "sd",
+            "term-index": 1
+          }
+        ]
+      },
+      "base": {
+        "level": "label",
+        "title": "label"
+      },
+      "column": {
+        "dups": "center",
+        "extra-space": 1
+      },
+      "dimensions": {
+        "across": {
+          "title": "hide"
+        },
+        "coleq": {
+          "title": "hide"
+        },
+        "colname": {
+          "title": "hide"
+        },
+        "command": {
+          "title": "hide"
+        },
+        "ifls5": {
+          "nformat": "%9.0g"
+        },
+        "result": {
+          "title": "hide"
+        },
+        "roweq": {
+          "title": "hide"
+        },
+        "rowname": {
+          "title": "hide"
+        },
+        "stars": {
+          "level": "hide",
+          "title": "hide"
+        },
+        "statcmd": {
+          "title": "hide"
+        },
+        "var": {
+          "title": "hide"
+        }
+      },
+      "row": {
+        "arrangement": "stack"
+      }
+    }
+  },
+  "Tags": {
+    "border_block": [
+      {
+        "stripe": "column-header",
+        "term-index": 0
+      },
+      {
+        "stripe": "corner",
+        "term-index": 0
+      },
+      {
+        "stripe": "item",
+        "term-index": 0
+      },
+      {
+        "stripe": "row-header",
+        "term-index": 0
+      }
+    ],
+    "cell_type": [
+      {
+        "stripe": "column-header",
+        "term-index": 0
+      },
+      {
+        "stripe": "corner",
+        "term-index": 0
+      },
+      {
+        "stripe": "item",
+        "term-index": 0
+      },
+      {
+        "stripe": "row-header",
+        "term-index": 0
+      }
+    ],
+    "cmdset": [
+      {
+        "stripe": "1",
+        "term-index": 0
+      }
+    ],
+    "colname": [
+      {
+        "stripe": "educ_hh",
+        "term-index": 5
+      },
+      {
+        "stripe": "electricity",
+        "term-index": 3
+      },
+      {
+        "stripe": "fridge",
+        "term-index": 1
+      },
+      {
+        "stripe": "ln_agg_expend_r_pc",
+        "term-index": 4
+      },
+      {
+        "stripe": "television",
+        "term-index": 2
+      }
+    ],
+    "command": [
+      {
+        "stripe": "0",
+        "term-index": 0
+      }
+    ],
+    "ifls5": [
+      {
+        "stripe": ".m",
+        "term-index": 18446744073709551615
+      },
+      {
+        "stripe": "0",
+        "term-index": 1
+      },
+      {
+        "stripe": "1",
+        "term-index": 2
+      }
+    ],
+    "program_class": [
+      {
+        "stripe": "eclass",
+        "term-index": 0
+      },
+      {
+        "stripe": "rclass",
+        "term-index": 0
+      }
+    ],
+    "result": [
+      {
+        "stripe": "N",
+        "term-index": 0
+      },
+      {
+        "stripe": "count",
+        "term-index": 0
+      },
+      {
+        "stripe": "mean",
+        "term-index": 0
+      },
+      {
+        "stripe": "sd",
+        "term-index": 0
+      }
+    ],
+    "result_type": [
+      {
+        "stripe": "scalar",
+        "term-index": 0
+      }
+    ],
+    "statcmd": [
+      {
+        "stripe": "1",
+        "term-index": 0
+      },
+      {
+        "stripe": "2",
+        "term-index": 0
+      },
+      {
+        "stripe": "3",
+        "term-index": 0
+      }
+    ],
+    "sum": [
+      {
+        "stripe": "no",
+        "term-index": 1
+      },
+      {
+        "stripe": "yes",
+        "term-index": 0
+      }
+    ],
+    "var": [
+      {
+        "stripe": "_hide",
+        "term-index": 6
+      },
+      {
+        "stripe": "educ_hh",
+        "term-index": 5
+      },
+      {
+        "stripe": "electricity",
+        "term-index": 3
+      },
+      {
+        "stripe": "fridge",
+        "term-index": 1
+      },
+      {
+        "stripe": "ln_agg_expend_r_pc",
+        "term-index": 4
+      },
+      {
+        "stripe": "television",
+        "term-index": 2
+      }
+    ],
+    "variable2": [
+      {
+        "stripe": "educ_hh",
+        "term-index": 4
+      },
+      {
+        "stripe": "electricity",
+        "term-index": 2
+      },
+      {
+        "stripe": "fridge",
+        "term-index": 0
+      },
+      {
+        "stripe": "ln_agg_expend_r_pc",
+        "term-index": 3
+      },
+      {
+        "stripe": "television",
+        "term-index": 1
+      }
+    ]
+  },
+  "collection-name": "Table"
+}

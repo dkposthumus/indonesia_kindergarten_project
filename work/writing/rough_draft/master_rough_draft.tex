@@ -1,0 +1,169 @@
+\documentclass[11pt,final]{article}
+\usepackage[paperwidth=8.5in,left=1.0in,right=1.0in,top=1.0in,bottom=1.0in,paperheight=11.0in]{geometry}
+\usepackage{enumitem}
+\usepackage[breaklinks]{hyperref}
+\hypersetup{pdfdisplaydoctitle=true,bookmarksnumbered=true,colorlinks=true,citecolor=black,linkcolor=blue,urlcolor=red,pdfstartview=FitH,pdfpagemode=UseNone}
+\usepackage[sort&compress]{natbib}
+\usepackage[nottoc]{tocbibind}
+
+\usepackage[nodisplayskipstretch]{setspace}
+\usepackage[page,toc,titletoc,title]{appendix}
+\doublespacing
+\usepackage{times}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[labelsep=colon,small,singlelinecheck=off,labelfont=bf,font=large,justification=centering]{caption}
+\usepackage[font+=small]{subcaption}
+\usepackage{booktabs}
+\usepackage{comment}
+\usepackage{blindtext}
+\usepackage{titlesec}
+\usepackage[flushleft]{threeparttable}
+	\newcommand{\figlist}[1]{\autoref{#1}: \nameref{#1}}
+\makeatletter
+\def\input@path{{tabs/}}
+\makeatother
+
+\newcommand{\writing}[1]{/Users/danielposthumus/thesis_independent_study/work/writing/rough_draft/#1}
+
+\pagenumbering{roman}
+
+\title{Starting Early: Returns on Kindergarten Attendance in Indonesia}
+\author{Daniel Posthumus}
+\date{May 2024}
+
+\begin{document}
+\newgeometry{left=2in,right=2in,top=1.25in,bottom=1.25in}
+\begin{center}
+{\Large Starting Early: Returns on Kindergarten Attendance in Indonesia} \\
+\vspace{0.4in}
+A thesis presented in Candidacy for Departmental Honors in Economics from The College of William and Mary \\
+\vspace{0.2in}
+by \\
+\vspace{0.1in} 
+Daniel Posthumus \\
+\vspace{1in}
+Accepted for \hrulefill \\
+\vspace{0.3in}
+\qquad \qquad \qquad \hrulefill \\
+\vspace{-0.1in}
+\end{center}
+\qquad \qquad \qquad Professor Ranjan Shrestha \\
+\begin{center}
+\vspace{-0.25in}
+\qquad \qquad \qquad \hrulefill \\
+\vspace{-0.1in}
+\end{center}
+\qquad \qquad \qquad Professor John Parman \\
+\begin{center}
+\vspace{-0.25in}
+\qquad \qquad \qquad \hrulefill \\
+\vspace{-0.1in}
+\end{center}
+\qquad \qquad \qquad Professor Dan Cristol \\
+\begin{center}
+Williamsburg, VA \\
+May 02, 2024
+\end{center}
+\thispagestyle{empty}
+\clearpage
+\restoregeometry
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{center}
+\textbf{\large Abstract}
+\end{center}
+Indonesia is a rapidly developing economy, having averaged 5.26\% economic growth from 2000 to 2019; over the same time, it has achieved near-universal primary school attendance. However, there are concerns about the quality of Indonesian education, with no improvement in standardized test scores between 2012 and 2022. Early childhood interventions are a critical part of human capital accumulation and skills-building, and the efficacy of interventions such as kindergarten in developing countries like Indonesia is under-studied. Using data from the Indonesian Family Life Survey (IFLS) and Village Potential Statistics (PODES), I examine the effects of kindergarten on educational outcomes in Indonesia, focusing on schooling and cognitive performance. My empirical strategy entails ordinary least-squares (OLS), mother fixed-effects (FE), and instrumental variable (IV) estimation, where my instrument is the number of kindergartens per 10,000 individuals in each locality. I find that kindergarten has a significant positive association with schooling, associated with an additional 1.89 years of education. Additionally, I find evidence that kindergarten's positive association with educational outcomes fades out as time passes, there being little to no evidence of significant positive effects after the conclusion of junior high school. I also find little to no evidence that attending kindergarten has a significant association with performance on cognitive tests--suggesting there is a gap between schooling and skills learned in the classroom. My results motivate a closer look at this gap, as well as exploring the effects of kindergarten attendance on earnings or social outcomes such as delinquency. \\ \\
+\textbf{Keywords:} early childhood education, human capital, kindergarten, development, Indonesia
+
+\clearpage
+	\tableofcontents
+\clearpage
+\noindent \textbf{\huge List of Figures} \\
+\figlist{fig:kinder_binscatter} \\
+\figlist{fig:kinder_numscatter} \\
+\figlist{fig:num_schl} \\
+\figlist{fig:kinder_prov} \\
+\figlist{fig:scatter_switching} \\
+\figlist{fig:inschl_reg} \\
+\figlist{fig:ek_shapes} \\
+\figlist{fig:ek_math}
+
+\vspace{1.1in}
+
+\noindent \textbf{\huge List of Tables} \\
+\figlist{table:summary_table}\\
+\figlist{table:attrition_table}\\
+\figlist{table:iv_first_stage}\\
+\figlist{table:full_results}\\
+\figlist{table:iv_main_results}\\
+\figlist{table:full_complete}\\
+\figlist{table:full_stayon}\\
+\figlist{table:full_ek}\\
+\figlist{table:switching_stats}\\
+\figlist{table:kinder_logit}\\
+\clearpage
+
+\noindent \textbf{\huge Acknowledgements} \\
+I would like to express my deep gratitude to my wonderful advisor, Professor Ranjan Shrestha for his mentorship and for taking me to Indonesia this past summer. He has been teaching me about economics since ECON 101, which I took on Zoom my very first semester of college from my childhood bedroom in Japan. I could not have accomplished this without his immense wisdom, his everlasting patience, his generosity, and his commitment to pushing me. He is truly the best advisor and mentor one could ask for, and I am sure he will continue to teach me about economics for the rest of my life.
+
+I also want to thank Professor Daniel Cristol and Kim Van Deusen of the 1693 Scholars Program, and Professor Cristol for serving on my Examination Committee. They have been an endless source of support for the past four years, providing amazing mentorship. I would also like to thank James Murray for his support of the 1693 Program and his tremendous financial support for my academic career. It is thanks to Professor Cristol, Ms. Van Deusen, and Mr. Murray that I was able to travel to Indonesia this past summer.
+
+I extend my deepest appreciation to Sudarno Sumarto and Elan Satriawan of TNP2K, who welcomed me to Jakarta, Indonesia with the greatest of hospitality and taught me so much about economics and Indonesia--without the wisdom and experience they imparted upon me, I would not have been able to conduct this project. 
+
+I also want to thank Professor John Parman for his serving on my Examination Committee, his pointed questions and detailed feedback greatly improved my thesis from defense to submission. My first, and longest, undergraduate research experience has been with Dr. Kelebogile Zvobgo in the International Justice Lab; I want to thank her for four years of mentorship and guidance, and helping show me how to be an effective researcher. I also want to thank the Charles Center for their financial support of my project.
+
+Lastly, I could not have done this without my parents. As long as I can remember, they have pushed me to be more curious about the world and exposed to me new things--new places, new perspectives, new cultures, and new information--and I would not be who I am today without them.
+
+\clearpage
+
+\pagenumbering{arabic}
+\section{Introduction}
+	\label{sec:intro}
+\input{\writing{introduction.tex}}
+
+\section{Literature Review}
+	\label{sec:lit_rev}
+\input{\writing{lit_review.tex}}
+
+\section{Data}
+	\label{sec:data}
+\input{\writing{data/data.tex}}
+
+\section{Methodology}
+	\label{sec:method}
+\input{\writing{methods/methods.tex}}
+
+\section{Results}
+	\label{sec:results}
+\input{\writing{analysis/analysis.tex}}
+
+\section{Conclusion}
+	\label{sec:conclusion}
+\input{\writing{conclusion.tex}}
+\clearpage
+
+\clearpage
+\bibliographystyle{ecta}
+\bibliography{bibliography.bib}
+
+\clearpage
+\newgeometry{left=0.25in,right=0.25in,top=0.25in,bottom=0.25in}
+
+\section*{Figures and Tables}
+\addcontentsline{toc}{section}{Figures and Tables}
+\input{\writing{figures.tex}}
+\clearpage
+
+\restoregeometry
+
+\begin{appendices}
+	\input{\writing{appendix.tex}}
+\end{appendices}
+
+
+\end{document}

@@ -1,0 +1,411 @@
+\def \data #1{/Users/danielposthumus/thesis_independent_study/work/writing/rough_draft/data/#1}
+\def \analysis #1{/Users/danielposthumus/thesis_independent_study/work/writing/rough_draft/analysis/#1}
+
+\documentclass{beamer}
+\setbeamertemplate{caption}[numbered]
+
+\newcommand\Fontvi{\fontsize{9}{10}\selectfont}
+
+\title{Starting Early: Returns on Kindergarten Attendance in Indonesia}
+\author{Daniel Posthumus \\ Advisor: Ranjan Shrestha}
+\institute{Department of Economics \\ College of William and Mary}
+\date{May 02, 2024}
+
+\usepackage{graphicx}
+\def\bibfname{pres_bib.bib}
+\makeatother
+\usepackage{booktabs,caption}
+\usepackage{adjustbox}
+\usepackage[flushleft,para]{threeparttable}
+\usepackage{comment}
+\usepackage{changepage}
+\usepackage[style=authoryear]{biblatex}
+	\addbibresource{bibliography.bib}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Introduction}
+\begin{itemize}
+	\item Rapid economic growth in Indonesia:
+	\begin{itemize} 
+		\item Averaging 5.26\% economic growth from 2000 to 2019
+	\end{itemize}
+	\vspace{0.1in}
+	\item Robust post-COVID recovery
+	\vspace{0.1in}
+	\item Growth has been accompanied by significant investments in education:
+	\begin{itemize}
+		\item 200\% real increase in education spending from 2002 to 2018 
+	\end{itemize}
+	\vspace{0.1in}
+	\item Rapid gains in schooling:
+	\begin{itemize}
+		\item Completion of primary school is now near-universal
+		\item Gender parity in schooling
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Introduction}
+\begin{itemize}
+	\item Human capital has not kept up with growth:
+	\begin{itemize}
+		\item 87th in the world in Human Capital Index
+	\end{itemize}
+	\vspace{0.1in}
+	\item While schooling has improved, learning has not
+	\begin{itemize}
+		\item Boys' test scores worsened in math, and girls' didn't improve (2012-2022)
+		\item 71st in reading, 70th in math, and 67th in science (out of 81 countries)
+		\item Students lost 11 months of school due to COVID
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Motivation to Study Kindergarten}
+\begin{itemize}	
+	\item Possible solution to improve human capital: \textbf{quality early childhood education}
+	\vspace{0.1in}
+	\item Kindergarten is currently sparse in Indonesia, mostly private
+	\vspace{0.1in}
+	\item Little understanding of the educational effects of kindergarten in Indonesia
+\end{itemize}
+\vspace{0.2in}
+Research question: \\
+\textbf{What are kindergarten's effects on educational outcomes?}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kindergarten's Positive Association with Schooling}
+\begin{figure}
+\begin{center}
+\caption{Years of Education and Year of Birth, by Kindergarten Attendance}
+\vspace{0.25in}
+		\includegraphics[width=3in]{\data{kinder_binscatter.png}}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Empirical Findings on Kindergarten's Effects}
+\begin{itemize}
+	\item \textbf{Early childhood interventions are effective}, with considerable heterogeneity \parencite{Garces2000}
+	\vspace{0.1in}
+	\item Effects of programs may \textbf{`fade out'} as children age \parencite{Abenavoli2019} 
+	\vspace{0.1in}
+	\item Work on preschool in developing countries is limited
+	\vspace{0.1in}
+	\item Some evidence positive preschool effects translate to developing countries \parencite{Behrman2013}
+\end{itemize}
+\vspace{0.1in}
+\textbf{No previous examination of kindergarten's effects over the life-cycle in Indonesia}
+\end{frame}
+
+\begin{frame}
+\frametitle{Data}
+\textbf{Indonesian Family Life Survey (IFLS)}
+\begin{itemize}
+	\item Multi-wave household and community survey:
+	\begin{itemize}
+		\item \textbf{Five waves from 1993 to 2014}
+		\item Initial 1993 wave was representative of 83\% of the total population
+	\end{itemize}
+	\vspace{0.1in}
+	\item Tracks individuals from pre-kindergarten to adulthood
+\end{itemize}
+\vspace{0.2in}
+\textbf{Village Potential Statistics (PODES)}
+\begin{itemize}
+	\item Survey of \textbf{65,000 villages}
+	\vspace{0.1in}
+	\item Contains critical data IFLS does not:
+	\begin{itemize}
+		\item 1990 and 2000 data on \textbf{number of kindergartens and population} in each \textit{kecamatan}, i.e. sub-district
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sample}
+\begin{itemize}
+	\item All individuals who: 
+	\begin{itemize}
+		\item Were between 3 and 9 years old in 1997
+		\item Individually interviewed in both 1997 and 2014
+	\end{itemize}
+	\vspace{0.1in}
+	\item Main sample: \textbf{3,158 individuals}
+	\begin{itemize} 
+		\item `Switcher' sample: 221 individuals
+	\end{itemize}
+	\vspace{0.1in}
+	\item Non-random attrition:
+	\begin{itemize}
+		\item Weighting by attrition likelihood does \textit{not} alter results
+	\end{itemize}
+	\vspace{0.1in}
+	\item Sample approximates educational characteristics of general population
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sample Summary Statistics -- Outcome Variables}
+\begin{table}
+	\caption{Mean and Standard Deviation of Educational Outcome Variables and Kindergarten Attendance}
+	\begin{threeparttable}
+		\tiny{\input{sum_table_outcome.tex}}
+	\begin{tablenotes}
+		\item {\tiny Note: Figures in parentheses are standard deviations of each variable.}
+	\end{tablenotes} 
+	\end{threeparttable}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sample Summary Statistics -- Covariates}
+\begin{table}
+	\caption{Mean and Standard Deviation of Key Household Characteristics}
+	\begin{threeparttable}
+		\tiny{\input{sum_table_covar.tex}}
+	\begin{tablenotes}
+		\item {\tiny Note: Figures in parentheses are standard deviations of each variable.}
+	\end{tablenotes} 
+	\end{threeparttable}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instruments}
+\begin{figure}
+\begin{center}
+\caption{Kindergartens per 10,000 People / Kecamatan, 1990 and 2000}
+	\includegraphics[width=3.75in]{\data{kinder_box.png}}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Schools Over Time}
+\begin{figure}
+\begin{center}
+\caption{Schools per 10,000 People / Kabupaten, Selected Years}
+	\includegraphics[width=3.75in]{\data{schl_box.png}}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mother Fixed-Effects}
+\begin{itemize}
+	\item OLS model: omitted variable bias
+	\begin{itemize}
+		\item Unobservable household characteristics affect educational outcomes
+	\end{itemize}
+	\vspace{0.1in}
+	\item Fixed-effects: \textit{all} mother characteristics are controlled for
+\end{itemize}
+\begin{gather}
+Y_{if} = \beta_0 + \beta_1\text{KINDER}_{if} + \beta_2 \mathbf{K}_{if} + \mu_f + \epsilon_{if}
+\end{gather}
+\vspace{-0.2in}
+{\footnotesize \begin{itemize}
+	\item Individual $i$ and family $f$
+	\item $Y$ is outcome variable
+	\item KINDER is whether a child attended kindergarten
+	\item $\mu_f$ is the mother fixed-effects 
+	\item $\mathbf{K}$ is a vector of individual characteristics
+\end{itemize} }
+\end{frame}
+
+\begin{frame}
+\frametitle{Instrumental Variable (IV) Estimation}
+\begin{itemize} 
+	\item IV is one way to overcome endogeneity of kindergarten attendance
+\end{itemize}
+\vspace{0.1in}
+\begin{itemize}
+	\item[] Main equation:
+\end{itemize}
+\vspace{-0.1in}
+\begin{gather}
+Y_i = \alpha_0 + \rho \hat{\text{KINDER}_i} + \gamma_0 \mathbf{K}_{if} + \beta_0 \mathbf{C}_{f} + \epsilon_{0i}
+\end{gather}
+\vspace{-0.2in}
+\begin{itemize}
+	\item[] First stage:
+\end{itemize}
+\vspace{-0.1in}
+\begin{gather}
+\text{KINDER}_i = \alpha_1 + \phi Z_f + \gamma_1 \mathbf{K}_{if} + \beta_1 \mathbf{C}_{f} + \epsilon_{1i}
+\end{gather}
+\vspace{-0.2in}
+{\footnotesize \begin{itemize}
+	\item $Z$ is the instrument
+	\item $\mathbf{C}$ is a vector of household and community characteristics
+\end{itemize} }
+\vspace{0.1in}
+\begin{itemize}
+	\item[] \textbf{Instruments:}
+\end{itemize}
+\vspace{-0.05in}
+\begin{enumerate}
+	\item kindergartens per 10,000 people / kecamatan in 1990
+	\item kindergartens per 10,000 people / kecamatan in 2000
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instrument Validity and Strength}
+Instruments have to be (1) strong and (2) valid:
+\vspace{0.2in}
+\begin{itemize}
+	\item[(1)] \textbf{Strength}: 
+	\begin{itemize}
+		\item Strongly correlated with kindergarten attendance
+		\item Statistically significant in first-stage regression
+	\end{itemize}
+\vspace{0.2in}
+	\item[(2)] \textbf{Validity}: 
+	\begin{itemize} 
+		\item Exogenous to educational outcomes when kindergarten is controlled for 
+		\item Over-identifying test
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results}
+Educational outcomes of interest:
+\vspace{0.1in}
+\begin{itemize}
+	\item Years of Education Completed
+	\vspace{0.1in}
+	\item School Completion 
+	\vspace{0.1in}
+	\item School Attendance and Stay-On Decision 
+	\vspace{0.1in}
+	\item Cognitive Test Scores
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Years of Education Completed}
+\begin{table}
+	\caption{Kindergarten's Effects on Completed Years of Education}
+	\begin{threeparttable}
+		{\tiny\input{educ_table.tex}}
+	\begin{tablenotes}
+		\item {\tiny Heteroskedastic-robust standard errors are reported in parentheses. \\ $^{***}p<0.01$; $^{**}p<0.05$; $^{*}p<0.10$}
+	\end{tablenotes} 
+	\end{threeparttable}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{School Completion}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{table}
+	\caption{Kindergarten's Effects on Elementary/Junior/Senior High Completion}
+	\begin{threeparttable}
+		{\tiny\input{complete_table.tex}}
+	\begin{tablenotes}
+		\item {\tiny Heteroskedastic-robust standard errors are reported in parentheses. \\ $^{***}p<0.01$; $^{**}p<0.05$; $^{*}p<0.10$}
+	\end{tablenotes} 
+	\end{threeparttable}
+	\end{table}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame} 
+\frametitle{School Attendance}
+\begin{center}
+\begin{figure}
+\caption{Marginal Effects of Kindergarten on Attendance, by Grade}
+ 	\includegraphics[width=2.1in]{\data{in_school.png}}
+	\includegraphics[width=2.1in]{\analysis{in_schl_reg_bas.png}}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame} 
+\frametitle{Stay-On}
+\begin{adjustwidth}{-2em}{-2em}
+\begin{table}
+	\caption{Kindergarten's Effects on Stay-On, for Selected Grades}
+	\begin{threeparttable}
+ 		{\tiny\input{stayon_table.tex}}
+	\begin{tablenotes}
+		\item {\tiny Heteroskedastic-robust standard errors are reported in parentheses. \\ $^{***}p<0.01$; $^{**}p<0.05$; $^{*}p<0.10$}
+	\end{tablenotes} 
+	\end{threeparttable}
+\end{table}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cognitive Test Scores} 
+\begin{adjustwidth}{-2em}{-2em}
+\begin{table}
+	\caption{Kindergarten's Effects on Cognitive Test Scores, Standardized by Age}
+	\begin{threeparttable}
+		{\tiny\input{ek_table.tex}}
+	\begin{tablenotes}
+	\item {\tiny Heteroskedastic-robust standard errors are reported in parentheses. \\ $^{***}p<0.01$; $^{**}p<0.05$; $^{*}p<0.10$}
+	\end{tablenotes} 
+	\end{threeparttable}
+\end{table}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}
+\frametitle{Interpretation of Results}
+\begin{itemize}
+	\item Kindergarten has a positive association with schooling, mixed results for cognitive performance
+	\vspace{0.1in}
+	\item Results suggest `fade-out' in effect:
+	\begin{itemize}
+		\item For attendance and stay-on: kindergarten's effect peaked in junior high school 
+	\end{itemize}
+	\vspace{0.1in}
+	\item IV found stronger coefficients for schooling than OLS 
+	\vspace{0.1in}
+	\item Opposite was true for cognitive performance
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusion and Future Work}
+\begin{itemize}
+	\item Divergence between schooling and learning
+	\begin{itemize}
+		\item Mirrors broader concerns about Indonesia's education system
+	\end{itemize}
+	\vspace{0.1in}
+	\item Could this be related to quality of kindergarten? Cost of private kindergarten? 
+	\vspace{0.1in}
+	\item Motivate closer look at kindergarten before public expansion is pursued:
+	\begin{itemize}
+		\item Kindergarten's relationship with earnings 
+		\item Role of quality in Indonesian education system
+		\item Effect of informal playgroups vs. formal kindergarten
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Acknowledgements} 
+I want to thank:
+\vspace{0.1in}
+\begin{itemize} 
+	\item Professor Ranjan Shrestha for his ceaseless support, mentorship, and advice
+	\item Pak Sudarno Sumarto, Pak Elan Satriawan and all of TNP2K for their gracious hospitality this summer in Jakarta, Indonesia
+	\item Dan Cristol, Kim Van Deusen, and the 1693 Scholarship Program for the funds to travel to Indonesia this past summer 
+\end{itemize}
+\end{frame}
+
+\end{document}
